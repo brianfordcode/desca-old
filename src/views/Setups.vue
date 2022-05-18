@@ -1,5 +1,5 @@
 <template>
-  <p>Setups</p>
+  <p>SETUPS</p>
 </template>
 
 <script>

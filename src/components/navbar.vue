@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-      <div class="elements-wrapper">
+      <div class="elements-container">
         <!-- logo -->
         <router-link to="/">
             <img
@@ -11,9 +11,31 @@
         </router-link>
 
         <!-- links -->
-        <div>
+        <div class="links-wrapper">
+            <div
+                class="link-btn"
+                style="background: #247730; cursor: pointer"
+                @click="save"
+            >
+            Save
+            </div>
+            <div
+                class="link-btn"
+                style="background: #9C43ED; cursor: pointer"
+                @click="share"
+            >
+            Share
+            </div>
             <router-link
                 class="link-btn"
+                style="background: #57B0FC;"
+                to="/setups"
+            >
+            Preview
+            </router-link>
+            <router-link
+                class="link-btn"
+                style="background: #895E6A;"
                 to="/setups"
             >
             My Setups
@@ -27,6 +49,14 @@
 
 <script>
 export default {
+    methods: {
+        save() {
+            console.log('save pushed')
+        },
+        share() {
+            console.log('share pushed')
+        }
+    }
 
 }
 </script>
@@ -38,7 +68,7 @@ export default {
     height: 50px;
 }
 
-.elements-wrapper {
+.elements-container {
     height: 100%;
     width: 90%;
     margin: 0 auto;
@@ -51,17 +81,25 @@ export default {
     width: 100px;
 }
 
+.links-wrapper {
+    display: flex;
+}
+
+.links-wrapper > *:not(:first-child) {
+    margin-left: 10px;
+}
+
 .link-btn {
+  width: 75px;
   color: white;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
-  background: #895E6A;
   padding: 6px;
 }
 
-#nav a.router-link-exact-active {
-  /* color: #42b983; */
-}
+/* #nav a.router-link-exact-active {
+  color: #42b983;
+} */
 
 </style>
