@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <p>DESCA.io</p>
+    <p>HOME</p>
   </div>
 </template>
 
