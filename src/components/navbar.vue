@@ -1,48 +1,59 @@
 <template>
   <div id="nav">
-      <div class="elements-container">
+    <div class="elements-container">
         <!-- logo -->
-        <router-link to="/">
-            <img
-                id="logo"
-                src="../assets/desca-logo.png"
-                alt="desca-logo"
-            >
-        </router-link>
-
+        <img
+            id="logo"
+            src="../assets/desca-logo.png"
+            alt="desca-logo"
+            @click="$router.push('/')"
+        />
         <!-- links -->
-        <div class="links-wrapper">
-            <div
-                class="link-btn"
-                style="background: #247730; cursor: pointer"
-                @click="save"
-            >
-            Save
+        <div style="display: flex; height: 30px;">
+            <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
+                <div
+                    style="background: #247730; cursor: pointer"
+                    @click="save"
+                >
+                Save
+                </div>
+                <div
+                    style="background: #9C43ED; cursor: pointer"
+                    @click="share"
+                >
+                Share
+                </div>
+                <router-link
+                    style="background: #57B0FC;"
+                    to="/setups"
+                >
+                Preview
+                </router-link>
+                <router-link
+                    style="background: #895E6A;"
+                    to="/setups"
+                >
+                My Setups
+                </router-link>
             </div>
-            <div
-                class="link-btn"
-                style="background: #9C43ED; cursor: pointer"
-                @click="share"
+            <!-- PROFILE ICON -->
+            <img
+                v-if="!$store.state.loggedIn"
+                class="profile-icon"
+                src="../assets/profile-icon.png"
+                alt="profile-icon"
+                @click="$store.dispatch('login')"
             >
-            Share
-            </div>
-            <router-link
-                class="link-btn"
-                style="background: #57B0FC;"
-                to="/setups"
+            <img
+                v-else
+                class="profile-icon"
+                style="border-radius: 50%;"
+                :src="$store.state.user.photoURL"
+                alt="user-profile-pic"
             >
-            Preview
-            </router-link>
-            <router-link
-                class="link-btn"
-                style="background: #895E6A;"
-                to="/setups"
-            >
-            My Setups
-            </router-link>
         </div>
 
-      </div>
+    </div>
     
   </div>
 </template>
@@ -55,7 +66,7 @@ export default {
         },
         share() {
             console.log('share pushed')
-        }
+        },
     }
 
 }
@@ -70,7 +81,8 @@ export default {
 
 .elements-container {
     height: 100%;
-    width: 90%;
+    width: 95%;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -79,23 +91,31 @@ export default {
 
 #logo {
     width: 100px;
+    cursor: pointer;
 }
 
-.links-wrapper {
+.links {
     display: flex;
+    height: 30px;
 }
 
-.links-wrapper > *:not(:first-child) {
+.links > *:not(:first-child) {
     margin-left: 10px;
 }
 
-.link-btn {
+.links > * {
   width: 75px;
   color: white;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
   padding: 6px;
+  text-align: center;
+}
+
+.profile-icon {
+    cursor: pointer;
+    margin-left: 20px;
 }
 
 /* #nav a.router-link-exact-active {

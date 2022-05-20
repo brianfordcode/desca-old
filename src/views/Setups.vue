@@ -1,5 +1,5 @@
 <template>
-  <p>SETUPS</p>
+  <h1 class="prof-name" style="padding: 20px;">Hello {{ $store.state.user.displayName }}!</h1>
 </template>
 
 <script>
