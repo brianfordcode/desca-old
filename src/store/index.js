@@ -8,8 +8,8 @@ const store = createStore({
     return {
       user: null,
       loggedIn: false,
-      profileDetails: {}
-      
+      profileDetails: {},
+      setups: []
     }
   },
 
@@ -24,7 +24,13 @@ const store = createStore({
       state.loggedIn = false;
       state.profileDetails.profPic = null
     },
-
+    addSetup(state, setup) {
+      state.setups.push(setup)
+      console.log(state.setups)
+    },
+    deleteSetup(state, setupId) {
+      state.setups = state.setups.filter(setup => setup.id !== setupId)
+    }
   },
   actions: {
     // LOGIN
@@ -42,6 +48,12 @@ const store = createStore({
       router.push('/')
       this.commit('setLoggedOutUser')
       setTimeout(() => {alert('logged Out')}, 500);
+    },
+    addSetup(context, setup) {
+      context.commit('addSetup', setup)
+    },
+    deleteSetup(context, setupId ) {
+      context.commit('deleteSetup', setupId)
     }
   }
 })
