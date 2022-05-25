@@ -37,22 +37,36 @@
                 </router-link>
             </div>
             <!-- PROFILE ICON -->
-            <img
-                v-if="!$store.state.loggedIn"
-                class="profile-icon"
-                src="../assets/profile-icon.png"
-                alt="profile-icon"
-                @click="$store.dispatch('login')"
-            >
-            <img
-                v-else
-                class="profile-icon"
-                style="border-radius: 50%;"
-                :src="$store.state.user.photoURL"
-                alt="user-profile-pic"
-            >
+            <div class="prof-img-container">
+                <img
+                    class="profile-icon"
+                    v-if="!$store.state.loggedIn"
+                    src="../assets/profile-icon.png"
+                    alt="profile-icon"
+                    @click="$store.dispatch('logIn')"
+                >
+                <img
+                    v-else
+                    class="profile-icon"
+                    style="border-radius: 50%;"
+                    :src="$store.state.user.photoURL"
+                    alt="user-profile-pic"
+                    @click="showLogOutBtn = !showLogOutBtn"
+                >
+                
+            </div>
+            
+            
         </div>
-
+        <!-- LOG OUT -->
+        <div
+            v-if="showLogOutBtn"
+            class="log-out-btn"
+            @click="$store.dispatch('logOut'), showLogOutBtn = !showLogOutBtn"
+        >
+        Log Out
+        </div>
+    
     </div>
     
   </div>
@@ -60,6 +74,11 @@
 
 <script>
 export default {
+    data() {
+        return {
+            showLogOutBtn: false,
+        }
+    },
     methods: {
         save() {
             console.log('save pushed')
@@ -87,6 +106,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 #logo {
@@ -113,9 +133,23 @@ export default {
   text-align: center;
 }
 
+.prof-img-container {
+    margin-left: 20px;height: 30px;
+}
+
 .profile-icon {
     cursor: pointer;
-    margin-left: 20px;
+    height: 100%;
+}
+
+.log-out-btn {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: rgba(13, 13, 118, 0.75);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
 }
 
 /* #nav a.router-link-exact-active {
