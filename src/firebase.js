@@ -42,7 +42,7 @@ function login(callback) {
 }
 
 function logOut() {
-    signOut(auth)
+    signOut(auth).then(() => location.reload())
 }
 
 export { login, logOut }

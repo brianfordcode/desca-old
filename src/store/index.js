@@ -19,11 +19,6 @@ const store = createStore({
       state.loggedIn = true;
       // state.profileDetails.profPic = user.photoURL
     },
-    setLoggedOutUser(state) {
-      state.user = null;
-      state.loggedIn = false;
-      state.profileDetails.profPic = null
-    },
     addSetup(state, setup) {
       state.setups.push(setup)
       console.log(state.setups)
@@ -34,26 +29,30 @@ const store = createStore({
   },
   actions: {
     // LOGIN
-    logIn() {
+    logIn(context) {
       login(user => {
         this.commit('setLoggedInUser', user);
-
+        context.dispatch('fetchUserSetups', user)
         // SETUP PAGE OPENS AFTER LOG IN
+        console.log(user)
         router.push('/setups')
-
+        
       })
     },
     logOut() {
-      logOut()
       router.push('/')
-      this.commit('setLoggedOutUser')
-      setTimeout(() => {alert('logged Out')}, 500);
+      logOut()
     },
     addSetup(context, setup) {
       context.commit('addSetup', setup)
+      // PUSH TO FIREBASE
+
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
+    },
+    fetchUserSetups(context, user) {
+      console.log('FETCH USER SETUPS FROM FIREBASE')
     }
   }
 })

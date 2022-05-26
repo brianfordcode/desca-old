@@ -4,13 +4,13 @@
 
     <!-- WELCOME USER -->
     <h1
-        style="color: black; padding: 10px;"
+        style="padding: 10px;"
         v-if="$store.state.user"
     >
     Welcome {{ $store.state.user.displayName }}!
     </h1>
 
-    <h2 style="color: black; padding: 10px">My Setups:</h2>
+    <h2 style="padding: 10px">My Setups:</h2>
 
     <div class="setup-links-container">
         <!-- LIST CONTAINER -->
@@ -82,7 +82,7 @@
                         </div>
                     </router-link>
                     <!-- PREVIEW -->
-                    <router-link :to="`/view/${setup.id}`">
+                    <router-link :to="`/preview/${setup.id}`">
                         <div
                             class="btn preview-btn"
                             v-if="!modalOpen"
@@ -169,8 +169,8 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
-
     margin: 0 auto 50px auto;
+    
 }
 
 .setup-image-container {
@@ -261,10 +261,9 @@ export default {
 }
 
 .placeholder {
-    border: 2px dashed black;
+    border: 2px dashed;
     height: 250px;
     width: 326.47px;
-    color: black;
     display: flex;
     justify-content: space-around;
     align-items: center;
