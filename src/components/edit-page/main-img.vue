@@ -41,8 +41,8 @@
         alt="target"
         draggable="false"
         :style="{
-                  top: (item.y - 25) + 'px',
-                  left: (item.x - 25) + 'px'
+                  top: (item.y - 10) + 'px',
+                  left: (item.x - 10) + 'px'
                 }"
     ></div>
 
@@ -51,7 +51,7 @@
         class="tooltip"
         v-if="hoveredItem === index"
         :style="{
-                  top: (item.y + 30) + 'px',
+                  top: (item.y + 20) + 'px',
                   left: (item.x - 55) + 'px'
                 }"
       >
@@ -285,7 +285,7 @@ export default {
   }
 
   .target:hover {
-      opacity: 0.75;
+      opacity: 1;
   }
 
   .tooltip {

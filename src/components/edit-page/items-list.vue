@@ -1,7 +1,6 @@
 <template>
 <div class="main-container">
 
-
       <!-- PLACEHOLDER -->
     <div class="placeholder"
         v-if="$store.getters.setup($route.params.id).items.length === 0"
@@ -19,15 +18,15 @@
         class="items-list-container"
     >
         <template #item="{element, index}">
+            
             <div class="item-details"
                 @click.stop="$emit('toggleItemDisplay', index)"
             >
             <!-- ICON -->
-            <img class="icon" 
+                <img class="icon" 
                     :src="getIconPic(element)"
                     :alt="element.category"
                     v-if="element.category"
-                    style="height: 50px;"
                 />
                 <!-- NAME -->
                 <p
@@ -37,7 +36,7 @@
                 {{element.name}}
                 </p>
                 <!-- IF COMPUTER -->
-                <div 
+                <div
                     class="computer-details"
                     style=" font-size: 14px; padding-left: 10px"
                     v-if="element.category === 'computer'"
@@ -49,17 +48,17 @@
                     <p>Case: {{element.categoryDetails.case}}</p>
                 </div>
                 <!-- STORE LINK -->
-                <a :href="element.url"
+                <!-- <a :href="element.url"
                     class="store-link"
                     target="_blank"
                     v-if="element.url"
                     >Visit Store
-                </a>
+                </a> -->
             </div>
         </template>
     </draggable>
 
-    <p style="font-size: 14px; color: white; opacity: 0.5; margin-top: 10px"
+    <p style="font-size: 14px; opacity: 0.75; margin-top: 10px"
        v-if="$store.getters.setup($route.params.id).items.length > 1"
     >
     *drag to reorder
@@ -137,6 +136,7 @@ export default {
     align-items: center;
     border: 2px dashed;
     height: 200px;
+    width: 800px;
     text-align: center;
     opacity: 0.5;
     cursor: default;
@@ -152,9 +152,13 @@ export default {
 
 .item-details {
     display: flex;
-    border: 1px solid;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgb(13, 13, 118);
     border-radius: 7px;
     width: 227px;
+    color: white;
     min-height: 60px;
     padding: 15px;
     position: relative;

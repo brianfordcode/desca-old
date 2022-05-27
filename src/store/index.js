@@ -8,8 +8,21 @@ const store = createStore({
     return {
       user: null,
       loggedIn: false,
-      profileDetails: {},
+      profileDetails: {
+        profName: '',
+        profPic: '',
+        socialLinks: {
+          twitchLink: '',
+          twitterLink: '',
+          youtubeLink: '',
+          discordLink: '',
+          websiteLink: '',
+      },
+      allowComments: false,
+      liveStatus: false,
+      },
       setups: [],
+      
     }
   },
   getters: {
@@ -22,7 +35,7 @@ const store = createStore({
     setLoggedInUser(state, user) {
       state.user = user;
       state.loggedIn = true;
-      // state.profileDetails.profPic = user.photoURL
+      state.profileDetails.profPic = user.photoURL
     },
     addSetup(state, setup) {
       state.setups.push(setup)
@@ -34,6 +47,16 @@ const store = createStore({
     addItem(state, { item, setupId }) {
       state.setups.find(s => s.id === setupId).items.push(item)
     },
+    moveItem(state, { setupId, itemIndex, point }) {
+      const setup = state.setups.find(s => s.id === setupId)
+      const item = setup.items[itemIndex]
+      item.x  = point.x
+      item.y = point.y
+    },
+    removeItem(state, {item, setupId, index}) {
+      state.setups.find(s => s.id === setupId).items.splice(index, 1)
+    },
+
   },
   actions: {
     // LOGIN
@@ -58,7 +81,6 @@ const store = createStore({
       context.commit('addSetup', setup)
       // PUSH TO FIREBASE
       // INCLUDE USERID IN EVERY SETUP
-
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
@@ -66,6 +88,12 @@ const store = createStore({
     },
     addItem(context, { item, setupId }) {
       context.commit('addItem', { item, setupId })
+    },
+    moveItem(context, { setupId, itemIndex, point }) {
+      context.commit('moveItem', { setupId, itemIndex, point })
+    },
+    removeItem(context, {item, setupId, index }) {
+      context.commit('removeItem', {item, setupId, index })
     },
   }
 })

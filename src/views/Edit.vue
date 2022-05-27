@@ -2,7 +2,7 @@
 
     <div class="edit-container">
 
-    <h1>EDIT {{$route.params.id}}</h1>
+    <profileHeader style="z-index: 10000; margin: 35px 0 10px 0;"/>
 
     <mainImg/>
 
@@ -11,11 +11,12 @@
 </template>
 
 <script>
+import profileHeader from '../components/edit-page/profile-header.vue'
 import mainImg from '../components/edit-page/main-img.vue'
 
 export default {
   components: {
-    mainImg
+    mainImg, profileHeader
   }
 
 }
@@ -24,9 +25,12 @@ export default {
 <style scoped>
 
 .edit-container {
-  width: 800px;
-  margin: 100px auto 0 auto;
-  /* height: 100vh; */
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  padding: 0 30px;
 }
 
 </style>
