@@ -277,7 +277,7 @@ export default {
     position: absolute;
     opacity: .75;
     width: 20px;
-    border: 3px solid rgba(255,255,255,0.5);
+    border: 3px solid rgba(13, 13, 118,0.65);
     border-radius: 50%;
     height: 20px;
     cursor: pointer;

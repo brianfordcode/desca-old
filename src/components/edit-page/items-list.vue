@@ -1,14 +1,28 @@
 <template>
 <div class="main-container">
 
-      <!-- PLACEHOLDER -->
-    <div class="placeholder"
-        v-if="$store.getters.setup($route.params.id).items.length === 0"
-    >
-    Add your equipment info by clicking on your setup's image!
+    <!-- COMPUTER -->
+    <div v-for="(item, index) in $store.getters.setup($route.params.id).items" :key="item">
+        <div
+            style=" font-size: 14px; margin-right: 15px;"
+            v-if="item.category === 'computer'"
+            @click.stop="$emit('toggleItemDisplay', index)"
+        >
+            <img class="icon item-details"
+                :src="getIconPic(item)"
+                :alt="item.category"
+                v-if="item.category"
+                style="height: 20px; margin-bottom: 0;"
+            />
+            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.cpu">CPU: {{item.categoryDetails.cpu}}</p>
+            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.gpu">GPU: {{item.categoryDetails.gpu}}</p>
+            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.ssd">SSD: {{item.categoryDetails.ssd}}</p>
+            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.ram">RAM: {{item.categoryDetails.ram}}</p>
+            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.case">Case: {{item.categoryDetails.case}}</p>
+        </div>
     </div>
 
-    <!-- ITEMS LIST -->
+    <!-- OTHER ITEMS LIST -->
     <draggable 
         v-model="$store.getters.setup($route.params.id).items"
         group="items"
@@ -18,35 +32,21 @@
         class="items-list-container"
     >
         <template #item="{element, index}">
-            
+           
             <div class="item-details"
                 @click.stop="$emit('toggleItemDisplay', index)"
-            >
-            <!-- ICON -->
+                v-if="element.category != 'computer'"
+            >   
+                <!-- ICON -->
                 <img class="icon" 
                     :src="getIconPic(element)"
                     :alt="element.category"
                     v-if="element.category"
                 />
                 <!-- NAME -->
-                <p
-                    style=" padding-left: 10px"
-                    v-if="element.category != 'computer'"
-                >
+                <p style=" padding-left: 10px">
                 {{element.name}}
                 </p>
-                <!-- IF COMPUTER -->
-                <div
-                    class="computer-details"
-                    style=" font-size: 14px; padding-left: 10px"
-                    v-if="element.category === 'computer'"
-                >
-                    <p>CPU: {{element.categoryDetails.cpu}}</p>
-                    <p>GPU: {{element.categoryDetails.gpu}}</p>
-                    <p>SSD: {{element.categoryDetails.ssd}}</p>
-                    <p>RAM: {{element.categoryDetails.ram}}</p>
-                    <p>Case: {{element.categoryDetails.case}}</p>
-                </div>
                 <!-- STORE LINK -->
                 <!-- <a :href="element.url"
                     class="store-link"
@@ -55,16 +55,25 @@
                     >Visit Store
                 </a> -->
             </div>
+
         </template>
+        
     </draggable>
 
-    <p style="font-size: 14px; opacity: 0.75; margin-top: 10px"
+    <!-- PLACEHOLDER -->
+    <div class="placeholder"
+        v-if="$store.getters.setup($route.params.id).items.length === 0"
+    >
+    Add your equipment info by clicking on your setup's image!
+    </div>
+
+</div>
+
+    <!-- <p style="font-size: 14px; opacity: 0.75; margin-top: 10px"
        v-if="$store.getters.setup($route.params.id).items.length > 1"
     >
     *drag to reorder
-    </p>
-
-</div>
+    </p> -->
 
   <!-- <div>{{$store.getters.setup($route.params.id).items}}</div> -->
 
@@ -128,6 +137,11 @@ export default {
 .main-container {
     margin-top: 10px;
     margin-bottom: 50px;
+    display: flex;
+    align-items: flex-start;
+    /* border: 1px solid pink; */
+    width: 800px;
+    position: relative;
 }
 
 .placeholder {
@@ -143,11 +157,9 @@ export default {
 }
 
 .items-list-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-    width: min-content;
-    /* border: 1px solid black; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .item-details {
@@ -156,11 +168,12 @@ export default {
     align-items: center;
     justify-content: space-around;
     background: rgb(13, 13, 118);
-    border-radius: 7px;
+    /* border-radius: 7px; */
     width: 227px;
+    height: 60px;
     color: white;
-    min-height: 60px;
     padding: 15px;
+    margin-bottom: 10px;
     position: relative;
     transition: .1s ease-in-out;
     cursor: grab;
