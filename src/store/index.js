@@ -27,7 +27,6 @@ const store = createStore({
   },
   getters: {
     setup: state => id => {
-      console.log(state.setups.find(s => s.id === id))
       return state.setups.find(s => s.id === id)
     }
   },
@@ -64,8 +63,8 @@ const store = createStore({
       login(user => {
         this.commit('setLoggedInUser', user);
         context.dispatch('fetchUserSetups', user)
+
         // SETUP PAGE OPENS AFTER LOG IN
-        console.log(user)
         router.push('/setups')
         
       })
@@ -79,6 +78,7 @@ const store = createStore({
     },
     addSetup(context, setup) {
       context.commit('addSetup', setup)
+      console.log(setup)
       // PUSH TO FIREBASE
       // INCLUDE USERID IN EVERY SETUP
     },

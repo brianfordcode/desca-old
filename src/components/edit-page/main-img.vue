@@ -210,7 +210,6 @@ export default {
         })
     },
     sizeChange({width, height}) {
-      console.log(width, height)
       this.detailBoxDimensions.width = width;
       this.detailBoxDimensions.height = height;
     }

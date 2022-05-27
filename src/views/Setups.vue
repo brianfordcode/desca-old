@@ -133,8 +133,11 @@ export default {
 
     methods: {
         makeNewSetup() {
-            const id = Date.now() + ''
-            const setup = {
+            
+            const id = 'user' + this.$store.state.user.uid + '-date' + Date.now()  + '-setup' + (this.$store.state.setups.length + 1);
+            
+            const setup = {    
+                user: this.$store.state.user.uid,
                 id,
                 imageURL: `https://picsum.photos/seed/${id}/333/255`,
                 items: []
