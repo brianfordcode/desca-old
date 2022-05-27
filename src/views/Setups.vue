@@ -4,13 +4,13 @@
 
     <!-- WELCOME USER -->
     <h1
-        style="padding: 10px;"
+        style="color: black; padding: 10px;"
         v-if="$store.state.user"
     >
     Welcome {{ $store.state.user.displayName }}!
     </h1>
 
-    <h2 style="padding: 10px">My Setups:</h2>
+    <h2 style="color: black; padding: 10px">My Setups:</h2>
 
     <div class="setup-links-container">
         <!-- LIST CONTAINER -->
@@ -29,7 +29,7 @@
                 <img
                     draggable="false"
                     class="setup-image"
-                    :src="setup.imageURL" 
+                    :src="setup.imageURL"
                     alt="main-img"
                 />
                 <!-- BUTTONS -->
@@ -121,10 +121,9 @@
 </template>
 
 <script>
-import profileHeader from '../components/edit-page/profile-header.vue'
 
 export default {
-    components: { profileHeader },
+    components: { },
     data() {
         return {
             modalOpen: false,
@@ -145,7 +144,7 @@ export default {
             this.modalOpen = false;
             
             // open new setup
-            // this.$router.push(`/edit/${id}`)
+            this.$router.push(`/edit/${id}`)
         },
         showButtons(index) {
             this.selectedSetup = index
@@ -264,6 +263,7 @@ export default {
     border: 2px dashed;
     height: 250px;
     width: 326.47px;
+
     display: flex;
     justify-content: space-around;
     align-items: center;

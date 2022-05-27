@@ -9,10 +9,15 @@ const store = createStore({
       user: null,
       loggedIn: false,
       profileDetails: {},
-      setups: []
+      setups: [],
     }
   },
-
+  getters: {
+    setup: state => id => {
+      console.log(state.setups.find(s => s.id === id))
+      return state.setups.find(s => s.id === id)
+    }
+  },
   mutations: {
     setLoggedInUser(state, user) {
       state.user = user;
@@ -25,7 +30,10 @@ const store = createStore({
     },
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.id !== setupId)
-    }
+    },
+    addItem(state, { item, setupId }) {
+      state.setups.find(s => s.id === setupId).items.push(item)
+    },
   },
   actions: {
     // LOGIN
@@ -39,6 +47,9 @@ const store = createStore({
         
       })
     },
+    fetchUserSetups(context, user) {
+      console.log('FETCH USER SETUPS FROM FIREBASE')
+    },
     logOut() {
       router.push('/')
       logOut()
@@ -46,14 +57,16 @@ const store = createStore({
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       // PUSH TO FIREBASE
+      // INCLUDE USERID IN EVERY SETUP
 
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
+      // UPDATE (DELETE)FROM FIREBASE
     },
-    fetchUserSetups(context, user) {
-      console.log('FETCH USER SETUPS FROM FIREBASE')
-    }
+    addItem(context, { item, setupId }) {
+      context.commit('addItem', { item, setupId })
+    },
   }
 })
 
