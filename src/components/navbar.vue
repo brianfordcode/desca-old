@@ -29,12 +29,12 @@
                 >
                 Preview
                 </router-link>
-                <router-link
+                <!-- <router-link
                     style="background: #895E6A;"
                     to="/setups"
                 >
                 My Setups
-                </router-link>
+                </router-link> -->
             </div>
             <!-- PROFILE ICON -->
             <div class="prof-img-container">
@@ -51,7 +51,7 @@
                     style="border-radius: 50%;"
                     :src="$store.state.user.photoURL"
                     alt="user-profile-pic"
-                    @click="showLogOutBtn = !showLogOutBtn"
+                    @click="showMenuBtn = !showMenuBtn"
                 >
                 
             </div>
@@ -59,11 +59,24 @@
         </div>
         <!-- LOG OUT -->
         <div
-            v-if="showLogOutBtn"
-            class="log-out-btn"
-            @click="$store.dispatch('logOut'), showLogOutBtn = !showLogOutBtn"
+            v-if="showMenuBtn"
+            class="menu-btn"
         >
-        Log Out
+            <!-- btn to setups -->
+            <router-link
+                to="/setups"
+                style="background: #895E6A;"
+                @click="showMenuBtn = !showMenuBtn"
+            >
+            My Setups
+            </router-link>
+            <!-- btn to logout -->
+            <p 
+                @click="$store.dispatch('logOut'), showMenuBtn = !showMenuBtn"
+                style="background: rgb(13, 13, 118); "
+            >
+            Log Out
+            </p>
         </div>
     
     </div>
@@ -75,7 +88,7 @@
 export default {
     data() {
         return {
-            showLogOutBtn: false,
+            showMenuBtn: false,
         }
     },
     methods: {
@@ -133,7 +146,8 @@ export default {
 }
 
 .prof-img-container {
-    margin-left: 20px;height: 30px;
+    margin-left: 20px;
+    height: 30px;
 }
 
 .profile-icon {
@@ -141,14 +155,20 @@ export default {
     height: 100%;
 }
 
-.log-out-btn {
+.menu-btn {
     position: absolute;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
     right: 0;
     top: 50px;
-    background: rgba(13, 13, 118, 0.75);
-    color: white;
-    padding: 5px;
     cursor: pointer;
+}
+
+.menu-btn > * {
+    padding: 5px;
+    color: white;
+    text-decoration: none;
 }
 
 /* #nav a.router-link-exact-active {
