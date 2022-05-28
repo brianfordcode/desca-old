@@ -1,6 +1,9 @@
 import { createStore } from 'vuex'
+import { doc, getDocs, deleteDoc, updateDoc, collection, query, where, setDoc, getFirestore } from "firebase/firestore"; 
 import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
+
+const db = getFirestore();
 
 // Create a new store instance.
 const store = createStore({
@@ -80,7 +83,7 @@ const store = createStore({
       context.commit('addSetup', setup)
       console.log(setup)
       // PUSH TO FIREBASE
-      // INCLUDE USERID IN EVERY SETUP
+      setDoc(doc(db, "setups", setup.id), setup);
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)

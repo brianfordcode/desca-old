@@ -3,12 +3,14 @@
 <div class="loginhome-container">
 
     <!-- WELCOME USER -->
-    <h1
+    <!-- <h1
         style="color: black; padding: 10px;"
         v-if="$store.state.user"
     >
     Welcome {{ $store.state.user.displayName }}!
-    </h1>
+    </h1> -->
+
+    <profileHeader style="z-index: 10000; margin: 35px auto 10px auto;"/>
 
     <h2 style="color: black; padding: 10px">My Setups:</h2>
 
@@ -121,9 +123,11 @@
 </template>
 
 <script>
+import profileHeader from '../components/edit-page/profile-header.vue'
 
 export default {
-    components: { },
+
+    components: { profileHeader },
     data() {
         return {
             modalOpen: false,
@@ -133,11 +137,12 @@ export default {
 
     methods: {
         makeNewSetup() {
-            
+
             const id = 'user' + this.$store.state.user.uid + '-date' + Date.now()  + '-setup' + (this.$store.state.setups.length + 1);
             
             const setup = {    
                 user: this.$store.state.user.uid,
+                timeCreated: Date.now(),
                 id,
                 imageURL: `https://picsum.photos/seed/${id}/333/255`,
                 items: []
@@ -171,7 +176,7 @@ export default {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
-    margin: 0 auto 50px auto;
+    margin: 0 auto 50px 20px;
     
 }
 
