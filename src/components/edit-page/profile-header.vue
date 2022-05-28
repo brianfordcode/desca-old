@@ -218,12 +218,12 @@
     data() {
       return {
         editOpen: false,
-        twitchLogo: '',
-        facebookLogo: '',
-        twitterLogo: '',
-        youtubeLogo: '',
-        discordLogo: '',
-        websiteLogo: '',
+        twitchLogo: require('@/assets/social-links/twitch-logo.png'),
+        facebookLogo: require('@/assets/social-links/facebook-logo.png'),
+        twitterLogo: require('@/assets/social-links/twitter-logo.png'),
+        youtubeLogo: require('@/assets/social-links/youtube-logo.png'),
+        discordLogo: require('@/assets/social-links/discord-logo.png'),
+        websiteLogo: require('@/assets/social-links/website-logo.png'),
         
       }
     },

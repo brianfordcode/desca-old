@@ -44,7 +44,7 @@
                     v-if="element.category"
                 />
                 <!-- NAME -->
-                <p style=" padding-left: 10px">
+                <p style="padding: 10px 5px 5px 5px; text-align: center;">
                 {{element.name}}
                 </p>
                 <!-- STORE LINK -->
@@ -95,37 +95,37 @@ export default {
     methods: {
         getIconPic(e) {
             if (e.category === 'accessory') {
-                // return require('@/assets/icons/accessory.png')
+                return require('@/assets/icons/accessory.png')
             }
             if (e.category === 'chair') {
-                // return require('@/assets/icons/chair.png')
+                return require('@/assets/icons/chair.png')
             }
             if (e.category === 'computer') {
-                // return require('@/assets/icons/computer.png')
+                return require('@/assets/icons/computer.png')
             }
             if (e.category === 'desk') {
-                // return require('@/assets/icons/desk.png')
+                return require('@/assets/icons/desk.png')
             }
             if (e.category === 'headset') {
-                // return require('@/assets/icons/headset.png')
+                return require('@/assets/icons/headset.png')
             }
             if (e.category === 'keyboard') {
-                // return require('@/assets/icons/keyboard.png')
+                return require('@/assets/icons/keyboard.png')
             }
             if (e.category === 'microphone') {
-                // return require('@/assets/icons/microphone.png')
+                return require('@/assets/icons/microphone.png')
             }
             if (e.category === 'monitor') {
-                // return require('@/assets/icons/monitor.png')
+                return require('@/assets/icons/monitor.png')
             }
             if (e.category === 'mouse') {
-                // return require('@/assets/icons/mouse.png')
+                return require('@/assets/icons/mouse.png')
             }
             if (e.category === 'speaker') {
-                // return require('@/assets/icons/speaker.png')
+                return require('@/assets/icons/speaker.png')
             }
             if (e.category === 'webcam') {
-                // return require('@/assets/icons/webcam.png')
+                return require('@/assets/icons/webcam.png')
             }
         },
     }
@@ -160,6 +160,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
 }
 
@@ -167,11 +168,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     background: rgb(13, 13, 118);
     /* border-radius: 7px; */
     width: 227px;
-    height: 60px;
+    min-height: 80px;
     color: white;
     padding: 15px;
     margin-bottom: 10px;
@@ -205,6 +206,9 @@ export default {
     opacity: 1;
 }
 
-
+.icon {
+    height: 40px;
+    width: auto;
+}
 
 </style>

@@ -53,7 +53,6 @@
                     alt="user-profile-pic"
                     @click="showMenuBtn = !showMenuBtn"
                 >
-                
             </div>
             
         </div>
@@ -61,18 +60,18 @@
         <div
             v-if="showMenuBtn"
             class="menu-btn"
+            @click="showMenuBtn = !showMenuBtn"
         >
             <!-- btn to setups -->
             <router-link
                 to="/setups"
                 style="background: #895E6A;"
-                @click="showMenuBtn = !showMenuBtn"
             >
             My Setups
             </router-link>
             <!-- btn to logout -->
             <p 
-                @click="$store.dispatch('logOut'), showMenuBtn = !showMenuBtn"
+                @click="$store.dispatch('logOut')"
                 style="background: rgb(13, 13, 118); "
             >
             Log Out
