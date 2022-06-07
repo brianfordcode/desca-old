@@ -118,7 +118,7 @@
         ref="textToggle"
         v-if="$route.name != 'View'"
     >
-    Change Details
+    {{!this.editOpen ? "Change Details" : 'SUBMIT'}}
     </button>
 
     <!-- details box -->
@@ -227,7 +227,8 @@
         console.log('profile picture upload')
       },
       enterBtn() {
-        this.$refs.textToggle.innerHTML =  !this.editOpen ? "Change Details" : 'SUBMIT'
+        this.editOpen ? console.log('change details pushed') : this.$store.dispatch('changeDetails')
+        
       }
     }
   }

@@ -73,12 +73,14 @@ const store = createStore({
       })
     },
     fetchUserSetups(context, user) {
-      console.log('FETCH USER SETUPS FROM FIREBASE')
+      console.log('FETCH USER SETUPS AND PROFILE DETAILS FROM FIREBASE')
     },
     logOut() {
       router.push('/')
       logOut()
     },
+
+    // SETUPS
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       console.log(setup)
@@ -98,6 +100,17 @@ const store = createStore({
     removeItem(context, {item, setupId, index }) {
       context.commit('removeItem', {item, setupId, index })
     },
+
+
+    // PROFILE HEADER DETAILS
+    changeDetails() {
+      // console.log(this.state.profileDetails)
+      setDoc(doc(db, "profileDetails", this.state.user.uid), this.state.profileDetails);
+    }
+
+
+
+
   }
 })
 
