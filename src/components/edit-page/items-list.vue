@@ -4,23 +4,75 @@
     <!-- COMPUTER -->
     <div v-for="(item, index) in $store.getters.setup($route.params.id).items" :key="item">
         <div
-            style=" font-size: 14px; margin-right: 15px;"
+            style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
             @click.stop="$emit('toggleItemDisplay', index)"
         >
-            <img class="icon item-details"
-                :src="getIconPic(item)"
-                :alt="item.category"
-                v-if="item.category"
-                style="height: 20px; margin-bottom: 0;"
-            />
-            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.cpu">CPU: {{item.categoryDetails.cpu}}</p>
-            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.gpu">GPU: {{item.categoryDetails.gpu}}</p>
-            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.ssd">SSD: {{item.categoryDetails.ssd}}</p>
-            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.ram">RAM: {{item.categoryDetails.ram}}</p>
-            <p class="item-details" style="height: 30px; margin-bottom: 0;" v-if="item.categoryDetails.case">Case: {{item.categoryDetails.case}}</p>
+            <!-- ICON -->
+            <div style="background: rgb(13, 13, 118); display: flex; justify-content: space-around; align-items: center; width: 250px; height: 75px;">
+                <img style="height: 50px;"
+                    :src="getIconPic(item)"
+                    :alt="item.category"
+                    v-if="item.category"
+                />
+            </div>
+
+            <!-- CPU -->
+            <div
+                class="comp-details"
+                v-if="item.categoryDetails.cpu"
+            >
+                <div style="display: flex; flex-direction: column; align-items: center;"> 
+                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CPU:</span>
+                    <span>{{item.categoryDetails.cpu}}</span>
+                </div>
+            </div>
+            <!-- GPU -->
+            <div
+                class="comp-details"
+                v-if="item.categoryDetails.gpu"
+            >
+                <div style="display: flex; flex-direction: column; align-items: center;"> 
+                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">GPU:</span>
+                    <span>{{item.categoryDetails.gpu}}</span>
+                </div>
+            </div>
+            <!-- SSD -->
+            <div
+                class="comp-details"
+                v-if="item.categoryDetails.ssd"
+            >
+                <div style="display: flex; flex-direction: column; align-items: center;"> 
+                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">SSD:</span>
+                    <span>{{item.categoryDetails.ssd}}</span>
+                </div>
+            </div>
+            <!-- RAM -->
+            <div
+                class="comp-details"
+                v-if="item.categoryDetails.ram"
+            >
+                <div style="display: flex; flex-direction: column; align-items: center;"> 
+                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">RAM:</span>
+                    <span>{{item.categoryDetails.ram}}</span>
+                </div>
+            </div>
+            <!-- CASE -->
+            <div
+                class="comp-details"
+                v-if="item.categoryDetails.case"
+            >
+                <div style="display: flex; flex-direction: column; align-items: center;"> 
+                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CASE:</span>
+                    <span>{{item.categoryDetails.case}}</span>
+                </div>
+            </div>
+
         </div>
     </div>
+
+
+
 
     <!-- OTHER ITEMS LIST -->
     <draggable 
@@ -148,9 +200,10 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: absolute;
     border: 2px dashed;
     height: 200px;
-    width: 800px;
+    width: 100%;
     text-align: center;
     opacity: 0.5;
     cursor: default;
@@ -179,6 +232,19 @@ export default {
     position: relative;
     transition: .1s ease-in-out;
     cursor: grab;
+}
+
+.comp-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: rgb(13, 13, 118);
+    width: 100%;
+    min-height: 75px;
+    font-size: 16px;
+    color: white;
+    position: relative;
 }
 
 .item-details:hover {
