@@ -118,7 +118,7 @@
         ref="textToggle"
         v-if="$route.name != 'View'"
     >
-    Enter Details
+    Change Details
     </button>
 
     <!-- details box -->
@@ -200,11 +200,6 @@
 
       </div>
 
-      <button class="enter-btn btn"
-              @click="editOpen = false, enterBtn()"
-      >
-      Enter
-      </button>
     </div>
 
 
@@ -232,7 +227,7 @@
         console.log('profile picture upload')
       },
       enterBtn() {
-        this.$refs.textToggle.innerHTML =  !this.editOpen ? "Enter Details" : '&#8679;'
+        this.$refs.textToggle.innerHTML =  !this.editOpen ? "Change Details" : 'SUBMIT'
       }
     }
   }
@@ -272,24 +267,16 @@
   .details {
     transform: translateX(145px);
     /* border: 1px solid black; */
-    height: 70%;
     display: flex;
-    align-items: flex-start;
     flex-direction: column;
-    justify-content: space-between;
   }
 
-  .links-wrapper {
-    display: flex;
-    width: min-content;
-    height: 20px;
-  }
 
   .edit-btn {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 90px;
+    width: 110px;
     height: 25px;
     /* border-bottom-right-radius: 7px; */
   }
@@ -330,6 +317,9 @@
   .details-text > * {
     display: flex;
     align-items: center;
+  }
+
+  .details-text > *:not(:last-child) {
     margin-bottom: 12px;
   }
 
@@ -342,7 +332,7 @@
     height: 25px;
   }
 
-  .links-wrapper a {
+  .links-wrapper a:not(:last-child) {
     margin-right: 5px;
   }
 
