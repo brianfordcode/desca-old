@@ -182,10 +182,9 @@ export default {
         },
         reorderItems(element, index) {
             const setupId = this.$route.params.id
-            console.log(this.$store.getters.setup(this.$route.params.id).items)
             this.$store.dispatch('saveItem', { index, setupId, item: element})
 
-            // TODO: WHY INDEX IS NOT MATCHING UP WHEN ITEM IS CLICKED?
+            // TODO: WHY INDEX IS NOT MATCHING UP WHEN ITEM IS CLICKED IN TOGGLEDISPLAY EMIT?
         },
         test() {
             console.log('test')
