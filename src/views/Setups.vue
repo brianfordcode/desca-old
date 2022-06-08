@@ -2,14 +2,6 @@
 
 <div class="loginhome-container" v-if="$store.state.loaded">
 
-    <!-- WELCOME USER -->
-    <!-- <h1
-        style="color: black; padding: 10px;"
-        v-if="$store.state.user"
-    >
-    Welcome {{ $store.state.user.displayName }}!
-    </h1> -->
-
     <profileHeader style="z-index: 10000; margin: 35px auto 10px auto;"/>
 
     <h2 style="color: black; padding: 10px">My Setups:</h2>
@@ -73,7 +65,6 @@
                     Delete
                     </div>
 
-                    
                     <!-- EDIT BTN -->
                     <router-link :to="`/edit/${setup.id}`">
                         <div
@@ -96,6 +87,7 @@
                     <div
                         class="btn share-btn"
                         v-if="!modalOpen"
+                        @click="share"
                     >
                     Share
                     </div>
@@ -139,9 +131,7 @@ export default {
 
     methods: {
         makeNewSetup() {
-
             const id = 'user' + this.$store.state.user.uid + '-date' + Date.now()  + '-setup' + (this.$store.state.setups.length + 1);
-            
             const setup = {    
                 user: this.$store.state.user.uid,
                 timeCreated: Date.now(),
@@ -152,7 +142,7 @@ export default {
             this.$store.dispatch('addSetup', setup)
 
             this.modalOpen = false;
-            
+
             // open new setup
             this.$router.push(`/edit/${id}`)
         },
@@ -166,6 +156,9 @@ export default {
         deleteSetup(setupId) {
             this.resetButtons()
             this.$store.dispatch('deleteSetup', setupId)
+        },
+        share() {
+            console.log('share pushed')
         }
     }
 }

@@ -11,12 +11,6 @@
         <!-- links -->
         <div style="display: flex; height: 30px;">
             <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
-                <!-- <div
-                    style="background: #247730; cursor: pointer"
-                    @click="save"
-                >
-                Save
-                </div> -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
@@ -26,6 +20,7 @@
                 <router-link
                     style="background: #57B0FC;"
                     to="/setups"
+                    v-if="this.$route.name != 'Preview'"
                 >
                 Preview
                 </router-link>
@@ -91,9 +86,6 @@ export default {
         }
     },
     methods: {
-        // save() {
-        //     console.log('save pushed')
-        // },
         share() {
             console.log('share pushed')
         },

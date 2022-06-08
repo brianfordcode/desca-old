@@ -198,9 +198,7 @@ export default {
     },
     removeItem(index) {
       this.displayedItemIndex = null
-
       this.items.splice(index, 1)
-
       this.$store.dispatch('removeItem', { setupId: this.$route.params.id, index })
 
     },
@@ -212,7 +210,6 @@ export default {
         this.hoveredItem = null;
         this.displayedItemIndex = null;
 
-        
         const {x, y, width, height} = this.$refs.imagesContainer.getBoundingClientRect()
         const point = {
           x: clamp(event.clientX - x, 0, width),

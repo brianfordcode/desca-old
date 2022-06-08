@@ -3,6 +3,7 @@ import { doc, getDocs, deleteDoc, updateDoc, collection, query, where, setDoc, g
 import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
+import { onAuthStateChanged } from "firebase/auth";
 
 const db = getFirestore();
 
@@ -38,7 +39,6 @@ const store = createStore({
     },
     addSetup(state, setup) {
       state.setups.push(setup)
-      console.log(state.setups)
     },
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.id !== setupId)
@@ -54,13 +54,10 @@ const store = createStore({
       const item = setup.items[itemIndex]
       item.x  = point.x
       item.y = point.y
-
-
     },
     removeItem(state, {item, setupId, index}) {
       state.setups.find(s => s.id === setupId).items.splice(index, 1)
     },
-
 
     saveItem(state, {index, setupId, item}) {
       state.setups.find(s => s.id === setupId).items[index] = copy(item)
@@ -70,16 +67,10 @@ const store = createStore({
       state.profileDetails = dbProfileDetails
 
     },
-
-
     // CHANGE DETAILS
     changeDetails(state, profileDetails) {
       state.profileDetails = profileDetails
     }
-
-
-
-
   },
   actions: {
     // LOGIN
@@ -124,30 +115,19 @@ const store = createStore({
       }
     },
     async fetchUserSetups(context, user) {
-        console.log('FETCH USER SETUPS')
         const setups = []
         const q = query(collection(db, "setups"), where("user", "==", user.uid));
         const querySnapshot = await getDocs(q);
-
         querySnapshot.forEach(doc => setups.push(doc.data()))
-
         context.commit('initializeSetups', setups)
-
     },
-
-
-
-
-
     logOut() {
       router.push('/')
       logOut()
     },
-
     // SETUPS
     addSetup(context, setup) {
       context.commit('addSetup', setup)
-      console.log(setup)
       // PUSH TO FIREBASE
       setDoc(doc(db, "setups", setup.id), setup);
     },
@@ -155,50 +135,33 @@ const store = createStore({
       context.commit('deleteSetup', setupId)
       // UPDATE (DELETE)FROM FIREBASE
       deleteDoc(doc(db, "setups", setupId))
-
     },
     addItem(context, { item, setupId }) {
-
       const items = [...context.getters.setup(setupId).items, copy(item)]
-
       context.commit('setItems', { items, setupId })
-
       // ADD ITEMS TO FIREBASE DOCUMENT
       updateDoc(doc(db, "setups", setupId), {items: items});
-
     },
     moveItem(context, { setupId, itemIndex, point }) {
       context.commit('moveItem', { setupId, itemIndex, point })
-
       const items = context.getters.setup(setupId).items
-
       updateDoc(doc(db, "setups", setupId), {items});
-
     },
     removeItem(context, {item, setupId, index }) {
       context.commit('removeItem', {item, setupId, index })
-
       const items = context.getters.setup(setupId).items
-
       updateDoc(doc(db, "setups", setupId), {items});
-      
+    
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
-
       updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
-
     },
-
     // PROFILE HEADER DETAILS
     changeDetails(context, profileDetails) {
       context.commit('changeDetails', profileDetails)
       setDoc(doc(db, "profileDetails", this.state.user.uid), profileDetails);
     }
-
-
-
-
   }
 })
 
