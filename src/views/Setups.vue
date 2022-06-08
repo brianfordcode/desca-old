@@ -1,6 +1,6 @@
 <template>
 
-<div class="loginhome-container">
+<div class="loginhome-container" v-if="$store.state.loaded">
 
     <!-- WELCOME USER -->
     <!-- <h1
@@ -117,6 +117,8 @@
     </div>
 
 </div>
+
+<div v-else>loading</div>
 
     <!-- <div>{{ $store.state.setups }}</div> -->
 

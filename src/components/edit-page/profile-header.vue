@@ -1,12 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="$store.state.user">
     
     <!-- PROF PIC -->
       <div class="prof-pic">
         <img draggable="false" 
              style="width: 120px; height: auto;"
-             :src="$store.state.profileDetails.profPic"
-             v-if="$store.state.user"
+             :src="profileDetails.profPic"
         />
       </div>
 
@@ -18,12 +17,12 @@
         >
 
           <!-- NAME -->
-          <h1 class="prof-name">{{ $store.state.profileDetails.profName ? $store.state.profileDetails.profName : $store.state.user.displayName }}</h1>
+          <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
           <!-- live status -->
           <a
-            :href="$store.state.profileDetails.socialLinks.twitchLink"
-            v-if="$store.state.profileDetails.liveStatus"
+            :href="profileDetails.socialLinks.twitchLink"
+            v-if="profileDetails.liveStatus"
             target="_blank"
           >
           !LIVE
@@ -36,8 +35,8 @@
 
           <!-- TWITCH -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.twitchLink"
-            :href="$store.state.profileDetails.socialLinks.twitchLink"
+            v-if="profileDetails.socialLinks.twitchLink"
+            :href="profileDetails.socialLinks.twitchLink"
             target="_blank"
           >
             <img
@@ -48,8 +47,8 @@
           </a>
           <!-- TWITTER -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.twitterLink"
-            :href="$store.state.profileDetails.socialLinks.twitterLink"
+            v-if="profileDetails.socialLinks.twitterLink"
+            :href="profileDetails.socialLinks.twitterLink"
             target="_blank"
           >
             <img
@@ -60,8 +59,8 @@
           </a>
           <!-- YOUTUBE -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.youtubeLink"
-            :href="$store.state.profileDetails.socialLinks.youtubeLink"
+            v-if="profileDetails.socialLinks.youtubeLink"
+            :href="profileDetails.socialLinks.youtubeLink"
             target="_blank"
           >
             <img
@@ -72,8 +71,8 @@
           </a>
           <!-- DISCORD -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.discordLink"
-            :href="$store.state.profileDetails.socialLinks.discordLink"
+            v-if="profileDetails.socialLinks.discordLink"
+            :href="profileDetails.socialLinks.discordLink"
             target="_blank"
           >
             <img
@@ -84,8 +83,8 @@
           </a>
           <!-- FACEBOOK -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.facebookLink"
-            :href="$store.state.profileDetails.socialLinks.facebookLink"
+            v-if="profileDetails.socialLinks.facebookLink"
+            :href="profileDetails.socialLinks.facebookLink"
             target="_blank"
           >
             <img
@@ -96,8 +95,8 @@
           </a>
           <!-- WEBSITE -->
           <a
-            v-if="$store.state.profileDetails.socialLinks.websiteLink"
-            :href="$store.state.profileDetails.socialLinks.websiteLink"
+            v-if="profileDetails.socialLinks.websiteLink"
+            :href="profileDetails.socialLinks.websiteLink"
             target="_blank"
           >
             <img
@@ -110,7 +109,7 @@
         </div>
 
       </div>
-    
+
     <!-- EDIT DETAILS BUTTON -->
     <button
         class="edit-btn btn"
@@ -130,7 +129,7 @@
         <!-- PROFILE NAME -->
         <div class="name-input input">
           <p style="padding-right: 5px">Name</p>
-          <input type="text" v-model="$store.state.profileDetails.profName"/>
+          <input type="text" v-model="profileDetails.profName"/>
         </div>
 
         <!-- UPLOAD PICTURE -->
@@ -139,42 +138,42 @@
         <!-- TWITCH -->
         <div class="twitch input">
           <img :src="twitchLogo" alt="twitch"/>
-          <input v-model="$store.state.profileDetails.socialLinks.twitchLink"
+          <input v-model="profileDetails.socialLinks.twitchLink"
                   type="text"
           >
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
           <img :src="twitterLogo" alt="twitter"/>
-          <input v-model="$store.state.profileDetails.socialLinks.twitterLink"
+          <input v-model="profileDetails.socialLinks.twitterLink"
                   type="text"
           >
         </div>
         <!-- YOUTUBE -->
         <div class="youtube input">
           <img :src="youtubeLogo" alt="youtube"/>
-          <input v-model="$store.state.profileDetails.socialLinks.youtubeLink"
+          <input v-model="profileDetails.socialLinks.youtubeLink"
                   type="text"
           >
         </div>
         <!-- DISCORD -->
         <div class="discord input">
           <img :src="discordLogo" alt="discord"/>
-          <input v-model="$store.state.profileDetails.socialLinks.discordLink"
+          <input v-model="profileDetails.socialLinks.discordLink"
                   type="text"
           >
         </div>
         <!-- FACEBOOK -->
         <div class="discord input">
           <img :src="facebookLogo" alt="discord"/>
-          <input v-model="$store.state.profileDetails.socialLinks.facebookLink"
+          <input v-model="profileDetails.socialLinks.facebookLink"
                   type="text"
           >
         </div>
         <!-- WEBSITE -->
         <div class="website input">
           <img :src="websiteLogo" alt="website"/>
-          <input v-model="$store.state.profileDetails.socialLinks.websiteLink"
+          <input v-model="profileDetails.socialLinks.websiteLink"
                   type="text"
           >
         </div>
@@ -182,7 +181,7 @@
         <!-- ALLOW LIVE STATUS -->
         <div class="allow-comments">
           <input type="checkbox"
-                 v-model="$store.state.profileDetails.liveStatus"
+                 v-model="profileDetails.liveStatus"
           >
           <div style="display: flex; flex-direction: column; padding-left: 5px">
             <p>Live Status</p>
@@ -193,7 +192,7 @@
         <!-- ALLOW COMMENTS -->
         <div class="allow-comments">
           <input type="checkbox"
-                 v-model="$store.state.profileDetails.allowComments"
+                 v-model="profileDetails.allowComments"
           >
           <p>Allow Comments</p>
         </div>
@@ -209,6 +208,11 @@
 
 <script>
 
+function copy(value) {
+  return JSON.parse(JSON.stringify(value))
+}
+
+
   export default {
     data() {
       return {
@@ -219,7 +223,9 @@
         youtubeLogo: require('@/assets/social-links/youtube-logo.png'),
         discordLogo: require('@/assets/social-links/discord-logo.png'),
         websiteLogo: require('@/assets/social-links/website-logo.png'),
-        
+
+        profileDetails: copy(this.$store.state.profileDetails),
+
       }
     },
     methods: {
@@ -227,16 +233,14 @@
         console.log('profile picture upload')
       },
       enterBtn() {
-        this.editOpen ? console.log('change details pushed') : this.$store.dispatch('changeDetails')
-        
+        if (!this.editOpen) { this.$store.dispatch('changeDetails', this.profileDetails) }
+
       }
     }
   }
-
 </script>
 
 <style scoped>
-
   .container {
     width: 800px;
     height: 80px;
@@ -259,20 +263,16 @@
     transform: translate(10px);
     box-shadow: 0px 0px 33px -20px #000000;
   }
-
   .prof-name {
     height: min-content;
     /* border: 1px solid blue; */
   }
-
   .details {
     transform: translateX(145px);
     /* border: 1px solid black; */
     display: flex;
     flex-direction: column;
   }
-
-
   .edit-btn {
     position: absolute;
     bottom: 0;
@@ -281,7 +281,6 @@
     height: 25px;
     /* border-bottom-right-radius: 7px; */
   }
-
   .btn {
     background: green;
     color: white;
@@ -290,7 +289,6 @@
     border: none;
     
   }
-
   .details-box {
     position: absolute;
     right: 0;
@@ -300,53 +298,42 @@
     z-index: 100000;
     color: white;
   }
-
   .enter-btn {
     position: absolute;
     bottom: 0;
     right: 0;
   }
-
   .details-text {
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-
   }
-
   .details-text > * {
     display: flex;
     align-items: center;
   }
-
   .details-text > *:not(:last-child) {
     margin-bottom: 12px;
   }
-
   .input img {
     height: 25px;
     padding-right: 7px
   }
-
   .sm-logo {
     height: 25px;
   }
-
   .links-wrapper a:not(:last-child) {
     margin-right: 5px;
   }
-
   .allow-comments > p {
     padding-left: 5px;
   }
-
   input {
     outline: none;
     border: none;
     padding: 5px;
   }
-
   .name-live a {
     text-decoration: none;
     color: rgb(209, 0, 0);
@@ -355,8 +342,4 @@
     padding: 2px 2px 0 2px;
     margin-left:20px;
   }
-
 </style>
-  
-  
-  
