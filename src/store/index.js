@@ -35,7 +35,6 @@ const store = createStore({
     setLoggedInUser(state, user) {
       state.user = user;
       state.loggedIn = true;
-      // state.profileDetails.profPic = user.photoURL
     },
     addSetup(state, setup) {
       state.setups.push(setup)

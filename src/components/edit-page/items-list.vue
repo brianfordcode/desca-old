@@ -72,21 +72,19 @@
     </div>
 
 
-
-
     <!-- OTHER ITEMS LIST -->
     <draggable 
         v-model="$store.getters.setup($route.params.id).items"
         group="items"
-        @start="drag=true" 
-        @end="drag=false" 
+        @start="drag=true"
+        @end="drag=false"
         item-key="id"
         class="items-list-container"
     >
         <template #item="{element, index}">
-           
             <div class="item-details"
-                @click.stop="$emit('toggleItemDisplay', index)"
+                @mouseup="test"
+                @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
                 v-if="element.category != 'computer'"
             >   
                 <!-- ICON -->
@@ -107,6 +105,7 @@
                     >Visit Store
                 </a> -->
             </div>
+
 
         </template>
         
@@ -135,6 +134,7 @@
 import draggable from 'vuedraggable'
 
 export default {
+    emits: ["toggleItemDisplay"],
     data() {
         return {
             drag: false,
@@ -180,6 +180,17 @@ export default {
                 return require('@/assets/icons/webcam.png')
             }
         },
+        reorderItems(element, index) {
+            const setupId = this.$route.params.id
+            console.log(this.$store.getters.setup(this.$route.params.id).items)
+            this.$store.dispatch('saveItem', { index, setupId, item: element})
+
+            // TODO: WHY INDEX IS NOT MATCHING UP WHEN ITEM IS CLICKED?
+        },
+        test() {
+            console.log('test')
+            // TODO: WHY DOESN'T MOUSEUP WORK TO SAVE THE ORDER???
+        }
     }
 }
 </script>

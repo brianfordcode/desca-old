@@ -153,6 +153,8 @@
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
 
+    <div>{{$store.getters.setup($route.params.id).items}}</div>
+
 </template>
 
 <script>
@@ -191,7 +193,7 @@ export default {
         url: '',
         x,
         y,
-        categoryDetails: {}
+        categoryDetails: {},
       }
       this.$store.dispatch('addItem', { item, setupId })
       this.items.push(item)
@@ -232,7 +234,7 @@ export default {
 
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
 
-    }
+    },
 
   },
   computed: {
@@ -240,7 +242,6 @@ export default {
       return this.$route.params.id
     },
     currentSetup() {
-      console.log(this.$store.getters.setup(this.$route.params.id))
       return this.$store.getters.setup(this.$route.params.id)
     },
     currentlySelectedItem() {
