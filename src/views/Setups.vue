@@ -50,7 +50,7 @@
                             <div class="options">
                                 <p
                                     class="yes-btn"
-                                    @click="$store.dispatch('deleteSetup', setup.id), resetButtons()"
+                                    @click="deleteSetup(setup.id)"
                                 >
                                 Yes
                                 </p>
@@ -162,6 +162,10 @@ export default {
         resetButtons() {
             this.selectedSetup = null
             this.modalOpen = false
+        },
+        deleteSetup(setupId) {
+            this.resetButtons()
+            this.$store.dispatch('deleteSetup', setupId)
         }
     }
 }

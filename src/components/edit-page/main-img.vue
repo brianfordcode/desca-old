@@ -31,7 +31,7 @@
       </div>
 
     <!--  TARGET  -->
-    <div v-for="(item, index) in $store.getters.setup($route.params.id).items" :key="index">
+    <div v-for="(item, index) in items" :key="index">
     	<div
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
@@ -136,12 +136,12 @@
         <!-- BUTTONS -->
           <button
               class="enter-btn btn"
-              @click.stop="displayedItemIndex = null"
+              @click.stop="save"
           >ENTER
           </button>
           <button
             class="remove-btn btn"
-            @click.stop="$store.dispatch('removeItem', { item, setupId: this.$route.params.id, index }), displayedItemIndex = null"
+            @click.stop="removeItem(index)"
           >REMOVE
           </button>
       </div>
@@ -159,6 +159,11 @@
 import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
 
+function copy(value) {
+  return JSON.parse(JSON.stringify(value))
+}
+
+
 // make sure target doesn't go off image-container when moving
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
@@ -168,7 +173,8 @@ export default {
       dragging: null,
       displayedItemIndex: null,
       hoveredItem: null,
-      detailBoxDimensions: {width: null, height: null}
+      detailBoxDimensions: {width: null, height: null},
+      items: copy(this.$store.getters.setup(this.$route.params.id).items),
     }
   },
   components: { itemList, VueResizer },
@@ -188,6 +194,15 @@ export default {
         categoryDetails: {}
       }
       this.$store.dispatch('addItem', { item, setupId })
+      this.items.push(item)
+    },
+    removeItem(index) {
+      this.displayedItemIndex = null
+
+      this.items.splice(index, 1)
+
+      this.$store.dispatch('removeItem', { setupId: this.$route.params.id, index })
+
     },
     onMouseMove(event) {
         event.preventDefault()
@@ -196,27 +211,39 @@ export default {
 
         this.hoveredItem = null;
         this.displayedItemIndex = null;
+
         
         const {x, y, width, height} = this.$refs.imagesContainer.getBoundingClientRect()
+        const point = {
+          x: clamp(event.clientX - x, 0, width),
+          y: clamp(event.clientY - y, 0, height)
+        }
+        const item = this.items[this.dragging]
+        item.x = point.x
+        item.y = point.y
 
-        this.$store.dispatch({
-          type: 'moveItem',
-          setupId: this.$route.params.id,
-          itemIndex: this.dragging,
-          point: {
-            x: clamp(event.clientX - x, 0, width),
-            y: clamp(event.clientY - y, 0, height)
-          }
-        })
+        this.$store.dispatch('saveItem', { index: this.dragging, setupId: this.setupId, item})
+
     },
     sizeChange({width, height}) {
       this.detailBoxDimensions.width = width;
       this.detailBoxDimensions.height = height;
+    },
+    save() {
+      const index = this.displayedItemIndex
+      this.displayedItemIndex = null
+
+      this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
+
     }
 
   },
   computed: {
+    setupId() {
+      return this.$route.params.id
+    },
     currentSetup() {
+      console.log(this.$store.getters.setup(this.$route.params.id))
       return this.$store.getters.setup(this.$route.params.id)
     },
     currentlySelectedItem() {

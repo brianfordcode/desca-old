@@ -4,19 +4,19 @@
         <!-- logo -->
         <img
             id="logo"
-            src="../assets/desca-logo.png"
+            src="/desca-logo.png"
             alt="desca-logo"
             @click="$router.push('/')"
         />
         <!-- links -->
         <div style="display: flex; height: 30px;">
             <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
-                <div
+                <!-- <div
                     style="background: #247730; cursor: pointer"
                     @click="save"
                 >
                 Save
-                </div>
+                </div> -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
@@ -91,9 +91,9 @@ export default {
         }
     },
     methods: {
-        save() {
-            console.log('save pushed')
-        },
+        // save() {
+        //     console.log('save pushed')
+        // },
         share() {
             console.log('share pushed')
         },

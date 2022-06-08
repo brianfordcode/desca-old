@@ -6,6 +6,10 @@ import { validateContextObject } from '@firebase/util';
 
 const db = getFirestore();
 
+function copy(value) {
+  return JSON.parse(JSON.stringify(value))
+}
+
 // Create a new store instance.
 const store = createStore({
   state () {
@@ -39,19 +43,28 @@ const store = createStore({
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.id !== setupId)
     },
-    addItem(state, { item, setupId }) {
-      state.setups.find(s => s.id === setupId).items.push(item)
+    setItems(state, { items, setupId }) {
+      state.setups.find(s => s.id === setupId).items = items
+    },
+    initializeSetups(state, setups) {
+      state.setups = setups
     },
     moveItem(state, { setupId, itemIndex, point }) {
       const setup = state.setups.find(s => s.id === setupId)
       const item = setup.items[itemIndex]
       item.x  = point.x
       item.y = point.y
+
+
     },
     removeItem(state, {item, setupId, index}) {
       state.setups.find(s => s.id === setupId).items.splice(index, 1)
     },
 
+
+    saveItem(state, {index, setupId, item}) {
+      state.setups.find(s => s.id === setupId).items[index] = copy(item)
+    },
 
     logInProfDetails(state, dbProfileDetails) {
       state.profileDetails = dbProfileDetails
@@ -73,7 +86,8 @@ const store = createStore({
     logIn(context) {
       login(async user => {
         context.commit('setLoggedInUser', user);
-        await context.dispatch('fetchUserDetailsAndSetups', user)
+        await context.dispatch('fetchUserDetails', user)
+        await context.dispatch('fetchUserSetups', user)
         
         context.commit('setLoaded')
 
@@ -81,7 +95,7 @@ const store = createStore({
         router.push('/setups')
       })
     },
-    async fetchUserDetailsAndSetups(context, user) {
+    async fetchUserDetails(context, user) {
 
       const q = query(collection(db, "profileDetails"), where("user", "==", user.uid));
       const querySnapshot = await getDocs(q);
@@ -108,11 +122,23 @@ const store = createStore({
         }
         context.dispatch('changeDetails', profileDetails)
       }
-      
+    },
+    async fetchUserSetups(context, user) {
+        console.log('FETCH USER SETUPS')
+        const setups = []
+        const q = query(collection(db, "setups"), where("user", "==", user.uid));
+        const querySnapshot = await getDocs(q);
 
+        querySnapshot.forEach(doc => setups.push(doc.data()))
 
+        context.commit('initializeSetups', setups)
 
     },
+
+
+
+
+
     logOut() {
       router.push('/')
       logOut()
@@ -128,21 +154,44 @@ const store = createStore({
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
       // UPDATE (DELETE)FROM FIREBASE
+      deleteDoc(doc(db, "setups", setupId))
+
     },
     addItem(context, { item, setupId }) {
-      context.commit('addItem', { item, setupId })
+
+      const items = [...context.getters.setup(setupId).items, copy(item)]
+
+      context.commit('setItems', { items, setupId })
+
+      // ADD ITEMS TO FIREBASE DOCUMENT
+      updateDoc(doc(db, "setups", setupId), {items: items});
+
     },
     moveItem(context, { setupId, itemIndex, point }) {
       context.commit('moveItem', { setupId, itemIndex, point })
+
+      const items = context.getters.setup(setupId).items
+
+      updateDoc(doc(db, "setups", setupId), {items});
+
     },
     removeItem(context, {item, setupId, index }) {
       context.commit('removeItem', {item, setupId, index })
-    },
 
+      const items = context.getters.setup(setupId).items
+
+      updateDoc(doc(db, "setups", setupId), {items});
+      
+    },
+    saveItem(context, {index, setupId, item}) {
+      context.commit('saveItem', {index, setupId, item})
+
+      updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
+
+    },
 
     // PROFILE HEADER DETAILS
     changeDetails(context, profileDetails) {
-      // console.log(this.state.profileDetails)
       context.commit('changeDetails', profileDetails)
       setDoc(doc(db, "profileDetails", this.state.user.uid), profileDetails);
     }
