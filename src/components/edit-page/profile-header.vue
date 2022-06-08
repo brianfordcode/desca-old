@@ -41,7 +41,7 @@
           >
             <img
               class="sm-logo"
-              :src="twitchLogo"
+              src="/social-links/twitch-logo.png"
               alt="twitch"
             />
           </a>
@@ -53,7 +53,7 @@
           >
             <img
               class="sm-logo"
-              :src="twitterLogo"
+              src="/social-links/twitter-logo.png"
               alt="twitter"
             />
           </a>
@@ -65,7 +65,7 @@
           >
             <img
               class="sm-logo"
-              :src="youtubeLogo"
+              src="/social-links/youtube-logo.png"
               alt="youtube"
             />
           </a>
@@ -77,7 +77,7 @@
           >
             <img
               class="sm-logo"
-              :src="discordLogo"
+              src="/social-links/discord-logo.png"
               alt="discord"
             />
           </a>
@@ -89,7 +89,7 @@
           >
             <img
               class="sm-logo"
-              :src="facebookLogo"
+              src="/social-links/facebook-logo.png"
               alt="facebook"
             />
           </a>
@@ -101,7 +101,7 @@
           >
             <img
               class="sm-logo"
-              :src="websiteLogo"
+              src="/social-links/website-logo.png"
               alt="website"
             />
           </a>
@@ -137,42 +137,42 @@
 
         <!-- TWITCH -->
         <div class="twitch input">
-          <img :src="twitchLogo" alt="twitch"/>
+          <img src="/social-links/twitch-logo.png" alt="twitch"/>
           <input v-model="profileDetails.socialLinks.twitchLink"
                   type="text"
           >
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
-          <img :src="twitterLogo" alt="twitter"/>
+          <img src="/social-links/twitter-logo.png" alt="twitter"/>
           <input v-model="profileDetails.socialLinks.twitterLink"
                   type="text"
           >
         </div>
         <!-- YOUTUBE -->
         <div class="youtube input">
-          <img :src="youtubeLogo" alt="youtube"/>
+          <img src="/social-links/youtube-logo.png" alt="youtube"/>
           <input v-model="profileDetails.socialLinks.youtubeLink"
                   type="text"
           >
         </div>
         <!-- DISCORD -->
         <div class="discord input">
-          <img :src="discordLogo" alt="discord"/>
+          <img src="/social-links/discord-logo.png" alt="discord"/>
           <input v-model="profileDetails.socialLinks.discordLink"
                   type="text"
           >
         </div>
         <!-- FACEBOOK -->
-        <div class="discord input">
-          <img :src="facebookLogo" alt="discord"/>
+        <div class="facebook input">
+          <img src="/social-links/facebook-logo.png" alt="facebook"/>
           <input v-model="profileDetails.socialLinks.facebookLink"
                   type="text"
           >
         </div>
         <!-- WEBSITE -->
         <div class="website input">
-          <img :src="websiteLogo" alt="website"/>
+          <img src="/social-links/website-logo.png" alt="website"/>
           <input v-model="profileDetails.socialLinks.websiteLink"
                   type="text"
           >
@@ -217,12 +217,6 @@ function copy(value) {
     data() {
       return {
         editOpen: false,
-        twitchLogo: require('@/assets/social-links/twitch-logo.png'),
-        facebookLogo: require('@/assets/social-links/facebook-logo.png'),
-        twitterLogo: require('@/assets/social-links/twitter-logo.png'),
-        youtubeLogo: require('@/assets/social-links/youtube-logo.png'),
-        discordLogo: require('@/assets/social-links/discord-logo.png'),
-        websiteLogo: require('@/assets/social-links/website-logo.png'),
 
         profileDetails: copy(this.$store.state.profileDetails),
 
