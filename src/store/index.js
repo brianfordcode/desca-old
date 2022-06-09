@@ -20,17 +20,22 @@ const store = createStore({
       loggedIn: false,
       profileDetails: null,
       setups: [],
-      
+      viewingSetup: [],
+      viewingSetupLoaded: false
     }
   },
   getters: {
     setup: state => id => {
       return state.setups.find(s => s.id === id)
-    }
+    },
   },
   mutations: {
     setLoaded(state) {
       state.loaded = true
+      // TODO: CAN I USE THIS FOR MULTIPLE PLACES NEEDED TO LOAD?
+    },
+    setViewingSetupLoaded(state) {
+      state.viewingSetupLoaded = true
     },
     setLoggedInUser(state, user) {
       state.user = user;
@@ -69,6 +74,9 @@ const store = createStore({
     // CHANGE DETAILS
     changeDetails(state, profileDetails) {
       state.profileDetails = profileDetails
+    },
+    fetchViewingSetup(state, viewingSetup) {
+      state.viewingSetup = viewingSetup
     }
   },
   actions: {
@@ -160,6 +168,13 @@ const store = createStore({
     changeDetails(context, profileDetails) {
       context.commit('changeDetails', profileDetails)
       setDoc(doc(db, "profileDetails", this.state.user.uid), profileDetails);
+    },
+    async fetchViewingSetup(context, routerAddress) {
+      const q = query(collection(db, "setups"), where("id", "==", routerAddress));
+      const querySnapshot = await getDocs(q);
+      const viewingSetup = querySnapshot.docs[0]
+      context.commit('fetchViewingSetup', viewingSetup.data())
+      context.commit('setViewingSetupLoaded')
     }
   }
 })

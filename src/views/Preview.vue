@@ -1,26 +1,27 @@
 <template>
   <!-- <h1>PREVIEW {{$route.params.id}}</h1> -->
 
-
-  <div class="main-container">
+  <!-- <div>{{$store.getters.viewingSetup().items}}</div> -->
+  
+  <div class="main-container" v-if="$store.state.viewingSetupLoaded">
 
     <!-- ITEM LOCATIONS -->
     <div class="image-container">
 
       <div
-        v-for="item in $store.getters.setup($route.params.id).items"
+        v-for="item in $store.state.viewingSetup.items"
         :key="item"
       >
         <div
-          class="item-location"
-          :style="`top: ${item.y - 10}px; left: ${item.x - 10}px`">
+          class="item-target"
+          :style="`top: ${item.y - 15}px; left: ${item.x - 25}px`">
         </div>
       </div>
       
       <!-- MAIN IMAGE -->
       <img
         class="main-img"
-        :src="$store.getters.setup($route.params.id).imageURL"
+        :src="$store.state.viewingSetup.imageURL"
         alt="main-image"
       />
 
@@ -29,7 +30,7 @@
     <!-- ITEMS -->
     <div class="items-list-container">
       <div
-        v-for="item in $store.getters.setup($route.params.id).items"
+        v-for="item in $store.state.viewingSetup.items"
         :key="item"
       >
 
@@ -49,13 +50,23 @@
       </div>
     </div>
 
+
+
   </div>
 
+  <div v-else>loading</div>
 
 </template>
 
 <script>
 export default {
+  created() {
+    const routerAddress = this.$route.params.id
+    this.$store.dispatch('fetchViewingSetup', routerAddress)
+  },
+  data() {
+    return {}
+  },
   methods: {
     getIconPic(e) {
       if (e.category === 'accessory') {
@@ -115,14 +126,14 @@ export default {
   width: 100%;
 }
 
-.item-location {
+.item-target {
   position: absolute;
   background: rgba(255,255,255,0.1);
   height:50px;
   width: 50px;
   border-radius:50%;
 }
-.item-location:hover {
+.item-target:hover {
   background: rgba(255,255,255,0.5);
   cursor: pointer;
 }
@@ -151,7 +162,7 @@ export default {
     margin-bottom: 10px;
     position: relative;
     transition: .1s ease-in-out;
-    cursor: grab;
+    cursor: pointer;
 }
 
 .icon {
