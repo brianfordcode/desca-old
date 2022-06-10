@@ -56,6 +56,7 @@
             v-if="showMenuBtn"
             class="menu-btn"
             @click="showMenuBtn = !showMenuBtn"
+            style="z-index: 10000"
         >
             <!-- btn to setups -->
             <router-link

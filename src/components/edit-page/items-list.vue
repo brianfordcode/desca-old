@@ -238,10 +238,10 @@ export default {
     min-height: 80px;
     color: white;
     padding: 15px;
-    margin-bottom: 10px;
     position: relative;
     transition: .1s ease-in-out;
     cursor: grab;
+    margin-bottom: 10px;
 }
 
 .comp-details {
@@ -265,7 +265,7 @@ export default {
     cursor: grabbing;
 }
 
-.store-link {
+/* .store-link {
     position: absolute;
     opacity: 0.75;
     bottom: 0;
@@ -280,7 +280,7 @@ export default {
 
 .store-link:hover {
     opacity: 1;
-}
+} */
 
 .icon {
     height: 40px;

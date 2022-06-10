@@ -153,7 +153,7 @@
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
 
-    <div>{{$store.getters.setup($route.params.id).items}}</div>
+    <!-- <div>{{$store.getters.setup($route.params.id).items}}</div> -->
 
 </template>
 

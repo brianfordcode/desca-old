@@ -28,43 +28,84 @@
 
     <div class="item-container">
 
-      <div
-        v-for="item in this.$store.state.viewingSetup.items"
-        :key="item"
-      >
-      <!-- TODO: HOW TO USE CSS GRID WITH V-FOR??? style="display: contents;???"-->
-        
-        <!-- COMPUTER -->
-        <div
-          class="computer item-wrapper"
-          v-show="item.category === 'computer'"
-        >
-          <img
-            class="icon"
-            :src="getIconPic(item)"
-            :alt="item.category"
+      <!-- COMPUTER -->
+      <div v-for="item in $store.state.viewingSetup.items" :key="item">
+          <div
+              style=" font-size: 14px; margin-right: 20px;"
+              v-if="item.category === 'computer'"
+              class="comp-details"
           >
-          <p class="item-text">{{item.name}}</p>
-        </div>
+              <!-- ICON -->
+              <div style="background: rgb(13, 13, 118); display: flex; justify-content: space-around; align-items: center; width: 250px; height: 75px;">
+                  <img style="height: 50px;"
+                      :src="getIconPic(item)"
+                      :alt="item.category"
+                      v-if="item.category"
+                  />
+              </div>
+              <!-- CPU -->
+              <div v-if="item.categoryDetails.cpu">
+                  <div style="display: flex; flex-direction: column; align-items: center;"> 
+                      <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CPU:</span>
+                      <span>{{item.categoryDetails.cpu}}</span>
+                  </div>
+              </div>
+              <!-- GPU -->
+              <div v-if="item.categoryDetails.gpu">
+                  <div style="display: flex; flex-direction: column; align-items: center;"> 
+                      <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">GPU:</span>
+                      <span>{{item.categoryDetails.gpu}}</span>
+                  </div>
+              </div>
+              <!-- SSD -->
+              <div v-if="item.categoryDetails.ssd">
+                  <div style="display: flex; flex-direction: column; align-items: center;"> 
+                      <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">SSD:</span>
+                      <span>{{item.categoryDetails.ssd}}</span>
+                  </div>
+              </div>
+              <!-- RAM -->
+              <div v-if="item.categoryDetails.ram">
+                  <div style="display: flex; flex-direction: column; align-items: center;"> 
+                      <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">RAM:</span>
+                      <span>{{item.categoryDetails.ram}}</span>
+                  </div>
+              </div>
+              <!-- CASE -->
+              <div v-if="item.categoryDetails.case">
+                  <div style="display: flex; flex-direction: column; align-items: center;"> 
+                      <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CASE:</span>
+                      <span>{{item.categoryDetails.case}}</span>
+                  </div>
+              </div>
 
-        <!-- OTHER ITEMS -->
+          </div>
+      </div>
+
+      <!-- OTHER ITEMS -->
+      <div class="other-items">
         <div
-          class="item item-wrapper"
-          v-show="item.category != 'computer'"
+          v-for="item in this.$store.state.viewingSetup.items"
+          :key="item"
         >
-          <img
-            class="icon"
-            :src="getIconPic(item)"
-            :alt="item.category"
-          >
-          <p class="item-text">{{item.name}}</p>
+          <div class="item-wrapper"
+              v-if="item.category != 'computer'"
+          >   
+              <!-- ICON -->
+              <img class="icon" 
+                  :src="getIconPic(item)"
+                  :alt="item.category"
+                  v-if="item.category"
+              />
+              <!-- NAME -->
+              <p style="padding: 10px 5px 5px 5px; text-align: center;">
+              {{item.name}}
+              </p>
+          </div>
         </div>
-
       </div>
 
     </div>
-
-
 
   </div>
 
@@ -153,15 +194,11 @@ export default {
 }
 
 /* ITEMS */
-
 .item-container {
-  height: min-content;
-  display: grid;
-  grid-template-areas: 
-      "computer item item"; 
+  display: flex;
+  align-items: flex-start;
   width: 100%;
-  border: 1px solid;
-  justify-content: space-between;
+  position: relative;
   margin-top: 10px;
 }
 
@@ -174,10 +211,10 @@ export default {
   min-height: 75px;
   color: white;
   padding: 15px;
-  margin-bottom: 10px;
   position: relative;
   transition: .1s ease-in-out;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .icon {
@@ -190,54 +227,31 @@ export default {
   text-align: center;
 }
 
-.computer {
-  grid-area: computer;
-  grid-row-start: 1;
-  grid-row-end: 4;
+.comp-details {
+  background: rgb(13, 13, 118);
+  width: 250px;
+  min-height: 75px;
+  display: flex;
+  flex-direction: column;
 }
 
-.item {
-  grid-area: item;
-}
-
-
-/* 
-
-
-
-.items-list-container {
+.comp-details > * {
     display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    border: 1px solid;
+    align-items: center;
+    justify-content: space-around;
+    background: rgb(13, 13, 118);
     width: 100%;
-    margin-top: 30px;
+    min-height: 75px;
+    font-size: 16px;
+    color: white;
 }
 
-.items {
+.other-items {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid pink;
-  justify-content: space-around
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.item-details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgb(13, 13, 118);
-    width: 227px;
-    min-height: 80px;
-    color: white;
-    padding: 15px;
-    margin-bottom: 10px;
-    position: relative;
-    transition: .1s ease-in-out;
-    cursor: pointer;
-}
-
-.icon {
-    height: 40px;
-    width: auto;
-} */
 </style>
