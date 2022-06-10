@@ -1,13 +1,13 @@
 <template>
-  <!-- <h1>PREVIEW {{$route.params.id}}</h1> -->
 
-  <!-- <div>{{$store.getters.viewingSetup().items}}</div> -->
-  
-  <div class="main-container" v-if="$store.state.viewingSetupLoaded">
+  <div
+    class="main-container"
+    v-if="$store.state.viewingSetupLoaded"
+  >
 
-    <!-- ITEM LOCATIONS -->
+    <!-- MAIN IMAGE -->
     <div class="image-container">
-
+      <!-- ITEM LOCATIONS -->
       <div
         v-for="item in $store.state.viewingSetup.items"
         :key="item"
@@ -18,36 +18,50 @@
         </div>
       </div>
       
-      <!-- MAIN IMAGE -->
+      <!-- IMAGE -->
       <img
         class="main-img"
         :src="$store.state.viewingSetup.imageURL"
         alt="main-image"
       />
-
     </div>
 
-    <!-- ITEMS -->
-    <div class="items-list-container">
+    <div class="item-container">
+
       <div
-        v-for="item in $store.state.viewingSetup.items"
+        v-for="item in this.$store.state.viewingSetup.items"
         :key="item"
       >
-
-        <!-- TODO: ADD COMPUTER DETAILS -->
-
-        <div class="item-details" v-if="item.category !='computer'">
+      <!-- TODO: HOW TO USE CSS GRID WITH V-FOR??? style="display: contents;???"-->
+        
+        <!-- COMPUTER -->
+        <div
+          class="computer item-wrapper"
+          v-show="item.category === 'computer'"
+        >
           <img
             class="icon"
             :src="getIconPic(item)"
-            alt="item"
-          />
-          <p style="padding: 10px 5px 5px 5px; text-align: center;">
-          {{item.name}}
-          </p>
+            :alt="item.category"
+          >
+          <p class="item-text">{{item.name}}</p>
+        </div>
+
+        <!-- OTHER ITEMS -->
+        <div
+          class="item item-wrapper"
+          v-show="item.category != 'computer'"
+        >
+          <img
+            class="icon"
+            :src="getIconPic(item)"
+            :alt="item.category"
+          >
+          <p class="item-text">{{item.name}}</p>
         </div>
 
       </div>
+
     </div>
 
 
@@ -115,15 +129,15 @@ export default {
   margin: 30px;
 }
 
+/* MAIN IMAGE */
+.main-img {
+  width: 100%;
+}
+
 .image-container {
-  border: 1px solid;
   width: 100%;
   height: 600px;
   overflow: hidden;
-}
-
-.main-img {
-  width: 100%;
 }
 
 .item-target {
@@ -138,23 +152,80 @@ export default {
   cursor: pointer;
 }
 
+/* ITEMS */
+
+.item-container {
+  height: min-content;
+  display: grid;
+  grid-template-areas: 
+      "computer item item"; 
+  width: 100%;
+  border: 1px solid;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(13, 13, 118);
+  width: 225px;
+  min-height: 75px;
+  color: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  position: relative;
+  transition: .1s ease-in-out;
+  cursor: pointer;
+}
+
+.icon {
+    height: 40px;
+    width: auto;
+}
+
+.item-text {
+  padding: 10px 5px 5px 5px;
+  text-align: center;
+}
+
+.computer {
+  grid-area: computer;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.item {
+  grid-area: item;
+}
+
+
+/* 
+
+
 
 .items-list-container {
     display: flex;
-    flex-wrap: wrap;
+    align-items: flex-start;
     justify-content: space-between;
-    align-items: center;
+    border: 1px solid;
     width: 100%;
     margin-top: 30px;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid pink;
+  justify-content: space-around
 }
 
 .item-details {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-around; */
     background: rgb(13, 13, 118);
-    /* border-radius: 7px; */
     width: 227px;
     min-height: 80px;
     color: white;
@@ -168,5 +239,5 @@ export default {
 .icon {
     height: 40px;
     width: auto;
-}
+} */
 </style>

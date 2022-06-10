@@ -62,7 +62,6 @@ const store = createStore({
     removeItem(state, {item, setupId, index}) {
       state.setups.find(s => s.id === setupId).items.splice(index, 1)
     },
-
     saveItem(state, {index, setupId, item}) {
       state.setups.find(s => s.id === setupId).items[index] = copy(item)
     },
