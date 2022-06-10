@@ -13,17 +13,17 @@ const routes = [
     component: () => import('../views/About.vue')
   },
   {
-    path: '/setups/:id',
+    path: '/setups/:user',
     name: 'Setups',
     component: () => import('../views/Setups.vue')
   },
   {
-    path: '/edit/:id',
+    path: '/edit/:user/:setupId',
     name: 'Edit',
     component: () => import('../views/Edit.vue')
   },
   {
-    path: '/preview/:id',
+    path: '/preview/:user/:setupId',
     name: 'Preview',
     component: () => import('../views/Preview.vue')
   },

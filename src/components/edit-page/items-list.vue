@@ -2,7 +2,7 @@
 <div class="main-container">
 
     <!-- COMPUTER -->
-    <div v-for="(item, index) in $store.getters.setup($route.params.id).items" :key="item">
+    <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item">
         <div
             style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
@@ -74,7 +74,7 @@
 
     <!-- OTHER ITEMS LIST -->
     <draggable 
-        v-model="$store.getters.setup($route.params.id).items"
+        v-model="$store.getters.setup($route.params.setupId).items"
         group="items"
         @start="drag=true"
         @end="drag=false"
@@ -113,7 +113,7 @@
 
     <!-- PLACEHOLDER -->
     <div class="placeholder"
-        v-if="$store.getters.setup($route.params.id).items.length === 0"
+        v-if="$store.getters.setup($route.params.setupId).items.length === 0"
     >
     Add your equipment info by clicking on your setup's image!
     </div>
@@ -121,12 +121,12 @@
 </div>
 
     <!-- <p style="font-size: 14px; opacity: 0.75; margin-top: 10px"
-       v-if="$store.getters.setup($route.params.id).items.length > 1"
+       v-if="$store.getters.setup($route.params.setupId).items.length > 1"
     >
     *drag to reorder
     </p> -->
 
-  <!-- <div>{{$store.getters.setup($route.params.id).items}}</div> -->
+  <!-- <div>{{$store.getters.setup($route.params.setupId).items}}</div> -->
 
 </template>
 
@@ -181,7 +181,7 @@ export default {
             }
         },
         reorderItems(element, index) {
-            const setupId = this.$route.params.id
+            const setupId = this.$route.params.setupId
             this.$store.dispatch('saveItem', { index, setupId, item: element})
 
             // TODO: WHY INDEX IS NOT MATCHING UP WHEN ITEM IS CLICKED IN TOGGLEDISPLAY EMIT?

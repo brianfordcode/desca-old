@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- EDIT BTN -->
-                    <router-link :to="`/edit/${setup.id}`">
+                    <router-link :to="`/edit/${$store.state.user.uid}/${setup.id}`">
                         <div
                             class="btn edit-btn"
                             v-if="!modalOpen"
@@ -75,7 +75,7 @@
                         </div>
                     </router-link>
                     <!-- PREVIEW -->
-                    <router-link :to="`/preview/${setup.id}`">
+                    <router-link :to="`/preview/${$store.state.user.uid}/${setup.id}`">
                         <div
                             class="btn preview-btn"
                             v-if="!modalOpen"
@@ -131,7 +131,7 @@ export default {
 
     methods: {
         makeNewSetup() {
-            const id = 'user' + this.$store.state.user.uid + '-date' + Date.now()  + '-setup' + (this.$store.state.setups.length + 1);
+            const id = 'setup' + '-' + (this.$store.state.setups.length + 1);
             const setup = {    
                 user: this.$store.state.user.uid,
                 timeCreated: Date.now(),
@@ -144,7 +144,7 @@ export default {
             this.modalOpen = false;
 
             // open new setup
-            this.$router.push(`/edit/${id}`)
+            this.$router.push(`/edit/${this.$store.state.user.uid}/${id}`)
         },
         showButtons(index) {
             this.selectedSetup = index

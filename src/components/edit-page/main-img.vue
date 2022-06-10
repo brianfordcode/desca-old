@@ -17,7 +17,7 @@
           <div
             @click="addMainImg"
             class="main-img-placeholder"
-            v-if="!$store.getters.setup($route.params.id).imageURL"
+            v-if="!$store.getters.setup($route.params.setupId).imageURL"
            >
             add image
           </div>
@@ -25,7 +25,7 @@
             <img class="main-img"
                 draggable="false"
                 @click="addItem"
-                :src="$store.getters.setup($route.params.id).imageURL"
+                :src="$store.getters.setup($route.params.setupId).imageURL"
             />
 
       </div>
@@ -153,7 +153,7 @@
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
 
-    <!-- <div>{{$store.getters.setup($route.params.id).items}}</div> -->
+    <!-- <div>{{$store.getters.setup($route.params.setupId).items}}</div> -->
 
 </template>
 
@@ -176,7 +176,7 @@ export default {
       displayedItemIndex: null,
       hoveredItem: null,
       detailBoxDimensions: {width: null, height: null},
-      items: copy(this.$store.getters.setup(this.$route.params.id).items),
+      items: copy(this.$store.getters.setup(this.$route.params.setupId).items),
     }
   },
   components: { itemList, VueResizer },
@@ -185,7 +185,7 @@ export default {
       const rect = e.target.getBoundingClientRect()
       const x = e.clientX - rect.left
       const y = e.clientY - rect.top
-      const setupId = this.$route.params.id
+      const setupId = this.$route.params.setupId
       this.displayedItemIndex = this.currentSetup.items.length
       const item = {
         category: '',
@@ -201,7 +201,7 @@ export default {
     removeItem(index) {
       this.displayedItemIndex = null
       this.items.splice(index, 1)
-      this.$store.dispatch('removeItem', { setupId: this.$route.params.id, index })
+      this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
 
     },
     onMouseMove(event) {
@@ -239,10 +239,10 @@ export default {
   },
   computed: {
     setupId() {
-      return this.$route.params.id
+      return this.$route.params.setupId
     },
     currentSetup() {
-      return this.$store.getters.setup(this.$route.params.id)
+      return this.$store.getters.setup(this.$route.params.setupId)
     },
     currentlySelectedItem() {
       return this.currentSetup.items[this.displayedItemIndex]
