@@ -23,9 +23,9 @@ const routes = [
     component: () => import('../views/Edit.vue')
   },
   {
-    path: '/preview/:user/:setupId',
-    name: 'Preview',
-    component: () => import('../views/Preview.vue')
+    path: '/view/:user/:setupId',
+    name: 'View',
+    component: () => import('../views/View.vue')
   },
 ]
 

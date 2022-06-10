@@ -11,6 +11,9 @@ function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
 
+// TODO: HOW TO MAKE MULTIPLE STORES??? MODULES??
+
+
 // Create a new store instance.
 const store = createStore({
   state () {

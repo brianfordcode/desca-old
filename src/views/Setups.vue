@@ -75,12 +75,12 @@
                         </div>
                     </router-link>
                     <!-- PREVIEW -->
-                    <router-link :to="`/preview/${$store.state.user.uid}/${setup.id}`">
+                    <router-link :to="`/view/${$store.state.user.uid}/${setup.id}`">
                         <div
-                            class="btn preview-btn"
+                            class="btn view-btn"
                             v-if="!modalOpen"
                         >
-                        Preview
+                        View
                         </div>
                     </router-link>
                     <!-- SHARE BTN -->
@@ -131,7 +131,7 @@ export default {
 
     methods: {
         makeNewSetup() {
-            const id = 'setup' + '-' + (this.$store.state.setups.length + 1);
+            const id = 'setup' + '-' + Date.now();
             const setup = {    
                 user: this.$store.state.user.uid,
                 timeCreated: Date.now(),
@@ -254,7 +254,7 @@ export default {
     background-color: rgb(192, 7, 7);
 }
 
-.preview-btn {
+.view-btn {
     top: 0;
     right: 0;
     background-color: purple;

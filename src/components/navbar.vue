@@ -13,13 +13,13 @@
             <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT -->
             <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups' && this.$route.name != 'Home'">
 
-                <!-- PREVIEW -->
+                <!-- VIEW -->
                 <router-link
                     style="background: #57B0FC;"
-                    :to="`/preview/${$store.state.user.uid}/${$route.params.setupId}`"
-                    v-if="this.$route.name != 'Preview'"
+                    :to="`/view/${$store.state.user.uid}/${$route.params.setupId}`"
+                    v-if="this.$route.name != 'View'"
                 >
-                Preview
+                View
                 </router-link>
                 <router-link
                     style="background-color: rgb(245, 101, 35);"
