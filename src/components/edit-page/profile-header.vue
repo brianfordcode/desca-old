@@ -113,7 +113,7 @@
     <!-- EDIT DETAILS BUTTON -->
     <button
         class="edit-btn btn"
-        @click="editOpen = !editOpen, enterBtn()"
+        @click="enterBtn()"
         ref="textToggle"
         v-if="$route.name != 'View'"
     >
@@ -227,8 +227,10 @@ function copy(value) {
         console.log('profile picture upload')
       },
       enterBtn() {
+        this.editOpen = !this.editOpen
         if (!this.editOpen) { this.$store.dispatch('changeDetails', this.profileDetails) }
-
+        console.log(this.$store.state.user.uid)
+        console.log(this.$store.state.profileDetails.user)
       }
     }
   }

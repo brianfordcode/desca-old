@@ -10,19 +10,23 @@
         />
         <!-- links -->
         <div style="display: flex; height: 30px;">
+            <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT -->
             <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
-                <div
-                    style="background: #9C43ED; cursor: pointer"
-                    @click="share"
-                >
-                Share
-                </div>
+
+                <!-- PREVIEW -->
                 <router-link
                     style="background: #57B0FC;"
-                    to="/setups"
+                    :to="`/preview/${$route.params.id}`"
                     v-if="this.$route.name != 'Preview'"
                 >
                 Preview
+                </router-link>
+                <router-link
+                    style="background-color: rgb(245, 101, 35);"
+                    :to="`/edit/${$route.params.id}`"
+                    v-if="this.$route.name != 'Edit'"
+                >
+                Edit
                 </router-link>
                 <!-- <router-link
                     style="background: #895E6A;"
@@ -30,6 +34,12 @@
                 >
                 My Setups
                 </router-link> -->
+                <div
+                    style="background: #9C43ED; cursor: pointer"
+                    @click="share"
+                >
+                Share
+                </div>
             </div>
             <!-- PROFILE ICON -->
             <div class="prof-img-container">
@@ -60,7 +70,7 @@
         >
             <!-- btn to setups -->
             <router-link
-                to="/setups"
+                :to="`/setups/${this.$store.state.user.uid}`"
                 style="background: #895E6A;"
             >
             My Setups

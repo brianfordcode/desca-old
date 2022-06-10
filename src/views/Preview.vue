@@ -1,5 +1,7 @@
 <template>
 
+<profileHeader/>
+
   <div
     class="main-container"
     v-if="$store.state.viewingSetupLoaded"
@@ -114,11 +116,14 @@
 </template>
 
 <script>
+import profileHeader from '../components/edit-page/profile-header.vue'
+
 export default {
   created() {
     const routerAddress = this.$route.params.id
     this.$store.dispatch('fetchViewingSetup', routerAddress)
   },
+  components: {profileHeader},
   data() {
     return {}
   },

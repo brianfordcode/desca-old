@@ -89,7 +89,7 @@ const store = createStore({
         context.commit('setLoaded')
 
         // SETUP PAGE OPENS AFTER LOG IN
-        router.push('/setups')
+        router.push(`/setups/${context.state.user.uid}`)
       })
     },
     async fetchUserDetails(context, user) {
