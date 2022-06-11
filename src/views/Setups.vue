@@ -11,7 +11,7 @@
         <div 
             class="setup-links"
             v-for="(setup, index) in $store.state.setups" 
-            :key="setup.id"
+            :key="setup.setupId"
         >
             <!-- SETUP CONTAINER -->
             <div
@@ -42,7 +42,7 @@
                             <div class="options">
                                 <p
                                     class="yes-btn"
-                                    @click="deleteSetup(setup.id)"
+                                    @click="deleteSetup(setup.setupId)"
                                 >
                                 Yes
                                 </p>
@@ -66,7 +66,7 @@
                     </div>
 
                     <!-- EDIT BTN -->
-                    <router-link :to="`/edit/${$store.state.user.uid}/${setup.id}`">
+                    <router-link :to="`/edit/${$store.state.user.uid}/${setup.setupId}`">
                         <div
                             class="btn edit-btn"
                             v-if="!modalOpen"
@@ -74,8 +74,8 @@
                         Edit
                         </div>
                     </router-link>
-                    <!-- PREVIEW -->
-                    <router-link :to="`/view/${$store.state.user.uid}/${setup.id}`">
+                    <!-- VIEW -->
+                    <router-link :to="`/view/${$store.state.user.uid}/${setup.setupId}`">
                         <div
                             class="btn view-btn"
                             v-if="!modalOpen"
@@ -131,12 +131,12 @@ export default {
 
     methods: {
         makeNewSetup() {
-            const id = 'setup' + '-' + Date.now();
+            const setupId = 'setup' + '-' + Date.now();
             const setup = {    
                 user: this.$store.state.user.uid,
                 timeCreated: Date.now(),
-                id,
-                imageURL: `https://picsum.photos/seed/${id}/333/255`,
+                setupId,
+                imageURL: `https://picsum.photos/seed/${setupId}/333/255`,
                 items: []
             }
             this.$store.dispatch('addSetup', setup)
@@ -144,7 +144,7 @@ export default {
             this.modalOpen = false;
 
             // open new setup
-            this.$router.push(`/edit/${this.$store.state.user.uid}/${id}`)
+            this.$router.push(`/edit/${this.$store.state.user.uid}/${setupId}`)
         },
         showButtons(index) {
             this.selectedSetup = index

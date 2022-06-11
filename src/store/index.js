@@ -28,8 +28,8 @@ const store = createStore({
     }
   },
   getters: {
-    setup: state => id => {
-      return state.setups.find(s => s.id === id)
+    setup: state => setupId => {
+      return state.setups.find(s => s.setupId === setupId)
     },
   },
   mutations: {
@@ -48,25 +48,25 @@ const store = createStore({
       state.setups.push(setup)
     },
     deleteSetup(state, setupId) {
-      state.setups = state.setups.filter(setup => setup.id !== setupId)
+      state.setups = state.setups.filter(setup => setup.setupId !== setupId)
     },
     setItems(state, { items, setupId }) {
-      state.setups.find(s => s.id === setupId).items = items
+      state.setups.find(s => s.setupId === setupId).items = items
     },
     initializeSetups(state, setups) {
       state.setups = setups
     },
     moveItem(state, { setupId, itemIndex, point }) {
-      const setup = state.setups.find(s => s.id === setupId)
+      const setup = state.setups.find(s => s.setupId === setupId)
       const item = setup.items[itemIndex]
       item.x  = point.x
       item.y = point.y
     },
     removeItem(state, {item, setupId, index}) {
-      state.setups.find(s => s.id === setupId).items.splice(index, 1)
+      state.setups.find(s => s.setupId === setupId).items.splice(index, 1)
     },
     saveItem(state, {index, setupId, item}) {
-      state.setups.find(s => s.id === setupId).items[index] = copy(item)
+      state.setups.find(s => s.setupId === setupId).items[index] = copy(item)
     },
 
     logInProfDetails(state, dbProfileDetails) {
@@ -138,7 +138,7 @@ const store = createStore({
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       // PUSH TO FIREBASE
-      setDoc(doc(db, "setups", setup.id), setup);
+      setDoc(doc(db, "setups", setup.setupId), setup);
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
@@ -172,7 +172,7 @@ const store = createStore({
       setDoc(doc(db, "profileDetails", this.state.user.uid), profileDetails);
     },
     async fetchViewingSetup(context, routerAddress) {
-      const q = query(collection(db, "setups"), where("id", "==", routerAddress));
+      const q = query(collection(db, "setups"), where("setupId", "==", routerAddress));
       const querySnapshot = await getDocs(q);
       const viewingSetup = querySnapshot.docs[0]
       context.commit('fetchViewingSetup', viewingSetup.data())
