@@ -1,15 +1,16 @@
 <template>
 
-<profileHeader/>
-
   <div
     class="main-container"
     v-if="$store.state.viewingSetupLoaded"
   >
 
+    <profileHeader style="z-index: 10000; margin: 35px 0 10px 0;"/>
+
     <!-- MAIN IMAGE -->
     <div class="image-container">
       <!-- ITEM LOCATIONS -->
+      <!-- TODO: MATCH ITEM LOCATIONS UP BETWEEN EDIT/VIEW PAGES -->
       <div
         v-for="item in $store.state.viewingSetup.items"
         :key="item"

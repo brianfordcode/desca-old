@@ -13,7 +13,6 @@ function copy(value) {
 
 // TODO: HOW TO MAKE MULTIPLE STORES??? MODULES??
 
-
 // Create a new store instance.
 const store = createStore({
   state () {
@@ -145,7 +144,7 @@ const store = createStore({
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
-      // UPDATE (DELETE)FROM FIREBASE
+      // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER
       deleteDoc(doc(db, "setups", setupId))
     },
     addItem(context, { item, setupId }) {

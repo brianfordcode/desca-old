@@ -1,6 +1,6 @@
 <template>
   <div class="container" v-if="$store.state.user">
-    
+    <!-- TODO: SEPARATE PROFILE HEADER WHEN LOGGED IN OR SAME ONE JUST BASED ON ROUTER :USER??? -->
     <!-- PROF PIC -->
       <div class="prof-pic">
         <img draggable="false" 

@@ -188,6 +188,7 @@ export default {
   components: { itemList, VueResizer },
   methods: {
     addMainImg() {
+      // TODO: WHY DO I NEED TO DOUBLE CLICK TO GET IT TO UPLOAD WORK?
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
