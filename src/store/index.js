@@ -50,6 +50,10 @@ const store = createStore({
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.setupId !== setupId)
     },
+    addMainImg(state, currentSetup, picture) {
+      
+      console.log(picture)
+    },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
     },
@@ -68,7 +72,6 @@ const store = createStore({
     saveItem(state, {index, setupId, item}) {
       state.setups.find(s => s.setupId === setupId).items[index] = copy(item)
     },
-
     logInProfDetails(state, dbProfileDetails) {
       state.profileDetails = dbProfileDetails
 
@@ -160,7 +163,14 @@ const store = createStore({
       context.commit('removeItem', {item, setupId, index })
       const items = context.getters.setup(setupId).items
       updateDoc(doc(db, "setups", setupId), {items});
-    
+    },
+    addMainImg(context, {currentSetupRoute, user}) {
+      console.log('add/change main image')
+      // TODO: UPLOAD PICTURE FUNCTIONALITY
+      const currentSetup = context.getters.setup(currentSetupRoute)
+      const picture = `https://picsum.photos/seed/${currentSetup.setupId}/333/255`
+      updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
+      context.dispatch('fetchUserSetups', user)
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})

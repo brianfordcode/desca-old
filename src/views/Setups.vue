@@ -25,7 +25,9 @@
                     class="setup-image"
                     :src="setup.imageURL"
                     alt="main-img"
+                    v-if="setup.imageURL"
                 />
+                <p v-else style=" opacity: 0.5; border: 1px solid; height: 248px; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
                 <!-- BUTTONS -->
                 <div
                     class="buttons-container"
@@ -132,11 +134,12 @@ export default {
     methods: {
         makeNewSetup() {
             const setupId = 'setup' + '-' + Date.now();
+            
             const setup = {    
                 user: this.$store.state.user.uid,
                 timeCreated: Date.now(),
                 setupId,
-                imageURL: `https://picsum.photos/seed/${setupId}/333/255`,
+                imageURL: '',
                 items: []
             }
             this.$store.dispatch('addSetup', setup)

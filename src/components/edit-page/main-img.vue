@@ -12,22 +12,28 @@
         ref = "imagesContainer"
         style = "height: 600px; width: 800px;"
       >
-      
           <!-- IMAGE PLACEHOLDER -->
-          <div
-            @click="addMainImg"
-            class="main-img-placeholder"
-            v-if="!$store.getters.setup($route.params.setupId).imageURL"
-           >
-            add image
-          </div>
-            <div class="add-image-btn">Change Image</div>
+            <div
+              class="add-image-btn"
+              v-if="$store.getters.setup($route.params.setupId).imageURL"
+              @click="addMainImg"
+            >
+            Change Image
+            </div>
             <img class="main-img"
                 draggable="false"
                 @click="addItem"
                 :src="$store.getters.setup($route.params.setupId).imageURL"
+                v-if="$store.getters.setup($route.params.setupId).imageURL"
             />
-
+            <!-- TODO: SHOULD I USE LOCAL STORE IMAGE OR FROM FIREBASE? -->
+            <div
+              @click="addMainImg"
+              class="main-img-placeholder"
+              v-if="!$store.getters.setup($route.params.setupId).imageURL"
+            >
+              add image
+            </div>
       </div>
 
     <!--  TARGET  -->
@@ -181,6 +187,12 @@ export default {
   },
   components: { itemList, VueResizer },
   methods: {
+    addMainImg() {
+      const currentSetupRoute = this.$route.params.setupId
+      const user = this.$store.state.user
+
+      this.$store.dispatch('addMainImg', {currentSetupRoute, user})
+    },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
       const x = e.clientX - rect.left
@@ -266,9 +278,9 @@ export default {
   }
 
   .main-img-placeholder {
-      border: 2px dashed white;
-      height: 400px;
-      color: white;
+      border: 2px dashed;
+      height: 600px;
+      width: 800px;
       display: flex;
       justify-content: space-around;
       align-items: center;
