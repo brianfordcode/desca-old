@@ -4,13 +4,16 @@
 
   <router-view/>
 
+  <foot/>
+
 </template>
 
 <script>
 import navBar from './components/navbar.vue'
+import foot from './components/footer.vue'
 
 export default {
-  components: { navBar}
+  components: { navBar, foot}
 }
 </script>
 

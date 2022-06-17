@@ -2,9 +2,9 @@
 
 <div class="loginhome-container" v-if="$store.state.loaded">
 
-    <profileHeader style="z-index: 10000; margin: 35px auto 10px auto;"/>
+    <profileHeader style="z-index: 10000;"/>
 
-    <h2 style="color: black; padding: 10px">My Setups:</h2>
+    <h2 style="color: black; margin: 50px 0 20px 0;">My Setups:</h2>
 
     <div class="setup-links-container">
         <!-- LIST CONTAINER -->

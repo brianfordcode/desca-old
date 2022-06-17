@@ -110,6 +110,7 @@ export default {
 #nav {
     background: rgb(13, 13, 118);
     height: 50px;
+    box-shadow: 0px 0px 33px -20px #000000;
 }
 
 .elements-container {

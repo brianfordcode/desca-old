@@ -2,9 +2,9 @@
 
     <div class="edit-container">
 
-    <profileHeader style="z-index: 10000; margin: 35px 0 10px 0;"/>
+      <profileHeader style="z-index: 10000; margin: 35px 0 10px 0;"/>
 
-    <mainImg/>
+      <mainImg/>
 
     </div>
 

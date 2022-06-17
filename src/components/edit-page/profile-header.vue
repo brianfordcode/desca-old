@@ -20,13 +20,13 @@
           <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
           <!-- live status -->
-          <a
+          <!-- <a
             :href="profileDetails.socialLinks.twitchLink"
             v-if="profileDetails.liveStatus"
             target="_blank"
           >
           !LIVE
-          </a>
+          </a> -->
 
         </div>
 
@@ -179,7 +179,7 @@
         </div>
         
         <!-- ALLOW LIVE STATUS -->
-        <div class="allow-comments">
+        <!-- <div class="allow-comments">
           <input type="checkbox"
                  v-model="profileDetails.liveStatus"
           >
@@ -187,7 +187,7 @@
             <p>Live Status</p>
             <p style="font-size:10px;">(Let people know you're live!)</p>
           </div>
-        </div>
+        </div> -->
 
         <!-- ALLOW COMMENTS -->
         <div class="allow-comments">
@@ -240,13 +240,13 @@ function copy(value) {
   .container {
     width: 800px;
     height: 80px;
-    margin: 0 auto;
-    background-color: rgba(109, 109, 109, 0.5);
+    /* margin: 0 auto; */
+    /* background-color: rgba(109, 109, 109, 0.5); */
     position: relative;
     display: flex;
     align-items: center;
-    border-radius: 7px;
-    box-shadow: 0px 0px 33px -20px #000000;
+    /* border-radius: 7px; */
+    /* box-shadow: 0px 0px 33px -20px #000000; */
   }
   
   .prof-pic {

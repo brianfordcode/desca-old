@@ -173,7 +173,8 @@ export default {
 .main-container {
   position: relative;
   width: 800px;
-  margin: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* MAIN IMAGE */
