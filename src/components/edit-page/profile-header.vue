@@ -15,7 +15,7 @@
           class="name-live"
           style="display: flex; align-items: center"
         >
-        
+         
           <!-- NAME -->
           <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 

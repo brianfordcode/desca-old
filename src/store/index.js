@@ -73,7 +73,6 @@ const store = createStore({
     },
     logInProfDetails(state, dbProfileDetails) {
       state.profileDetails = dbProfileDetails
-
     },
     // CHANGE DETAILS
     changeDetails(state, profileDetails) {
