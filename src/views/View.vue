@@ -9,15 +9,42 @@
 
     <!-- MAIN IMAGE -->
     <div class="image-container">
+
       <!-- ITEM LOCATIONS -->
       <!-- TODO: MATCH ITEM LOCATIONS UP BETWEEN EDIT/VIEW PAGES -->
+
+      <!-- DETAILS BOX -->
+      <div
+        class="item-wrapper hovered-item"
+        v-if="showItem"
+        :style="{
+          top: (hoveredItem.y - 30) + 'px',
+          left: (hoveredItem.x - 125) + 'px'
+        }"
+        @mouseleave="handleMouseLeave"
+      >   
+          <!-- ICON -->
+          <img class="icon" 
+              :src="getIconPic(hoveredItem)"
+              :alt="hoveredItem.category"
+              v-if="hoveredItem.category"
+          />
+          <!-- NAME -->
+          <p style="padding: 10px 5px 5px 5px; text-align: center;">
+          {{hoveredItem.name}}
+          </p>
+      </div>
+
       <div
         v-for="item in $store.state.viewingSetup.items"
         :key="item"
       >
         <div
           class="item-target"
-          :style="`top: ${item.y - 15}px; left: ${item.x - 25}px`">
+          :style="`top: ${item.y - 15}px; left: ${item.x - 25}px;`"
+          @mouseover="handleMouseOver(item)"
+          >
+          <!-- TODO: WHY X AND Y ARE NOT MATCHING UP WHEN PROFILE HEADER IS THERE -->
         </div>
       </div>
       
@@ -27,6 +54,7 @@
         :src="$store.state.viewingSetup.imageURL"
         alt="main-image"
       />
+
     </div>
 
     <div class="item-container">
@@ -37,6 +65,8 @@
               style=" font-size: 14px; margin-right: 20px;"
               v-if="item.category === 'computer'"
               class="comp-details"
+              @mouseover="handleMouseOver(item)"
+              @mouseleave="handleMouseLeave"
           >
               <!-- ICON -->
               <div style="background: rgb(13, 13, 118); display: flex; justify-content: space-around; align-items: center; width: 250px; height: 75px;">
@@ -88,11 +118,13 @@
       <!-- OTHER ITEMS -->
       <div class="other-items">
         <div
-          v-for="item in this.$store.state.viewingSetup.items"
+          v-for="item in $store.state.viewingSetup.items"
           :key="item"
         >
           <div class="item-wrapper"
               v-if="item.category != 'computer'"
+              @mouseover="handleMouseOver(item)"
+              @mouseleave="handleMouseLeave"
           >   
               <!-- ICON -->
               <img class="icon" 
@@ -126,7 +158,10 @@ export default {
   },
   components: {profileHeader},
   data() {
-    return {}
+    return {
+      showItem: false,
+      hoveredItem: {},
+    }
   },
   methods: {
     getIconPic(e) {
@@ -164,6 +199,14 @@ export default {
           return require('@/assets/icons/webcam.png')
       }
     },
+    handleMouseOver(item, index) {
+      this.showItem = true;
+      this.hoveredItem = item;
+    },
+    handleMouseLeave() {
+      this.showItem = false;
+      this.hoveredItem = {};
+    }
   }
 }
 </script>
@@ -259,6 +302,11 @@ export default {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.hovered-item {
+  position: absolute;
+  z-index: 100000
 }
 
 </style>

@@ -15,7 +15,7 @@
           class="name-live"
           style="display: flex; align-items: center"
         >
-
+        
           <!-- NAME -->
           <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
@@ -107,19 +107,16 @@
           </a>
 
         </div>
-
-      </div>
-
-    <!-- EDIT DETAILS BUTTON -->
-    <button
-        class="edit-btn btn"
-        @click="enterBtn()"
-        ref="textToggle"
-        v-if="$route.name != 'View'"
-    >
-    {{!this.editOpen ? "Change Details" : 'SUBMIT'}}
-    </button>
-
+            
+        <!-- EDIT DETAILS BUTTON -->
+        <button
+            class="edit-btn btn"
+            @click="enterBtn()"
+            ref="textToggle"
+            v-if="$route.name != 'View'"
+        >
+        {{!this.editOpen ? "Change Details" : 'SUBMIT'}}
+        </button>
     <!-- details box -->
     <div class="details-box"
          v-if="editOpen"
@@ -202,6 +199,14 @@
     </div>
 
 
+
+      </div>
+
+
+
+
+
+
 </div>
 
 </template>
@@ -270,12 +275,9 @@ function copy(value) {
     flex-direction: column;
   }
   .edit-btn {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    /* position: absolute; */
     width: 110px;
     height: 25px;
-    /* border-bottom-right-radius: 7px; */
   }
   .btn {
     background: green;
@@ -287,8 +289,7 @@ function copy(value) {
   }
   .details-box {
     position: absolute;
-    right: 0;
-    top: 0;
+    top: 19px;
     transform: translateY(80px);
     background-color: rgba(0,0,0,0.75);
     z-index: 100000;
@@ -296,6 +297,7 @@ function copy(value) {
   }
   .enter-btn {
     position: absolute;
+    /* TODO: organize button layout better */
     bottom: 0;
     right: 0;
   }

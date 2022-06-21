@@ -61,7 +61,7 @@ export default {
 <style scoped>
 
 .container {
-    height: 100%;
+    height: min-content;
     padding: 20px;
     /* width: 100vw; */
     background: rgb(13, 13, 118);
@@ -80,7 +80,7 @@ export default {
 .page-links-wrapper {
     display: grid;
     /* border: 1px solid; */
-    width: 15%;
+    width: 150px;
     grid-template-columns: 1fr 1fr;
 }
 
