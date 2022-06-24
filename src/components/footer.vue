@@ -1,5 +1,5 @@
 <template>
-
+<!-- TODO: KEEP FOOTER AT BOTTOM ALWAYS -->
     <div class="container">
 
         <div class="wrapper">

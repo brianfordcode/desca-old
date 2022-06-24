@@ -1,6 +1,7 @@
 <template>
 
 <!-- MAIN IMAGE -->
+<!-- TODO: KEEP MAIN IMAGE THE SAME SIZE BETWEEN EDIT/VIEW -->
   <div
     class="main-container"
     @mousemove = "onMouseMove"
@@ -189,6 +190,7 @@ export default {
   methods: {
     addMainImg() {
       // TODO: WHY DO I NEED TO DOUBLE CLICK TO GET IT TO UPLOAD WORK?
+      // TODO: PICTURE UPLOAD
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 

@@ -3,6 +3,7 @@
   <div class="main-container">
     <div class="left-side-container">
       <div class="text-btn-wrapper">
+        <!-- TEXT -->
         <p class="text">
           The #1 destination<br>
           to share YOUR<br>
@@ -11,6 +12,7 @@
           <br>
           working setup.
         </p>
+        <!-- BUTTON -->
         <div
           class="get-started-btn"
           @click="getStartedBtn"
@@ -20,7 +22,6 @@
       </div>
     </div>
 
-   
     <div class="picture-container">
       <!-- FEATURED PICTURE BUTTONS -->
       <div class="buttons-wrapper">
@@ -37,12 +38,11 @@
       <img
         draggable="false"
         :src="featuredSetups[picIndex]"
-        alt="picture"
+        :alt="featuredSetups[picIndex]"
         style="width: 100%;"
       >
 
     </div>
-
 
   </div>
 
@@ -50,12 +50,10 @@
 
 <script>
 
-
 export default {
   name: 'Home',
   components: {
   },
-
   mounted: function () {
     window.setInterval(() => {
       this.picIndex > this.featuredSetups.length - 2 ? this.picIndex = 0 : this.picIndex++
@@ -74,7 +72,7 @@ export default {
   },
   methods: {
     getStartedBtn() {
-      this.$store.state.user ? this.$router.push(`/setups/${this.$store.state.user.uid}`) : this.$store.dispatch('logIn')
+      this.$store.state.user ? this.$router.push(`/setups/${this.$store.state.user.uid}`) : this.$store.dispatch('logIn');
     }
   },
 

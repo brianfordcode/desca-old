@@ -20,16 +20,19 @@ const store = createStore({
       loaded: false,
       user: null,
       loggedIn: false,
-      profileDetails: null,
+      profileDetails: {},
       setups: [],
       viewingSetup: [],
-      viewingSetupLoaded: false
+      viewingSetupLoaded: false,
     }
   },
   getters: {
     setup: state => setupId => {
       return state.setups.find(s => s.setupId === setupId)
     },
+    getProfileDetails: state => user => {
+      return state.profileDetails[user]
+    }
   },
   mutations: {
     setLoaded(state) {
@@ -71,12 +74,8 @@ const store = createStore({
     saveItem(state, {index, setupId, item}) {
       state.setups.find(s => s.setupId === setupId).items[index] = copy(item)
     },
-    logInProfDetails(state, dbProfileDetails) {
-      state.profileDetails = dbProfileDetails
-    },
-    // CHANGE DETAILS
-    changeDetails(state, profileDetails) {
-      state.profileDetails = profileDetails
+    setProfDetails(state, { details, user }) {
+      state.profileDetails[user] = details
     },
     fetchViewingSetup(state, viewingSetup) {
       state.viewingSetup = viewingSetup
@@ -87,7 +86,7 @@ const store = createStore({
     logIn(context) {
       login(async user => {
         context.commit('setLoggedInUser', user);
-        await context.dispatch('fetchUserDetails', user)
+        await context.dispatch('fetchUserDetails', user.uid)
         await context.dispatch('fetchUserSetups', user)
         
         context.commit('setLoaded')
@@ -98,13 +97,13 @@ const store = createStore({
     },
     async fetchUserDetails(context, user) {
 
-      const q = query(collection(db, "profileDetails"), where("user", "==", user.uid));
+      const q = query(collection(db, "profileDetails"), where("user", "==", user));
       const querySnapshot = await getDocs(q);
 
-      const profileDetailsDoc =  querySnapshot.docs[0]
+      const profileDetailsDoc = querySnapshot.docs[0]
 
       if (profileDetailsDoc) {
-          context.commit('logInProfDetails', profileDetailsDoc.data())
+          context.commit('setProfDetails', { details: profileDetailsDoc.data(), user })
       } else {
         const {uid, displayName, photoURL} = context.state.user
         const profileDetails = {
@@ -121,7 +120,7 @@ const store = createStore({
           allowComments: false,
           liveStatus: false,
         }
-        context.dispatch('changeDetails', profileDetails)
+        context.dispatch('changeDetails', { details: profileDetails, user } )
       }
     },
     async fetchUserSetups(context, user) {
@@ -175,9 +174,13 @@ const store = createStore({
       updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
     },
     // PROFILE HEADER DETAILS
-    changeDetails(context, profileDetails) {
-      context.commit('changeDetails', profileDetails)
-      setDoc(doc(db, "profileDetails", this.state.user.uid), profileDetails);
+    changeDetails(context, { details, user }) {
+      console.log(details, user)
+
+      context.commit('setProfDetails', { details, user })
+      setDoc(doc(db, "profileDetails", user), details);
+
+      
     },
     async fetchViewingSetup(context, routerAddress) {
       const q = query(collection(db, "setups"), where("setupId", "==", routerAddress));
@@ -185,7 +188,7 @@ const store = createStore({
       const viewingSetup = querySnapshot.docs[0]
       context.commit('fetchViewingSetup', viewingSetup.data())
       context.commit('setViewingSetupLoaded')
-    }
+    },
   }
 })
 

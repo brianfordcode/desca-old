@@ -61,6 +61,8 @@
             </div>
             
         </div>
+        <!-- MENU WHEN PROF PIC CLICKED -->
+        <!-- TODO: CLOSE MENU WHEN ANYWHERE ELSE IS CLICKED -->
         <!-- LOG OUT -->
         <div
             v-if="showMenuBtn"
@@ -110,7 +112,8 @@ export default {
 #nav {
     background: rgb(13, 13, 118);
     height: 50px;
-    box-shadow: 0px 0px 33px -20px #000000;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.10);
+    z-index: 100000000;
 }
 
 .elements-container {

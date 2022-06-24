@@ -1,10 +1,10 @@
 <template>
-  <div class="container" v-if="$store.state.user">
+  <div class="container" v-if="profileDetails">
     <!-- TODO: SEPARATE PROFILE HEADER WHEN LOGGED IN OR SAME ONE JUST BASED ON ROUTER :USER??? -->
     <!-- PROF PIC -->
       <div class="prof-pic">
         <img draggable="false" 
-             style="width: 120px; height: auto;"
+             style="width: 100px; height: auto;"
              :src="profileDetails.profPic"
         />
       </div>
@@ -115,8 +115,10 @@
             ref="textToggle"
             v-if="$route.name != 'View'"
         >
-        {{!this.editOpen ? "Change Details" : 'SUBMIT'}}
+        {{!this.editOpen ? "Change Profile Details" : 'SUBMIT'}}
         </button>
+
+
     <!-- details box -->
     <div class="details-box"
          v-if="editOpen"
@@ -126,7 +128,7 @@
         <!-- PROFILE NAME -->
         <div class="name-input input">
           <p style="padding-right: 5px">Name</p>
-          <input type="text" v-model="profileDetails.profName"/>
+          <input type="text" v-model="editProfileDetails.profName"/>
         </div>
 
         <!-- UPLOAD PICTURE -->
@@ -135,42 +137,42 @@
         <!-- TWITCH -->
         <div class="twitch input">
           <img src="/social-links/twitch-logo.png" alt="twitch"/>
-          <input v-model="profileDetails.socialLinks.twitchLink"
+          <input v-model="editProfileDetails.socialLinks.twitchLink"
                   type="text"
           >
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
           <img src="/social-links/twitter-logo.png" alt="twitter"/>
-          <input v-model="profileDetails.socialLinks.twitterLink"
+          <input v-model="editProfileDetails.socialLinks.twitterLink"
                   type="text"
           >
         </div>
         <!-- YOUTUBE -->
         <div class="youtube input">
           <img src="/social-links/youtube-logo.png" alt="youtube"/>
-          <input v-model="profileDetails.socialLinks.youtubeLink"
+          <input v-model="editProfileDetails.socialLinks.youtubeLink"
                   type="text"
           >
         </div>
         <!-- DISCORD -->
         <div class="discord input">
           <img src="/social-links/discord-logo.png" alt="discord"/>
-          <input v-model="profileDetails.socialLinks.discordLink"
+          <input v-model="editProfileDetails.socialLinks.discordLink"
                   type="text"
           >
         </div>
         <!-- FACEBOOK -->
         <div class="facebook input">
           <img src="/social-links/facebook-logo.png" alt="facebook"/>
-          <input v-model="profileDetails.socialLinks.facebookLink"
+          <input v-model="editProfileDetails.socialLinks.facebookLink"
                   type="text"
           >
         </div>
         <!-- WEBSITE -->
         <div class="website input">
           <img src="/social-links/website-logo.png" alt="website"/>
-          <input v-model="profileDetails.socialLinks.websiteLink"
+          <input v-model="editProfileDetails.socialLinks.websiteLink"
                   type="text"
           >
         </div>
@@ -178,7 +180,7 @@
         <!-- ALLOW LIVE STATUS -->
         <!-- <div class="allow-comments">
           <input type="checkbox"
-                 v-model="profileDetails.liveStatus"
+                 v-model="editProfileDetails.liveStatus"
           >
           <div style="display: flex; flex-direction: column; padding-left: 5px">
             <p>Live Status</p>
@@ -189,7 +191,7 @@
         <!-- ALLOW COMMENTS -->
         <div class="allow-comments">
           <input type="checkbox"
-                 v-model="profileDetails.allowComments"
+                 v-model="editProfileDetails.allowComments"
           >
           <p>Allow Comments</p>
         </div>
@@ -203,11 +205,9 @@
       </div>
 
 
-
-
-
-
 </div>
+
+<div v-else>loading</div>
 
 </template>
 
@@ -219,12 +219,14 @@ function copy(value) {
 
 
   export default {
+    created() {
+      const routerUser = this.$route.params.user;
+      this.$store.dispatch('fetchUserDetails', routerUser)
+    },
     data() {
       return {
         editOpen: false,
-
-        profileDetails: copy(this.$store.state.profileDetails),
-
+        editProfileDetails: null,
       }
     },
     methods: {
@@ -233,9 +235,17 @@ function copy(value) {
       },
       enterBtn() {
         this.editOpen = !this.editOpen
-        if (!this.editOpen) { this.$store.dispatch('changeDetails', this.profileDetails) }
-        console.log(this.$store.state.user.uid)
-        console.log(this.$store.state.profileDetails.user)
+
+        if (this.editOpen) {
+          this.editProfileDetails = copy(this.profileDetails)
+        } else {
+          this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
+        }
+      }
+    },
+    computed: {
+      profileDetails() {
+        return this.$store.getters.getProfileDetails(this.$route.params.user)
       }
     }
   }
@@ -256,12 +266,12 @@ function copy(value) {
   
   .prof-pic {
     position: absolute;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: auto;
     overflow: hidden;
     border-radius: 100px;
     background-color: grey;
-    transform: translate(10px);
+    transform: translate(30px);
     box-shadow: 0px 0px 33px -20px #000000;
   }
   .prof-name {
@@ -276,7 +286,7 @@ function copy(value) {
   }
   .edit-btn {
     /* position: absolute; */
-    width: 110px;
+    width: 150px;
     height: 25px;
   }
   .btn {
@@ -289,7 +299,7 @@ function copy(value) {
   }
   .details-box {
     position: absolute;
-    top: 19px;
+    top: 20px;
     transform: translateY(80px);
     background-color: rgba(0,0,0,0.75);
     z-index: 100000;
