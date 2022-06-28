@@ -1,34 +1,21 @@
 <template>
   <div class="container" v-if="profileDetails">
-    <!-- TODO: SEPARATE PROFILE HEADER WHEN LOGGED IN OR SAME ONE JUST BASED ON ROUTER :USER??? -->
     <!-- PROF PIC -->
       <div class="prof-pic">
+        <!-- WHY ERROR 403 SOMETIMES FOR MAIN IMG??? -->
         <img draggable="false" 
              style="width: 100px; height: auto;"
              :src="profileDetails.profPic"
+             v-if="profileDetails.profPic"
         />
       </div>
 
+      
+
       <div class="details">
 
-        <div
-          class="name-live"
-          style="display: flex; align-items: center"
-        >
-         
-          <!-- NAME -->
-          <h1 class="prof-name">{{ profileDetails.profName }}</h1>
-
-          <!-- live status -->
-          <!-- <a
-            :href="profileDetails.socialLinks.twitchLink"
-            v-if="profileDetails.liveStatus"
-            target="_blank"
-          >
-          !LIVE
-          </a> -->
-
-        </div>
+        <!-- NAME -->
+        <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
         <!-- LINKS -->
         <div class="links-wrapper">
@@ -119,91 +106,13 @@
         </button>
 
 
-    <!-- details box -->
-    <div class="details-box"
-         v-if="editOpen"
-    >
-      <div class="details-text">
-
-        <!-- PROFILE NAME -->
-        <div class="name-input input">
-          <p style="padding-right: 5px">Name</p>
-          <input type="text" v-model="editProfileDetails.profName"/>
-        </div>
-
-        <!-- UPLOAD PICTURE -->
-        <button class="upload-btn btn" @click="uploadProfImg">Upload Profile Pic</button>
-
-        <!-- TWITCH -->
-        <div class="twitch input">
-          <img src="/social-links/twitch-logo.png" alt="twitch"/>
-          <input v-model="editProfileDetails.socialLinks.twitchLink"
-                  type="text"
-          >
-        </div>
-        <!-- TWITTER -->
-        <div class="twitter input">
-          <img src="/social-links/twitter-logo.png" alt="twitter"/>
-          <input v-model="editProfileDetails.socialLinks.twitterLink"
-                  type="text"
-          >
-        </div>
-        <!-- YOUTUBE -->
-        <div class="youtube input">
-          <img src="/social-links/youtube-logo.png" alt="youtube"/>
-          <input v-model="editProfileDetails.socialLinks.youtubeLink"
-                  type="text"
-          >
-        </div>
-        <!-- DISCORD -->
-        <div class="discord input">
-          <img src="/social-links/discord-logo.png" alt="discord"/>
-          <input v-model="editProfileDetails.socialLinks.discordLink"
-                  type="text"
-          >
-        </div>
-        <!-- FACEBOOK -->
-        <div class="facebook input">
-          <img src="/social-links/facebook-logo.png" alt="facebook"/>
-          <input v-model="editProfileDetails.socialLinks.facebookLink"
-                  type="text"
-          >
-        </div>
-        <!-- WEBSITE -->
-        <div class="website input">
-          <img src="/social-links/website-logo.png" alt="website"/>
-          <input v-model="editProfileDetails.socialLinks.websiteLink"
-                  type="text"
-          >
-        </div>
-        
-        <!-- ALLOW LIVE STATUS -->
-        <!-- <div class="allow-comments">
-          <input type="checkbox"
-                 v-model="editProfileDetails.liveStatus"
-          >
-          <div style="display: flex; flex-direction: column; padding-left: 5px">
-            <p>Live Status</p>
-            <p style="font-size:10px;">(Let people know you're live!)</p>
-          </div>
-        </div> -->
-
-        <!-- ALLOW COMMENTS -->
-        <div class="allow-comments">
-          <input type="checkbox"
-                 v-model="editProfileDetails.allowComments"
-          >
-          <p>Allow Comments</p>
-        </div>
+        <!-- PROFILE CHANGE DETAILS BOX -->
+        <detailsChangeBox
+          :editProfileDetails="editProfileDetails"
+          v-if="editOpen"
+        />
 
       </div>
-
-    </div>
-
-
-
-      </div>
-
 
 </div>
 
@@ -212,6 +121,7 @@
 </template>
 
 <script>
+import detailsChangeBox from './details-change-box.vue'
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -222,6 +132,9 @@ function copy(value) {
     created() {
       const routerUser = this.$route.params.user;
       this.$store.dispatch('fetchUserDetails', routerUser)
+    },
+    components: {
+      detailsChangeBox
     },
     data() {
       return {
@@ -297,36 +210,11 @@ function copy(value) {
     border: none;
     
   }
-  .details-box {
-    position: absolute;
-    top: 20px;
-    transform: translateY(80px);
-    background-color: rgba(0,0,0,0.75);
-    z-index: 100000;
-    color: white;
-  }
   .enter-btn {
     position: absolute;
     /* TODO: organize button layout better */
     bottom: 0;
     right: 0;
-  }
-  .details-text {
-    padding: 30px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .details-text > * {
-    display: flex;
-    align-items: center;
-  }
-  .details-text > *:not(:last-child) {
-    margin-bottom: 12px;
-  }
-  .input img {
-    height: 25px;
-    padding-right: 7px
   }
   .sm-logo {
     height: 25px;
@@ -334,20 +222,5 @@ function copy(value) {
   .links-wrapper a:not(:last-child) {
     margin-right: 5px;
   }
-  .allow-comments > p {
-    padding-left: 5px;
-  }
-  input {
-    outline: none;
-    border: none;
-    padding: 5px;
-  }
-  .name-live a {
-    text-decoration: none;
-    color: rgb(209, 0, 0);
-    border: 1px solid rgb(209, 0, 0);
-    height: min-content;
-    padding: 2px 2px 0 2px;
-    margin-left:20px;
-  }
+
 </style>

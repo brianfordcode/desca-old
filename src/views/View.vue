@@ -149,11 +149,11 @@
 </template>
 
 <script>
-import profileHeader from '../components/edit-page/profile-header.vue'
+import profileHeader from '../components/edit-page/profile-header/profile-header.vue'
 
 export default {
   created() {
-    const routerAddress = this.$route.params.setupId;
+    const routerAddress = this.$route.params.setupId
     this.$store.dispatch('fetchViewingSetup', routerAddress)
   },
   components: {profileHeader},

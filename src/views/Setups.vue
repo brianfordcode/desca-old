@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import profileHeader from '../components/edit-page/profile-header.vue'
+import profileHeader from '../components/edit-page/profile-header/profile-header.vue'
 
 export default {
 
