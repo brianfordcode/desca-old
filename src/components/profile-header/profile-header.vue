@@ -10,8 +10,6 @@
         />
       </div>
 
-      
-
       <div class="details">
 
         <!-- NAME -->
@@ -143,9 +141,6 @@ function copy(value) {
       }
     },
     methods: {
-      uploadProfImg() { 
-        console.log('profile picture upload')
-      },
       enterBtn() {
         this.editOpen = !this.editOpen
 
@@ -166,59 +161,42 @@ function copy(value) {
 
 <style scoped>
   .container {
-    width: 800px;
-    height: 80px;
-    /* margin: 0 auto; */
-    /* background-color: rgba(109, 109, 109, 0.5); */
+    margin: 20px 0 5px 0;
     position: relative;
     display: flex;
-    align-items: center;
-    /* border-radius: 7px; */
-    /* box-shadow: 0px 0px 33px -20px #000000; */
   }
   
   .prof-pic {
-    position: absolute;
     height: 100px;
     width: auto;
     overflow: hidden;
     border-radius: 100px;
     background-color: grey;
-    transform: translate(30px);
     box-shadow: 0px 0px 33px -20px #000000;
   }
+  
   .prof-name {
     height: min-content;
-    /* border: 1px solid blue; */
   }
+
   .details {
-    transform: translateX(145px);
-    /* border: 1px solid black; */
-    display: flex;
-    flex-direction: column;
+    margin-left: 10px;
   }
+
   .edit-btn {
-    /* position: absolute; */
     width: 150px;
     height: 25px;
-  }
-  .btn {
     background: green;
     color: white;
     padding: 5px;
     cursor: pointer;
     border: none;
-    
   }
-  .enter-btn {
-    position: absolute;
-    /* TODO: organize button layout better */
-    bottom: 0;
-    right: 0;
-  }
+
   .sm-logo {
     height: 25px;
   }
+
   .links-wrapper a:not(:last-child) {
     margin-right: 5px;
   }

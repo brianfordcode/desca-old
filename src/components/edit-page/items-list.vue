@@ -71,7 +71,6 @@
         </div>
     </div>
 
-
     <!-- OTHER ITEMS LIST -->
     <draggable 
         v-model="$store.getters.setup($route.params.setupId).items"
@@ -97,15 +96,7 @@
                 <p style="padding: 10px 5px 5px 5px; text-align: center;">
                 {{element.name}}
                 </p>
-                <!-- STORE LINK -->
-                <!-- <a :href="element.url"
-                    class="store-link"
-                    target="_blank"
-                    v-if="element.url"
-                    >Visit Store
-                </a> -->
             </div>
-
 
         </template>
         
@@ -119,14 +110,6 @@
     </div>
 
 </div>
-
-    <!-- <p style="font-size: 14px; opacity: 0.75; margin-top: 10px"
-       v-if="$store.getters.setup($route.params.setupId).items.length > 1"
-    >
-    *drag to reorder
-    </p> -->
-
-  <!-- <div>{{$store.getters.setup($route.params.setupId).items}}</div> -->
 
 </template>
 
@@ -202,8 +185,7 @@ export default {
     display: flex;
     align-items: flex-start;
     /* border: 1px solid pink; */
-    width: 800px;
-    position: relative;
+    /* width: 100%; */
 }
 
 .placeholder {
@@ -231,9 +213,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-around; */
     background: rgb(13, 13, 118);
-    /* border-radius: 7px; */
     width: 227px;
     min-height: 80px;
     color: white;
@@ -264,23 +244,6 @@ export default {
 .item-details:active {
     cursor: grabbing;
 }
-
-/* .store-link {
-    position: absolute;
-    opacity: 0.75;
-    bottom: 0;
-    right: 0;
-    padding: 10px;
-    text-decoration: none;
-    color: white;
-    background-color: green;
-    transition: .1s ease-in-out;
-    border-bottom-right-radius: 7px;
-}
-
-.store-link:hover {
-    opacity: 1;
-} */
 
 .icon {
     height: 40px;

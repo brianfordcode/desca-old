@@ -28,18 +28,18 @@
                 >
                 Edit
                 </router-link>
-                <!-- <router-link
-                    style="background: #895E6A;"
-                    to="/setups"
-                >
-                My Setups
-                </router-link> -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
                 >
                 Share
                 </div>
+                <router-link
+                    style="background: #895E6A;"
+                    :to="`/setups/${this.$store.state.user.uid}`"
+                >
+                My Setups
+                </router-link>
             </div>
             <!-- PROFILE ICON -->
             <div class="prof-img-container">
@@ -71,12 +71,12 @@
             style="z-index: 10000"
         >
             <!-- btn to setups -->
-            <router-link
+            <!-- <router-link
                 :to="`/setups/${this.$store.state.user.uid}`"
                 style="background: #895E6A;"
             >
             My Setups
-            </router-link>
+            </router-link> -->
             <!-- btn to logout -->
             <p 
                 @click="$store.dispatch('logOut')"

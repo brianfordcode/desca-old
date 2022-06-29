@@ -5,7 +5,7 @@
     v-if="$store.state.viewingSetupLoaded"
   >
 
-    <profileHeader style="z-index: 10000; margin: 35px 0 10px 0;"/>
+    <profileHeader style="z-index: 10000;"/>
 
     <!-- MAIN IMAGE -->
     <div class="image-container">
@@ -17,12 +17,13 @@
       <div
         class="item-wrapper hovered-item"
         v-if="showItem"
-        :style="{
-          top: (hoveredItem.y - 30) + 'px',
-          left: (hoveredItem.x - 125) + 'px'
-        }"
+           :style="{
+             top: (this.detailBlockPlacement.y + 10) + 'px',
+             left: (this.detailBlockPlacement.x) + 'px'
+           }"
         @mouseleave="handleMouseLeave"
-      >   
+      >
+      <VueResizer emitOnMount @notify="sizeChange"/>
           <!-- ICON -->
           <img class="icon" 
               :src="getIconPic(hoveredItem)"
@@ -121,8 +122,9 @@
           v-for="item in $store.state.viewingSetup.items"
           :key="item"
         >
+        <!-- TODO: WHY DOES COMPUTER DIV SHOW UP IN VIEW AND MESS WITH SPACING??? -->
           <div class="item-wrapper"
-              v-if="item.category != 'computer'"
+              v-show="item.category != 'computer'"
               @mouseover="handleMouseOver(item)"
               @mouseleave="handleMouseLeave"
           >   
@@ -149,18 +151,20 @@
 </template>
 
 <script>
-import profileHeader from '../components/edit-page/profile-header/profile-header.vue'
+import profileHeader from '../components/profile-header/profile-header.vue'
+import VueResizer from '../vender/vue-resizer'
 
 export default {
   created() {
     const routerAddress = this.$route.params.setupId
     this.$store.dispatch('fetchViewingSetup', routerAddress)
   },
-  components: {profileHeader},
+  components: {profileHeader, VueResizer},
   data() {
     return {
       showItem: false,
       hoveredItem: {},
+      detailBoxDimensions: {width: null, height: null},
     }
   },
   methods: {
@@ -206,6 +210,18 @@ export default {
     handleMouseLeave() {
       this.showItem = false;
       this.hoveredItem = {};
+    },
+    sizeChange({width, height}) {
+      this.detailBoxDimensions.width = width;
+      this.detailBoxDimensions.height = height;
+    },
+  },
+  computed: {
+    detailBlockPlacement() {
+      if (!this.hoveredItem) return null
+      const x = this.hoveredItem.x >= 400 ? this.hoveredItem.x - this.detailBoxDimensions.width : this.hoveredItem.x
+      const y = this.hoveredItem.y >= 300 ? this.hoveredItem.y - this.detailBoxDimensions.height : this.hoveredItem.y
+      return { x, y }
     }
   }
 }
@@ -216,18 +232,19 @@ export default {
 .main-container {
   position: relative;
   width: 800px;
-  max-width: 1200px;
+  height: 600px;
   margin: 0 auto;
 }
 
 /* MAIN IMAGE */
 .main-img {
   width: 100%;
+  height: 100%;
 }
 
 .image-container {
   width: 100%;
-  height: 600px;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -247,7 +264,6 @@ export default {
 .item-container {
   display: flex;
   align-items: flex-start;
-  width: 100%;
   position: relative;
   margin-top: 10px;
 }
@@ -257,7 +273,7 @@ export default {
   flex-direction: column;
   align-items: center;
   background: rgb(13, 13, 118);
-  width: 225px;
+  width: 227px;
   min-height: 75px;
   color: white;
   padding: 15px;
@@ -301,7 +317,6 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 
 .hovered-item {

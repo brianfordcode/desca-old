@@ -10,7 +10,12 @@
         </div>
 
         <!-- UPLOAD PICTURE -->
-        <button class="upload-btn btn" @click="uploadProfImg">Upload Profile Pic</button>
+        <button
+            class="upload-btn btn"
+            @click="uploadProfImg"
+        >
+        Upload Profile Pic
+        </button>
 
         <!-- TWITCH -->
         <div class="twitch input">
@@ -76,6 +81,11 @@ export default {
     editProfileDetails: {
         type: Object,
     }
+  },
+  methods: {
+    uploadProfImg() { 
+      console.log('profile picture upload')
+    },
   }
 }
 </script>
@@ -111,11 +121,6 @@ export default {
     height: 25px;
   }
 
-  .input img {
-    height: 25px;
-    padding-right: 7px
-  }
-
   .allow-comments > p {
     padding-left: 5px;
   }
@@ -124,6 +129,11 @@ export default {
     outline: none;
     border: none;
     padding: 5px;
+  }
+
+  .input img {
+    height: 25px;
+    padding-right: 7px
   }
 
   .btn {

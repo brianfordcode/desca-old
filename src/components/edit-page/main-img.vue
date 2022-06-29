@@ -8,11 +8,7 @@
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
   >
-      <div
-        class="images-container"
-        ref = "imagesContainer"
-        style = "height: 600px; width: 800px;"
-      >
+      <div class="images-container" ref = "imagesContainer">
           <!-- IMAGE PLACEHOLDER -->
             <div
               class="add-image-btn"
@@ -278,6 +274,14 @@ export default {
   
   .main-container {
     position: relative;
+    /* border: 1px solid purple; */
+    height: 600px;
+    width: 800px;
+  }
+
+  .images-container {
+    width: 100%;
+    height: 100%;
   }
 
   .main-img-placeholder {
@@ -296,11 +300,9 @@ export default {
   }
   
   .main-img {
-    width: 800px;
-    height: 600px;
-    /* padding: 10px 0; */
+    width: 100%;
+    height: 100%;
     cursor: crosshair;
-    box-shadow: 0px 0px 33px -20px #000000;
   }
 
   .add-image-btn {
@@ -337,6 +339,8 @@ export default {
     font-size: 12px;
   }
   
+
+  /* DETAILS BOX */
   .details-box {
     position: absolute;
     display: flex;
@@ -346,10 +350,6 @@ export default {
     background-color: rgba(0,0,0,0.65);
     z-index: 1000;
   }
-
-  /* .details-box > * {
-      margin: 5px;
-  } */
 
   .details-text-wrapper {
       display: flex;

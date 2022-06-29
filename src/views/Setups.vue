@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import profileHeader from '../components/edit-page/profile-header/profile-header.vue'
+import profileHeader from '../components/profile-header/profile-header.vue'
 
 export default {
 
@@ -170,8 +170,8 @@ export default {
 <style scoped>
 
 .loginhome-container {
-    max-width: 1200px;
-    margin: 60px auto 0 auto;
+    /* max-width: 1200px; */
+    /* margin: 60px auto 0 auto; */
 }
 
 .setup-links-container {
