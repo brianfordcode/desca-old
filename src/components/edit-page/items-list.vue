@@ -166,8 +166,6 @@ export default {
         reorderItems(element, index) {
             const setupId = this.$route.params.setupId
             this.$store.dispatch('saveItem', { index, setupId, item: element})
-
-            // TODO: WHY INDEX IS NOT MATCHING UP WHEN ITEM IS CLICKED IN TOGGLEDISPLAY EMIT?
         },
         test() {
             console.log('test')
@@ -181,10 +179,8 @@ export default {
 
 .main-container {
     margin-top: 10px;
-    margin-bottom: 50px;
     display: flex;
     align-items: flex-start;
-    /* border: 1px solid pink; */
     /* width: 100%; */
 }
 

@@ -23,7 +23,7 @@ const routes = [
     component: () => import('../views/Edit.vue')
   },
   {
-    path: '/view/:user/:setupId',
+    path: '/:user/:setupId',
     name: 'View',
     component: () => import('../views/View.vue')
   },

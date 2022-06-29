@@ -1,7 +1,6 @@
 <template>
 
 <!-- MAIN IMAGE -->
-<!-- TODO: KEEP MAIN IMAGE THE SAME SIZE BETWEEN EDIT/VIEW -->
   <div
     class="main-container"
     @mousemove = "onMouseMove"
@@ -10,7 +9,7 @@
    
   >
       <div class="images-container" ref = "imagesContainer">
-          <!-- IMAGE PLACEHOLDER -->
+          
             <div
               class="add-image-btn"
               v-if="$store.getters.setup($route.params.setupId).imageURL"
@@ -24,11 +23,11 @@
                 :src="$store.getters.setup($route.params.setupId).imageURL"
                 v-if="$store.getters.setup($route.params.setupId).imageURL"
             />
-            <!-- TODO: SHOULD I USE LOCAL STORE IMAGE OR FROM FIREBASE? -->
+            <!-- IMAGE PLACEHOLDER -->
             <div
               @click="addMainImg"
               class="main-img-placeholder"
-              v-if="!$store.getters.setup($route.params.setupId).imageURL"
+              v-else
             >
               add image
             </div>
@@ -186,8 +185,6 @@ export default {
   components: { itemList, VueResizer },
   methods: {
     addMainImg() {
-      // TODO: WHY DO I NEED TO DOUBLE CLICK TO GET IT TO UPLOAD WORK?
-      // TODO: PICTURE UPLOAD
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
@@ -290,8 +287,8 @@ export default {
 
   .main-img-placeholder {
       border: 2px dashed;
-      height: 600px;
-      width: 800px;
+      height: 100%;
+      width: 100%;
       display: flex;
       justify-content: space-around;
       align-items: center;

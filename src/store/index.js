@@ -37,7 +37,6 @@ const store = createStore({
   mutations: {
     setLoaded(state) {
       state.loaded = true
-      // TODO: CAN I USE THIS FOR MULTIPLE PLACES NEEDED TO LOAD?
     },
     setViewingSetupLoaded(state) {
       state.viewingSetupLoaded = true
@@ -84,6 +83,7 @@ const store = createStore({
   actions: {
     // LOGIN
     logIn(context) {
+      // TODO: STAY LOGGED IN AFTER REFRESH
       login(async user => {
         context.commit('setLoggedInUser', user);
         await context.dispatch('fetchUserDetails', user.uid)
@@ -142,7 +142,7 @@ const store = createStore({
     },
     deleteSetup(context, setupId ) {
       context.commit('deleteSetup', setupId)
-      // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER
+      // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
       deleteDoc(doc(db, "setups", setupId))
     },
     addItem(context, { item, setupId }) {

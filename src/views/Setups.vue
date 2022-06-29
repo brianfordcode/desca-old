@@ -4,7 +4,7 @@
 
     <profileHeader style="z-index: 10000;"/>
 
-    <h2 style="color: black; margin: 50px 0 20px 0;">My Setups:</h2>
+    <h2 style="color: black; margin: 20px 0 20px 0;">My Setups:</h2>
 
     <div class="setup-links-container">
         <!-- LIST CONTAINER -->
@@ -77,7 +77,7 @@
                         </div>
                     </router-link>
                     <!-- VIEW -->
-                    <router-link :to="`/view/${$store.state.user.uid}/${setup.setupId}`">
+                    <router-link :to="`/${$store.state.user.uid}/${setup.setupId}`">
                         <div
                             class="btn view-btn"
                             v-if="!modalOpen"
@@ -170,16 +170,14 @@ export default {
 <style scoped>
 
 .loginhome-container {
-    /* max-width: 1200px; */
-    /* margin: 60px auto 0 auto; */
+    width: 1200px;
+    margin: 0 auto;
 }
 
 .setup-links-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
-    margin: 0 auto 50px 20px;
-    
 }
 
 .setup-image-container {

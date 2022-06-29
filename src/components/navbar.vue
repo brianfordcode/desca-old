@@ -11,26 +11,27 @@
         <!-- links -->
         <div style="display: flex; height: 30px;">
             <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT -->
-            <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups' && this.$route.name != 'Home'">
+            <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
 
                 <!-- VIEW -->
                 <router-link
                     style="background: #57B0FC;"
-                    :to="`/view/${$store.state.user.uid}/${$route.params.setupId}`"
-                    v-if="this.$route.name != 'View'"
+                    :to="`/${$store.state.user.uid}/${$route.params.setupId}`"
+                    v-if="this.$route.name != 'View' && this.$route.name != 'Home'"
                 >
                 View
                 </router-link>
                 <router-link
                     style="background-color: rgb(245, 101, 35);"
                     :to="`/edit/${$store.state.user.uid}/${$route.params.setupId}`"
-                    v-if="this.$route.name != 'Edit'"
+                    v-if="this.$route.name != 'Edit' && this.$route.name != 'Home'"
                 >
                 Edit
                 </router-link>
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
+                    v-if="this.$route.name != 'Home'"
                 >
                 Share
                 </div>

@@ -122,7 +122,7 @@
         >
         <!-- TODO: WHY DOES COMPUTER DIV SHOW UP IN VIEW AND MESS WITH SPACING??? -->
           <div class="item-wrapper"
-              v-show="item.category != 'computer'"
+              v-if="item.category != 'computer'"
               @mouseover="hoveredItem = item;"
               @mouseleave="handleMouseLeave"
           >   
@@ -137,6 +137,9 @@
               {{item.name}}
               </p>
           </div>
+
+
+          
         </div>
       </div>
 
@@ -311,6 +314,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .hovered-item {

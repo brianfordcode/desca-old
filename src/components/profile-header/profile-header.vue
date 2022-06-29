@@ -1,5 +1,10 @@
 <template>
-  <div class="container" v-if="profileDetails">
+  <div
+    class="container"
+    v-if="profileDetails"
+    :style="`height: ${$route.name === 'View' ? `75px` : `max-content;`};`"
+  
+  >
     <!-- PROF PIC -->
       <div class="prof-pic">
         <!-- WHY ERROR 403 SOMETIMES FOR MAIN IMG??? -->
