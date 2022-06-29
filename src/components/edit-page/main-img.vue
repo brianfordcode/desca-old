@@ -7,6 +7,7 @@
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
+   
   >
       <div class="images-container" ref = "imagesContainer">
           <!-- IMAGE PLACEHOLDER -->
@@ -39,13 +40,13 @@
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
         @mousedown="dragging = index"
-        @mouseenter="hoveredItem = hoveredItem === index ? null : index;"
+        @mouseenter="handleMouseOver(item, index)"
         @mouseleave="hoveredItem = null"
         alt="target"
         draggable="false"
         :style="{
-                  top: (item.y - 10) + 'px',
-                  left: (item.x - 10) + 'px'
+                  top: (item.y - 13) + 'px',
+                  left: (item.x - 13) + 'px'
                 }"
     ></div>
 
@@ -215,6 +216,10 @@ export default {
       this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
 
     },
+    handleMouseOver(item, index) {
+      this.hoveredItem = this.hoveredItem === index ? null : index;
+      console.log(item.x, item.y)
+    },
     onMouseMove(event) {
         event.preventDefault()
 
@@ -274,7 +279,6 @@ export default {
   
   .main-container {
     position: relative;
-    /* border: 1px solid purple; */
     height: 600px;
     width: 800px;
   }
