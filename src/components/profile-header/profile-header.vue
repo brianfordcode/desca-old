@@ -173,7 +173,7 @@ function copy(value) {
   
   .prof-pic {
     height: 100px;
-    width: auto;
+    width: 100px;
     overflow: hidden;
     border-radius: 100px;
     background-color: grey;

@@ -71,13 +71,6 @@
             @click="showMenuBtn = !showMenuBtn"
             style="z-index: 10000"
         >
-            <!-- btn to setups -->
-            <!-- <router-link
-                :to="`/setups/${this.$store.state.user.uid}`"
-                style="background: #895E6A;"
-            >
-            My Setups
-            </router-link> -->
             <!-- btn to logout -->
             <p 
                 @click="$store.dispatch('logOut')"
@@ -155,6 +148,8 @@ export default {
 .prof-img-container {
     margin-left: 20px;
     height: 30px;
+    width: 30px;
+    overflow: hidden;
 }
 
 .profile-icon {
