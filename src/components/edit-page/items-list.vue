@@ -198,11 +198,10 @@ export default {
 }
 
 .items-list-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 15px;
 }
 
 .item-details {
@@ -217,7 +216,6 @@ export default {
     position: relative;
     transition: .1s ease-in-out;
     cursor: grab;
-    margin-bottom: 10px;
 }
 
 .comp-details {

@@ -277,7 +277,6 @@ export default {
   position: relative;
   transition: .1s ease-in-out;
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
 .icon {
@@ -310,11 +309,10 @@ export default {
 }
 
 .other-items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 15px;
 }
 
 .hovered-item {

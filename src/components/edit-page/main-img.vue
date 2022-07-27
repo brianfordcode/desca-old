@@ -27,7 +27,7 @@
             <div
               @click="addMainImg"
               class="main-img-placeholder"
-              v-else
+              v-if="!$store.getters.setup($route.params.setupId).imageURL"
             >
               add image
             </div>

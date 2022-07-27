@@ -170,7 +170,7 @@ export default {
 <style scoped>
 
 .loginhome-container {
-    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -189,6 +189,7 @@ export default {
 .setup-image {
     height: 250px;
     box-shadow: 0px 0px 33px -20px #000000;
+    
 }
 
 .btn {
