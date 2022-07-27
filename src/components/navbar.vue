@@ -58,6 +58,7 @@
                     :src="$store.state.user.photoURL"
                     alt="user-profile-pic"
                     @click="showMenuBtn = !showMenuBtn"
+                    referrerpolicy="no-referrer"
                 >
             </div>
             

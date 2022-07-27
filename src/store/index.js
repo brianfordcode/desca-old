@@ -78,7 +78,10 @@ const store = createStore({
     },
     fetchViewingSetup(state, viewingSetup) {
       state.viewingSetup = viewingSetup
-    }
+    },
+    saveItems(state, { setupId, items}) {
+      state.setups.find(s => s.setupId === setupId).items = copy(items)
+    },
   },
   actions: {
     // LOGIN
@@ -172,6 +175,10 @@ const store = createStore({
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
       updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
+    },
+    saveItems(context, { setupId, items}) {
+      context.commit('saveItems', { setupId, items})
+      updateDoc(doc(db, "setups", setupId), { items });
     },
     // PROFILE HEADER DETAILS
     changeDetails(context, { details, user }) {

@@ -182,7 +182,40 @@ export default {
       items: copy(this.$store.getters.setup(this.$route.params.setupId).items),
     }
   },
-  components: { itemList, VueResizer },
+  components: {
+    itemList, VueResizer
+  },
+  watch: {
+    itemsToWatch(newItems) {
+      if (newItems.length > this.items.length) {
+        this.displayedItemIndex = newItems.length - 1
+      } else {
+        this.displayedItemIndex = null
+      }
+      this.items = copy(newItems)
+    }
+  },
+  
+  computed: {
+    setupId() {
+      return this.$route.params.setupId
+    },
+    currentSetup() {
+      return this.$store.getters.setup(this.$route.params.setupId)
+    },
+    currentlySelectedItem() {
+      return this.currentSetup.items[this.displayedItemIndex]
+    },
+    detailBlockPlacement() {
+      if (!this.currentlySelectedItem) return null
+      const x = this.currentlySelectedItem.x >= 400 ? this.currentlySelectedItem.x - this.detailBoxDimensions.width : this.currentlySelectedItem.x
+      const y = this.currentlySelectedItem.y >= 300 ? this.currentlySelectedItem.y - this.detailBoxDimensions.height : this.currentlySelectedItem.y
+      return { x, y }
+    },
+    itemsToWatch() {
+     return this.$store.getters.setup(this.$route.params.setupId).items
+    }
+  },
   methods: {
     addMainImg() {
       const currentSetupRoute = this.$route.params.setupId
@@ -250,23 +283,7 @@ export default {
     },
 
   },
-  computed: {
-    setupId() {
-      return this.$route.params.setupId
-    },
-    currentSetup() {
-      return this.$store.getters.setup(this.$route.params.setupId)
-    },
-    currentlySelectedItem() {
-      return this.currentSetup.items[this.displayedItemIndex]
-    },
-    detailBlockPlacement() {
-      if (!this.currentlySelectedItem) return null
-      const x = this.currentlySelectedItem.x >= 400 ? this.currentlySelectedItem.x - this.detailBoxDimensions.width : this.currentlySelectedItem.x
-      const y = this.currentlySelectedItem.y >= 300 ? this.currentlySelectedItem.y - this.detailBoxDimensions.height : this.currentlySelectedItem.y
-      return { x, y }
-    }
-  }
+
 
 }
   

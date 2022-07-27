@@ -3,7 +3,6 @@
     class="container"
     v-if="profileDetails"
     :style="`height: ${$route.name === 'View' ? `75px` : `max-content;`};`"
-  
   >
     <!-- PROF PIC -->
       <div class="prof-pic">
@@ -12,6 +11,7 @@
              style="width: 100px; height: auto;"
              :src="profileDetails.profPic"
              v-if="profileDetails.profPic"
+             referrerpolicy="no-referrer"
         />
       </div>
 

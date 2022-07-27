@@ -2,7 +2,8 @@
 <div class="main-container">
 
     <!-- COMPUTER -->
-    <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item">
+    <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item"
+    >
         <div
             style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
@@ -73,16 +74,15 @@
 
     <!-- OTHER ITEMS LIST -->
     <draggable 
-        v-model="$store.getters.setup($route.params.setupId).items"
+        v-model="setupItemsProxy"
         group="items"
         @start="drag=true"
-        @end="drag=false"
+        @end="onDragEnd"
         item-key="id"
         class="items-list-container"
     >
         <template #item="{element, index}">
             <div class="item-details"
-                @mouseup="test"
                 @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
                 v-if="element.category != 'computer'"
             >   
@@ -126,7 +126,21 @@ export default {
         
     },
     components: { draggable },
+    computed: {
+        setupId() {
+            return this.$route.params.setupId
+        },
+        setupItemsProxy: {
+            get() {
+                const items = this.$store.getters.setup(this.setupId).items
+                return [ ...items ]
+            },
+            set(items) {
+                this.$store.dispatch('saveItems', { setupId: this.setupId, items })
+            }
 
+        }
+    },
     methods: {
         getIconPic(e) {
             if (e.category === 'accessory') {
@@ -167,11 +181,12 @@ export default {
             const setupId = this.$route.params.setupId
             this.$store.dispatch('saveItem', { index, setupId, item: element})
         },
-        test() {
+        onDragEnd() {
+            this.drag = false;
             console.log('test')
             // TODO: WHY DOESN'T MOUSEUP WORK TO SAVE THE ORDER???
         }
-    }
+    },
 }
 </script>
 

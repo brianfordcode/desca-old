@@ -117,7 +117,7 @@
       <!-- OTHER ITEMS -->
       <div class="other-items">
         <div
-          v-for="item in $store.state.viewingSetup.items"
+          v-for="item in nonComputerItems"
           :key="item"
         >
         <!-- TODO: WHY DOES COMPUTER DIV SHOW UP IN VIEW AND MESS WITH SPACING??? -->
@@ -223,6 +223,9 @@ export default {
       const x = this.hoveredItem.x >= 400 ? this.hoveredItem.x - this.detailBoxDimensions.width : this.hoveredItem.x
       const y = this.hoveredItem.y >= 300 ? this.hoveredItem.y - this.detailBoxDimensions.height : this.hoveredItem.y
       return { x, y }
+    },
+    nonComputerItems() {
+      return this.$store.state.viewingSetup.items.filter(item => { return item.category != 'computer'})
     }
   }
 }
