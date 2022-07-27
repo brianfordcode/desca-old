@@ -6,7 +6,6 @@
   >
     <!-- PROF PIC -->
       <div class="prof-pic">
-        <!-- TODO: WHY ERROR 403 SOMETIMES FOR MAIN IMG??? -->
         <img draggable="false" 
              style="width: 100px; height: auto;"
              :src="profileDetails.profPic"

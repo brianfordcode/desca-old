@@ -187,11 +187,13 @@ export default {
   },
   watch: {
     itemsToWatch(newItems) {
+      console.log(this.items.length, newItems.length)
       if (newItems.length > this.items.length) {
         this.displayedItemIndex = newItems.length - 1
       } else {
         this.displayedItemIndex = null
       }
+      // IF NEW ITEM ADDED, SHOW ITS EDITOR. IF ITEM MOVES, DON'T SHOW EDITOR
       this.items = copy(newItems)
     }
   },
@@ -238,7 +240,6 @@ export default {
         categoryDetails: {},
       }
       this.$store.dispatch('addItem', { item, setupId })
-      this.items.push(item)
     },
     removeItem(index) {
       this.displayedItemIndex = null

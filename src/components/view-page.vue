@@ -120,7 +120,6 @@
           v-for="item in nonComputerItems"
           :key="item"
         >
-        <!-- TODO: WHY DOES COMPUTER DIV SHOW UP IN VIEW AND MESS WITH SPACING??? -->
           <div class="item-wrapper"
               v-if="item.category != 'computer'"
               @mouseover="hoveredItem = item;"
