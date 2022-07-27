@@ -23,7 +23,7 @@
                 v-if="item.categoryDetails.cpu"
             >
                 <div style="display: flex; flex-direction: column; align-items: center;"> 
-                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CPU:</span>
+                    <span>CPU:</span>
                     <span>{{item.categoryDetails.cpu}}</span>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                 v-if="item.categoryDetails.gpu"
             >
                 <div style="display: flex; flex-direction: column; align-items: center;"> 
-                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">GPU:</span>
+                    <span>GPU:</span>
                     <span>{{item.categoryDetails.gpu}}</span>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 v-if="item.categoryDetails.ssd"
             >
                 <div style="display: flex; flex-direction: column; align-items: center;"> 
-                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">SSD:</span>
+                    <span>SSD:</span>
                     <span>{{item.categoryDetails.ssd}}</span>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 v-if="item.categoryDetails.ram"
             >
                 <div style="display: flex; flex-direction: column; align-items: center;"> 
-                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">RAM:</span>
+                    <span>RAM:</span>
                     <span>{{item.categoryDetails.ram}}</span>
                 </div>
             </div>
@@ -63,7 +63,7 @@
                 v-if="item.categoryDetails.case"
             >
                 <div style="display: flex; flex-direction: column; align-items: center;"> 
-                    <span style="border:1px solid white; padding: 1px 3px; margin-bottom: 5px;">CASE:</span>
+                    <span>CASE:</span>
                     <span>{{item.categoryDetails.case}}</span>
                 </div>
             </div>
@@ -229,6 +229,14 @@ export default {
     font-size: 16px;
     color: white;
     position: relative;
+}
+
+.comp-details::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    border: 1px solid rgba(255,255,255,.5);
 }
 
 .item-details:hover {
