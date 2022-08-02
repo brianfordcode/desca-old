@@ -11,8 +11,6 @@ function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
 
-// TODO: HOW TO MAKE MULTIPLE STORES??? MODULES??
-
 // Create a new store instance.
 const store = createStore({
   state () {
@@ -89,16 +87,16 @@ const store = createStore({
   actions: {
     // LOGIN
     logIn(context) {
-      // TODO: STAY LOGGED IN AFTER REFRESH
       login(async user => {
         context.commit('setLoggedInUser', user);
         await context.dispatch('fetchUserDetails', user.uid)
         await context.dispatch('fetchUserSetups', user)
         
-        context.commit('setLoaded')
-
         // SETUP PAGE OPENS AFTER LOG IN
-        router.push(`/setups/${context.state.user.uid}`)
+        await router.push(`/setups/${context.state.user.uid}`)
+        
+        context.commit('setLoaded')
+      
       })
     },
     async fetchUserDetails(context, user) {
@@ -198,7 +196,6 @@ const store = createStore({
   }
 })
 
-
 const auth = getAuth();
 onAuthStateChanged(auth, async (user) => {
   if (user) {
@@ -208,11 +205,11 @@ onAuthStateChanged(auth, async (user) => {
     await store.dispatch('fetchUserDetails', uid)
     await store.dispatch('fetchUserSetups', user)
     
-    store.commit('setLoaded')
-
     // SETUP PAGE OPENS AFTER LOG IN
-    router.push(`/setups/${uid}`)
-
+    await router.push(`/setups/${uid}`)
+  
+    store.commit('setLoaded')
+  
   } else {
       if (router.currentRoute.name !== 'View') {
         await router.push('/')
@@ -220,12 +217,8 @@ onAuthStateChanged(auth, async (user) => {
       store.commit('logOut')
 
   }
+
 });
-
-
-
-
-
 
 
 export default store

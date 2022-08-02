@@ -10,8 +10,8 @@
         />
         <!-- links -->
         <div style="display: flex; height: 30px;">
-            <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT -->
-            <div class="links" v-if="$store.state.loggedIn && this.$route.name != 'Setups'">
+            <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT. USE SLOTS??-->
+            <div class="links" v-if="$store.state.loaded && this.$route.name != 'Setups'">
 
                 <!-- VIEW -->
                 <router-link
