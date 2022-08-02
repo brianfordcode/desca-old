@@ -203,7 +203,6 @@ export default {
       }
     },
     handleMouseOver(item, index) {
-      console.log(item.x, item.y)
       this.showItem = true;
       this.hoveredItem = item;
     },

@@ -5,6 +5,7 @@ import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
 
+
 const db = getFirestore();
 
 function copy(value) {
@@ -172,6 +173,9 @@ const store = createStore({
       const picture = `https://picsum.photos/seed/${currentSetup.setupId}/333/255`
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
       context.dispatch('fetchUserSetups', user)
+
+
+
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})

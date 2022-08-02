@@ -252,7 +252,6 @@ export default {
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
-      console.log(item.x, item.y)
     },
     onMouseMove(event) {
         event.preventDefault()

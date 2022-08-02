@@ -21,6 +21,7 @@
                 >
                 View
                 </router-link>
+                <!-- EDIT -->
                 <router-link
                     style="background-color: rgb(245, 101, 35);"
                     :to="`/edit/${$store.state.user.uid}/${$route.params.setupId}`"
@@ -28,6 +29,7 @@
                 >
                 Edit
                 </router-link>
+                <!-- SHARE -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
@@ -35,6 +37,7 @@
                 >
                 Share
                 </div>
+                <!-- MY SETUPS -->
                 <router-link
                     style="background: #895E6A;"
                     :to="`/setups/${this.$store.state.user.uid}`"
@@ -42,45 +45,26 @@
                 My Setups
                 </router-link>
             </div>
-            <!-- PROFILE ICON -->
-            <div class="prof-img-container">
-                <img
-                    class="profile-icon"
-                    v-if="!$store.state.loggedIn"
-                    src="../assets/profile-icon.png"
-                    alt="profile-icon"
-                    @click="$store.dispatch('logIn')"
-                >
-                <img
-                    v-else
-                    class="profile-icon"
-                    style="border-radius: 50%;"
-                    :src="$store.state.user.photoURL"
-                    alt="user-profile-pic"
-                    @click="showMenuBtn = !showMenuBtn"
-                    referrerpolicy="no-referrer"
-                >
+
+            <!-- PROFILE ICON AND LOG IN/OUT -->
+            <div>
+                <div class="prof-img-container">
+                    <img
+                        class="profile-icon"
+                        :src="`${!$store.state.loggedIn ? require('../assets/profile-icon.png') : $store.state.user.photoURL}`"
+                        alt="prof-icon"
+                    >
+                    <p
+                        class="logInOutBtn"
+                        @click="`${!$store.state.loggedIn ? $store.dispatch('logIn') : $store.dispatch('logOut')}`"
+                    >
+                    Log {{!$store.state.loggedIn ? 'In' : 'Out'}}
+                    </p>
+                </div>
             </div>
-            
+
         </div>
-        <!-- MENU WHEN PROF PIC CLICKED -->
-        <!-- TODO: CLOSE MENU WHEN ANYWHERE ELSE IS CLICKED -->
-        <!-- LOG OUT -->
-        <div
-            v-if="showMenuBtn"
-            class="menu-btn"
-            @click="showMenuBtn = !showMenuBtn"
-            style="z-index: 10000"
-        >
-            <!-- btn to logout -->
-            <p 
-                @click="$store.dispatch('logOut')"
-                style="background: rgb(13, 13, 118); "
-            >
-            Log Out
-            </p>
-        </div>
-    
+
     </div>
     
   </div>
@@ -90,7 +74,6 @@
 export default {
     data() {
         return {
-            showMenuBtn: false,
         }
     },
     methods: {
@@ -147,33 +130,22 @@ export default {
 }
 
 .prof-img-container {
-    margin-left: 20px;
-    height: 30px;
-    width: 30px;
-    overflow: hidden;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .profile-icon {
-    cursor: pointer;
+    border-radius: 50%;
     height: 100%;
+    margin: 10px;
 }
 
-.menu-btn {
-    position: absolute;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    right: 0;
-    top: 50px;
-    cursor: pointer;
-}
-
-.menu-btn > * {
-    padding: 5px;
+.logInOutBtn {
     color: white;
-    text-decoration: none;
+    cursor: pointer
 }
-
 /* #nav a.router-link-exact-active {
   color: #42b983;
 } */
