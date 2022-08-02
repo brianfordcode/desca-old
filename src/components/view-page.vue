@@ -235,7 +235,6 @@ export default {
 .main-container {
   position: relative;
   width: 800px;
-  height: 600px;
   margin: 0 auto;
 }
 

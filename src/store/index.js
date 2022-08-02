@@ -3,7 +3,7 @@ import { doc, getDocs, deleteDoc, updateDoc, collection, query, where, setDoc, g
 import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
-import { onAuthStateChanged } from "firebase/auth";
+import {  getAuth, onAuthStateChanged } from "firebase/auth";
 
 const db = getFirestore();
 
@@ -19,7 +19,7 @@ const store = createStore({
     return {
       loaded: false,
       user: null,
-      loggedIn: false,
+      loggedIn: null,
       profileDetails: {},
       setups: [],
       viewingSetup: [],
@@ -82,6 +82,9 @@ const store = createStore({
     saveItems(state, { setupId, items}) {
       state.setups.find(s => s.setupId === setupId).items = copy(items)
     },
+    logOut(state) {
+      state.loggedIn = false
+    }
   },
   actions: {
     // LOGIN
@@ -182,12 +185,8 @@ const store = createStore({
     },
     // PROFILE HEADER DETAILS
     changeDetails(context, { details, user }) {
-      console.log(details, user)
-
       context.commit('setProfDetails', { details, user })
       setDoc(doc(db, "profileDetails", user), details);
-
-      
     },
     async fetchViewingSetup(context, routerAddress) {
       const q = query(collection(db, "setups"), where("setupId", "==", routerAddress));
@@ -198,5 +197,35 @@ const store = createStore({
     },
   }
 })
+
+
+const auth = getAuth();
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const uid = user.uid;
+
+    store.commit('setLoggedInUser', user);
+    await store.dispatch('fetchUserDetails', uid)
+    await store.dispatch('fetchUserSetups', user)
+    
+    store.commit('setLoaded')
+
+    // SETUP PAGE OPENS AFTER LOG IN
+    router.push(`/setups/${uid}`)
+
+  } else {
+      if (router.currentRoute.name !== 'View') {
+        await router.push('/')
+      }
+      store.commit('logOut')
+
+  }
+});
+
+
+
+
+
+
 
 export default store

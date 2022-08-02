@@ -173,12 +173,15 @@ const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
 export default {
   data() {
+    const setup = this.$store.getters.setup(this.$route.params.setupId)
+    const items = setup ? copy(setup.items) : []
+
     return {
       dragging: null,
       displayedItemIndex: null,
       hoveredItem: null,
       detailBoxDimensions: {width: null, height: null},
-      items: copy(this.$store.getters.setup(this.$route.params.setupId).items),
+      items
     }
   },
   components: {
@@ -193,7 +196,6 @@ export default {
       } else {
         this.displayedItemIndex = null
       }
-      
       this.items = copy(newItems)
     }
   },
