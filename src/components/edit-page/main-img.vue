@@ -2,14 +2,13 @@
 
 <!-- MAIN IMAGE -->
   <div
-    class="main-container"
+    class="img-main-container"
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
    
   >
       <div class="images-container" ref = "imagesContainer">
-          
             <div
               class="add-image-btn"
               v-if="$store.getters.setup($route.params.setupId).imageURL"
@@ -27,7 +26,7 @@
             <div
               @click="addMainImg"
               class="main-img-placeholder"
-              v-if="!$store.getters.setup($route.params.setupId).imageURL"
+              v-else
             >
               add image
             </div>
@@ -185,19 +184,20 @@ export default {
   components: {
     itemList, VueResizer
   },
+  
   watch: {
     itemsToWatch(newItems) {
-      console.log(this.items.length, newItems.length)
+      // IF NEW ITEM ADDED, SHOW ITS EDITOR. IF ITEM MOVES, DON'T SHOW EDITOR
       if (newItems.length > this.items.length) {
         this.displayedItemIndex = newItems.length - 1
       } else {
         this.displayedItemIndex = null
       }
-      // IF NEW ITEM ADDED, SHOW ITS EDITOR. IF ITEM MOVES, DON'T SHOW EDITOR
+      
       this.items = copy(newItems)
     }
   },
-  
+
   computed: {
     setupId() {
       return this.$route.params.setupId
@@ -215,7 +215,8 @@ export default {
       return { x, y }
     },
     itemsToWatch() {
-     return this.$store.getters.setup(this.$route.params.setupId).items
+      const setup = this.$store.getters.setup(this.$route.params.setupId)
+      return setup ? setup.items : []
     }
   },
   methods: {
@@ -292,7 +293,7 @@ export default {
 
 <style scoped>
   
-  .main-container {
+  .img-main-container {
     position: relative;
     height: 600px;
     width: 800px;

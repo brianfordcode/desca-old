@@ -61,11 +61,11 @@ export default {
 <style scoped>
 
 .container {
+    z-index: 10000000;
+    margin-top: 50px;
     height: min-content;
     padding: 20px;
-    /* width: 100vw; */
     background: rgb(13, 13, 118);
-    /* bottom: 0; */
     box-shadow: 0px 0px 33px -20px #000000;
 }
 

@@ -32,7 +32,6 @@ export default {
   color: #2c3e50;
   display: flex;
   flex-direction: column;
-  flex-grow: 2;
 }
 
 </style>

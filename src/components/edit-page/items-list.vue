@@ -183,8 +183,6 @@ export default {
         },
         onDragEnd() {
             this.drag = false;
-            console.log('test')
-            // TODO: WHY DOESN'T MOUSEUP WORK TO SAVE THE ORDER???
         }
     },
 }
@@ -196,8 +194,8 @@ export default {
     margin-top: 10px;
     display: flex;
     align-items: flex-start;
-    /* width: 100%; */
-}
+    position: relative;
+    }
 
 .placeholder {
     display: flex;
@@ -216,7 +214,7 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 15px;
+    grid-gap: 16px;
 }
 
 .item-details {
@@ -244,14 +242,6 @@ export default {
     font-size: 16px;
     color: white;
     position: relative;
-}
-
-.comp-details::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 200px;
-    border: 1px solid rgba(255,255,255,.5);
 }
 
 .item-details:hover {
