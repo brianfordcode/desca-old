@@ -1,5 +1,5 @@
 <template>
-
+    
     <div class="edit-container">
 
       <profileHeader style="z-index: 10000;"/>
@@ -14,9 +14,10 @@
 import profileHeader from '../components/profile-header/profile-header.vue'
 import mainImg from '../components/edit-page/main-img.vue'
 
+
 export default {
   components: {
-    mainImg, profileHeader
+    mainImg, profileHeader,
   }
 
 }

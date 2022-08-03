@@ -20,6 +20,7 @@
         <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
         <!-- LINKS -->
+        <!-- TODO: ONLY ALLOW WEBSITES WITH HTTP, ETC. -->
         <div class="links-wrapper">
 
           <!-- TWITCH -->

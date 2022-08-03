@@ -68,6 +68,10 @@
     </div>
     
   </div>
+  
+  <p class="banner" :style="`${currentPage === 'Editing' ? 'background: rgb(245, 101, 35);' : 'background: #57B0FC;'}`">{{currentPage}}</p>
+
+
 </template>
 
 <script>
@@ -80,6 +84,12 @@ export default {
         share() {
             console.log('share pushed')
         },
+    },
+    computed: {
+        currentPage() {
+            if (this.$route.name === 'Edit') return 'Editing'
+            if (this.$route.name === 'View') return 'Viewing'
+        }
     }
 
 }
@@ -146,8 +156,11 @@ export default {
     color: white;
     cursor: pointer
 }
-/* #nav a.router-link-exact-active {
-  color: #42b983;
-} */
+
+.banner {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+}
 
 </style>
