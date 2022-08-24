@@ -28,6 +28,7 @@
                     <span>{{item.categoryDetails.cpu}}</span>
                 </div>
             </div>
+            <!-- TEST TEST -->
             <!-- GPU -->
             <div
                 class="comp-details"
