@@ -4,7 +4,6 @@
     <!-- COMPUTER -->
     <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item"
     >
-    <!-- test test test -->
         <div
             style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
