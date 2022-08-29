@@ -9,13 +9,29 @@
    
   >
       <div class="images-container" ref = "imagesContainer">
-            <div
+
+
+
+          <input
+            class="add-image-btn"
+            type="file"
+            v-if="$store.getters.setup($route.params.setupId).imageURL"
+            @change="addMainImg"
+
+          />
+
+
+
+            <!-- <div
               class="add-image-btn"
               v-if="$store.getters.setup($route.params.setupId).imageURL"
               @click="addMainImg"
             >
             Change Image
-            </div>
+            </div> -->
+
+
+
             <img class="main-img"
                 draggable="false"
                 @click="addItem"
@@ -220,11 +236,11 @@ export default {
     }
   },
   methods: {
-    addMainImg() {
+    addMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
-      this.$store.dispatch('addMainImg', {currentSetupRoute, user})
+      this.$store.dispatch('addMainImg', {currentSetupRoute, user, file: event.target.files[0]})
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()

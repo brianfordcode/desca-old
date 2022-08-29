@@ -4,6 +4,7 @@ import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
+import {uploadPic} from "../upload-pic.js"
 
 
 const db = getFirestore();
@@ -166,15 +167,18 @@ const store = createStore({
       const items = context.getters.setup(setupId).items
       updateDoc(doc(db, "setups", setupId), {items});
     },
-    addMainImg(context, {currentSetupRoute, user}) {
+    addMainImg(context, {currentSetupRoute, user, file}) {
       console.log('add/change main image')
+
+      // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
+      uploadPic(file)
+
       // TODO: UPLOAD PICTURE FUNCTIONALITY
-      const currentSetup = context.getters.setup(currentSetupRoute)
-      const picture = `https://picsum.photos/seed/${currentSetup.setupId}/333/255`
-      updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
-      context.dispatch('fetchUserSetups', user)
-
-
+      // const currentSetup = context.getters.setup(currentSetupRoute)
+      // const picture = `https://picsum.photos/seed/${currentSetup.setupId}/333/255`
+      // updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
+      // context.dispatch('fetchUserSetups', user)
+    
 
     },
     saveItem(context, {index, setupId, item}) {
