@@ -53,7 +53,7 @@ const store = createStore({
     },
     addMainImg(state, currentSetup, picture) {
       
-      console.log(picture)
+      // mutation for addMainImg
     },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
@@ -167,11 +167,12 @@ const store = createStore({
       const items = context.getters.setup(setupId).items
       updateDoc(doc(db, "setups", setupId), {items});
     },
-    addMainImg(context, {currentSetupRoute, user, file}) {
-      console.log('add/change main image')
+    addMainImg(context, {currentSetupRoute, user, image}) {
+
+      const key = `${user.uid}/${currentSetupRoute}`
 
       // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
-      uploadPic(file)
+      uploadPic(key, image)
 
       // TODO: UPLOAD PICTURE FUNCTIONALITY
       // const currentSetup = context.getters.setup(currentSetupRoute)

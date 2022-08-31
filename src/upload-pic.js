@@ -1,16 +1,19 @@
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 
-function uploadPic(file) {
+function uploadPic(key, image) {
 
     const storage = getStorage();
-    const storageRef = ref(storage, 'main-img');
     
-    // 'file' comes from the Blob or File API
-    uploadBytes(storageRef, file).then((snapshot) => {
+    console.log(key)
+    
+    const storageRef = ref(storage, key);
+
+   
+    // 'image' comes from the Blob or File API
+    uploadBytes(storageRef, image).then((snapshot) => {
       console.log('Uploaded your setup!');
     });
-    
 
 }
 

@@ -17,7 +17,6 @@
             type="file"
             v-if="$store.getters.setup($route.params.setupId).imageURL"
             @change="addMainImg"
-
           />
 
 
@@ -240,7 +239,7 @@ export default {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
-      this.$store.dispatch('addMainImg', {currentSetupRoute, user, file: event.target.files[0]})
+      this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
