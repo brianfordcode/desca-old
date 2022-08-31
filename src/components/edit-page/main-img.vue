@@ -34,8 +34,8 @@
             <img class="main-img"
                 draggable="false"
                 @click="addItem"
-                :src="$store.getters.setup($route.params.setupId).imageURL"
-                v-if="$store.getters.setup($route.params.setupId).imageURL"
+                :src="imageURL"
+                v-if="imageURL"
             />
             <!-- IMAGE PLACEHOLDER -->
             <div
@@ -175,6 +175,7 @@
 <script>
 import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
+import {downloadPic} from "../../download-pic.js"
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -188,17 +189,23 @@ export default {
   data() {
     const setup = this.$store.getters.setup(this.$route.params.setupId)
     const items = setup ? copy(setup.items) : []
+    
 
     return {
       dragging: null,
       displayedItemIndex: null,
       hoveredItem: null,
       detailBoxDimensions: {width: null, height: null},
-      items
+      items,
+      imageURL: null,
+      setup
     }
   },
   components: {
     itemList, VueResizer
+  },
+  async created() {
+    this.refreshImageURL()
   },
   
   watch: {
@@ -235,11 +242,19 @@ export default {
     }
   },
   methods: {
-    addMainImg(event) {
+    async addMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
-      this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
+      // add loading screen here
+
+      await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
+      this.refreshImageURL()
+    },
+    async refreshImageURL() {
+      const key = `${this.setup.user}/${this.$route.params.setupId}`
+      const url = await downloadPic(key)
+      this.imageURL = url
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()

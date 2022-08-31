@@ -167,12 +167,12 @@ const store = createStore({
       const items = context.getters.setup(setupId).items
       updateDoc(doc(db, "setups", setupId), {items});
     },
-    addMainImg(context, {currentSetupRoute, user, image}) {
+    async addMainImg(context, {currentSetupRoute, user, image}) {
 
       const key = `${user.uid}/${currentSetupRoute}`
 
       // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
-      uploadPic(key, image)
+      await uploadPic(key, image)
 
       // TODO: UPLOAD PICTURE FUNCTIONALITY
       // const currentSetup = context.getters.setup(currentSetupRoute)
