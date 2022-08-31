@@ -50,7 +50,7 @@
       <!-- IMAGE -->
       <img
         class="main-img"
-        :src="$store.state.viewingSetup.imageURL"
+        :src="imageURL"
         alt="main-image"
       />
 
@@ -152,18 +152,25 @@
 
 <script>
 import VueResizer from '../vender/vue-resizer'
+import { downloadPic } from "../download-pic.js"
 
 export default {
-  created() {
+  async created() {
     const routerAddress = this.$route.params.setupId
     this.$store.dispatch('fetchViewingSetup', routerAddress)
+
+    this.refreshImageURL()
   },
   components: { VueResizer },
   data() {
+    const setup = this.$store.getters.setup(this.$route.params.setupId)
+
     return {
       showItem: false,
       hoveredItem: {},
       detailBoxDimensions: {width: null, height: null},
+      imageURL: null,
+      setup
     }
   },
   methods: {
@@ -201,6 +208,11 @@ export default {
       if (e.category === 'webcam') {
           return require('@/assets/icons/webcam.png')
       }
+    },
+    async refreshImageURL() {
+      const key = `${this.setup.user}/${this.$route.params.setupId}`
+      const url = await downloadPic(key)
+      this.imageURL = url
     },
     handleMouseOver(item, index) {
       this.showItem = true;
