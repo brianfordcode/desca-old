@@ -4,7 +4,7 @@
 
   <router-view v-if="$store.state.loggedIn !== null"/>
 
-  <foot/>
+  <!-- <foot/> -->
 
 
 </template>

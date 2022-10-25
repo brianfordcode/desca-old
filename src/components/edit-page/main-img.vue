@@ -250,6 +250,8 @@ export default {
 
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
+
+      this.setup.imageURL = this.imageURL
     },
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`

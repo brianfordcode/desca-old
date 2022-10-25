@@ -28,6 +28,10 @@
                     v-if="setup.imageURL"
                 />
                 <p v-else style=" opacity: 0.5; border: 1px solid; height: 248px; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
+                
+                
+                <div>{{setup}}</div>
+                
                 <!-- BUTTONS -->
                 <div
                     class="buttons-container"

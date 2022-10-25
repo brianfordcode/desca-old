@@ -160,6 +160,8 @@ export default {
     this.$store.dispatch('fetchViewingSetup', routerAddress)
 
     this.refreshImageURL()
+
+    console.log(this.setup)
   },
   components: { VueResizer },
   data() {

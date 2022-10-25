@@ -5,6 +5,7 @@ import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
 import {uploadPic} from "../upload-pic.js"
+import { downloadPic } from '../download-pic.js';
 
 
 const db = getFirestore();
@@ -173,6 +174,8 @@ const store = createStore({
 
       // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
       await uploadPic(key, image)
+
+
 
       // TODO: UPLOAD PICTURE FUNCTIONALITY
       // const currentSetup = context.getters.setup(currentSetupRoute)
