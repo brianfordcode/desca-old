@@ -175,7 +175,7 @@ const store = createStore({
       // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
       await uploadPic(key, image)
 
-
+      
 
       // TODO: UPLOAD PICTURE FUNCTIONALITY
       // const currentSetup = context.getters.setup(currentSetupRoute)
