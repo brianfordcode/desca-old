@@ -30,7 +30,7 @@
                 <p v-else style=" opacity: 0.5; border: 1px solid; height: 248px; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
                 
                 
-                <div>{{setup}}</div>
+                <!-- <div>{{setup}}</div> -->
                 
                 <!-- BUTTONS -->
                 <div
@@ -124,6 +124,7 @@
 
 <script>
 import profileHeader from '../components/profile-header/profile-header.vue'
+import {downloadPic} from "../download-pic.js"
 
 export default {
 
@@ -134,7 +135,6 @@ export default {
             selectedSetup: null,
         }
     },
-
     methods: {
         makeNewSetup() {
             const setupId = 'setup' + '-' + Date.now();
@@ -166,7 +166,7 @@ export default {
         },
         share() {
             console.log('share pushed')
-        }
+        },
     }
 }
 </script>

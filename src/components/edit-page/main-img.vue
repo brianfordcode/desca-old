@@ -257,6 +257,9 @@ export default {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
+      // console.log('from main img comp:', this.imageURL)
+      console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
+
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()

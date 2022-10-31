@@ -175,16 +175,17 @@ const store = createStore({
       // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
       await uploadPic(key, image)
 
-      
+      const url = await downloadPic(key)
+
 
       // TODO: UPLOAD PICTURE FUNCTIONALITY
-      // const currentSetup = context.getters.setup(currentSetupRoute)
-      // const picture = `https://picsum.photos/seed/${currentSetup.setupId}/333/255`
-      // updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
-      // context.dispatch('fetchUserSetups', user)
-    
+      const currentSetup = context.getters.setup(currentSetupRoute)
+      const picture = url
+      updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
+      context.dispatch('fetchUserSetups', user)
 
     },
+
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
       updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
