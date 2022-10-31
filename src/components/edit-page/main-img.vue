@@ -259,6 +259,7 @@ export default {
       this.imageURL = url
       // console.log('from main img comp:', this.imageURL)
       console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
+      
 
     },
     addItem(e) {

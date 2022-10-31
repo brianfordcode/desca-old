@@ -20,17 +20,16 @@
                 @mouseleave="resetButtons()"
             >
                 <!-- IMAGE -->
-                <img
-                    draggable="false"
-                    class="setup-image"
-                    :src="setup.imageURL"
-                    alt="main-img"
-                    v-if="setup.imageURL"
-                />
-                <p v-else style=" opacity: 0.5; border: 1px solid; height: 248px; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
+                <div v-if="setup.imageURL" class="image-wrapper" >
+                    <img
+                        draggable="false"
+                        :src="setup.imageURL"
+                        alt="main-img"
+                    />
+                </div>
+            
+                <p v-else style=" opacity: 0.5; border: 1px solid; height: auto; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
                 
-                
-                <!-- <div>{{setup}}</div> -->
                 
                 <!-- BUTTONS -->
                 <div
@@ -187,13 +186,15 @@ export default {
 .setup-image-container {
     position: relative;
     height: 250px;
-    width: 326.47px;
+    width: 350px;
+    overflow: hidden;
 }
 
-.setup-image {
-    height: 250px;
+.image-wrapper {
+    height: 100%;
     box-shadow: 0px 0px 33px -20px #000000;
-    
+    display: flex;
+    justify-content: center;
 }
 
 .btn {
