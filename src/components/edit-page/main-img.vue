@@ -39,11 +39,16 @@
             />
             <!-- IMAGE PLACEHOLDER -->
             <div
-              @click="addMainImg"
               class="main-img-placeholder"
               v-else
             >
-              add image
+              <div>
+                <input
+                  type="file"
+                  @change="addMainImg"
+                />
+                
+              </div>
             </div>
       </div>
 
@@ -175,7 +180,7 @@
 <script>
 import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
-import {downloadPic} from "../../download-pic.js"
+import {downloadPic} from "../../manage-pic.js"
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -205,7 +210,9 @@ export default {
     itemList, VueResizer
   },
   async created() {
-    this.refreshImageURL()
+    if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
+      this.refreshImageURL()
+    }
   },
   
   watch: {
@@ -260,7 +267,6 @@ export default {
       // console.log('from main img comp:', this.imageURL)
       console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
       
-
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()

@@ -5,7 +5,7 @@ import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
 import {uploadPic} from "../upload-pic.js"
-import { downloadPic } from '../download-pic.js';
+import { downloadPic, deletePic } from '../manage-pic.js';
 
 
 const db = getFirestore();
@@ -147,10 +147,17 @@ const store = createStore({
       // PUSH TO FIREBASE
       setDoc(doc(db, "setups", setup.setupId), setup);
     },
-    deleteSetup(context, setupId ) {
+    deleteSetup(context, { user, setupId } ) {
+      
+      // delete from firebase storage
+      const key = `${user.uid}/${setupId}`
+      deletePic(key)
+
+
       context.commit('deleteSetup', setupId)
       // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
       deleteDoc(doc(db, "setups", setupId))
+
     },
     addItem(context, { item, setupId }) {
       const items = [...context.getters.setup(setupId).items, copy(item)]
@@ -177,8 +184,6 @@ const store = createStore({
 
       const url = await downloadPic(key)
 
-
-      // TODO: UPLOAD PICTURE FUNCTIONALITY
       const currentSetup = context.getters.setup(currentSetupRoute)
       const picture = url
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});

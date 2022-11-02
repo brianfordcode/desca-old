@@ -152,7 +152,7 @@
 
 <script>
 import VueResizer from '../vender/vue-resizer'
-import { downloadPic } from "../download-pic.js"
+import { downloadPic } from "../manage-pic.js"
 
 export default {
   async created() {

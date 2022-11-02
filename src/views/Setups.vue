@@ -8,9 +8,10 @@
 
     <div class="setup-links-container">
         <!-- LIST CONTAINER -->
+        <!-- TODO: WHY ON INITIAL UPLOAD OF PIC DOES IT NOT LOAD WHEN GO BACK TO SETUPS PAGE? -->
         <div 
             class="setup-links"
-            v-for="(setup, index) in $store.state.setups" 
+            v-for="(setup, index) in $store.state.setups"
             :key="setup.setupId"
         >
             <!-- SETUP CONTAINER -->
@@ -27,7 +28,7 @@
                         alt="main-img"
                     />
                 </div>
-            
+
                 <p v-else style=" opacity: 0.5; border: 1px solid; height: auto; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
                 
                 
@@ -123,7 +124,7 @@
 
 <script>
 import profileHeader from '../components/profile-header/profile-header.vue'
-import {downloadPic} from "../download-pic.js"
+import {downloadPic} from "../manage-pic.js"
 
 export default {
 
@@ -159,9 +160,12 @@ export default {
             this.selectedSetup = null
             this.modalOpen = false
         },
-        deleteSetup(setupId) {
+        async deleteSetup(setupId) {
+            const user = this.$store.state.user
+
             this.resetButtons()
-            this.$store.dispatch('deleteSetup', setupId)
+
+            await this.$store.dispatch('deleteSetup', {user, setupId})
         },
         share() {
             console.log('share pushed')
