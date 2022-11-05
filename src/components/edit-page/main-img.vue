@@ -6,7 +6,6 @@
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
-   
   >
       <div class="images-container" ref = "imagesContainer">
 
@@ -30,7 +29,7 @@
             </div> -->
 
 
-
+            <!-- TODO: KEEP ASPECT RATIO CONSISTENT ACROSS ALL SO ITEM COORDS. ALL MATCH UP (CROP PICTURE?) -->
             <img class="main-img"
                 draggable="false"
                 @click="addItem"
@@ -42,14 +41,20 @@
               class="main-img-placeholder"
               v-else
             >
-              <div>
+            <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
+              <div v-if="loading">loading</div>
+              
+              <div v-else>
                 <input
                   type="file"
                   @change="addMainImg"
                 />
-                
               </div>
+              
+              
+            
             </div>
+            
       </div>
 
     <!--  TARGET  -->
@@ -203,7 +208,8 @@ export default {
       detailBoxDimensions: {width: null, height: null},
       items,
       imageURL: null,
-      setup
+      setup,
+      loading: true,
     }
   },
   components: {
@@ -212,6 +218,9 @@ export default {
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
       this.refreshImageURL()
+      this.loading = true
+    } else {
+      this.loading = false
     }
   },
   
