@@ -6,6 +6,7 @@
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
+    
   >
       <div class="images-container" ref = "imagesContainer">
 
@@ -17,18 +18,6 @@
             v-if="$store.getters.setup($route.params.setupId).imageURL"
             @change="addMainImg"
           />
-
-
-
-            <!-- <div
-              class="add-image-btn"
-              v-if="$store.getters.setup($route.params.setupId).imageURL"
-              @click="addMainImg"
-            >
-            Change Image
-            </div> -->
-
-
             <!-- TODO: KEEP ASPECT RATIO CONSISTENT ACROSS ALL SO ITEM COORDS. ALL MATCH UP (CROP PICTURE?) -->
             <img class="main-img"
                 draggable="false"
@@ -42,7 +31,8 @@
               v-else
             >
             <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
-              <div v-if="loading">loading</div>
+
+              <loadingWheel v-if="loading"/>
               
               <div v-else>
                 <input
@@ -56,9 +46,8 @@
             </div>
             
       </div>
-
     <!--  TARGET  -->
-    <div v-for="(item, index) in items" :key="index">
+    <div v-if="loading" v-for="(item, index) in items" :key="index">
     	<div
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
@@ -115,6 +104,7 @@
                 <option value="microphone">Microphone</option>
                 <option value="accessory">Accessory</option>
                 <option value="webcam">Webcam</option>
+                <option value="headphone">Headphone</option>
             </select>
         </div>
         <!-- MODEL -->
@@ -172,10 +162,12 @@
           >REMOVE
           </button>
       </div>
-
+    
     </div>
 
   </div>
+
+
 
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
@@ -186,6 +178,7 @@
 import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
 import {downloadPic} from "../../manage-pic.js"
+import loadingWheel from "../loading-wheel.vue"
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -213,7 +206,7 @@ export default {
     }
   },
   components: {
-    itemList, VueResizer
+    itemList, VueResizer, loadingWheel
   },
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
@@ -465,4 +458,27 @@ export default {
       background-color: rgb(192, 7, 7);
   }
   
+  .spin {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, .3);
+        border-radius: 50%;
+        border-top-color: rgb(13, 13, 118);;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        to {
+          -webkit-transform: rotate(360deg);
+        }
+    }
+
+
+
 </style>

@@ -162,9 +162,7 @@ export default {
         },
         async deleteSetup(setupId) {
             const user = this.$store.state.user
-
             this.resetButtons()
-
             await this.$store.dispatch('deleteSetup', {user, setupId})
         },
         share() {
