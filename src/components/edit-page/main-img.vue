@@ -29,7 +29,7 @@
       >
       <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 
-        <loadingWheel v-if="loading"/>
+        <loadingWheel v-if="!loaded"/>
         
         <div v-else>
           <input
@@ -42,7 +42,7 @@
       
       </div>
     <!--  TARGET  -->
-    <div v-if="loading" v-for="(item, index) in items" :key="index">
+    <div v-for="(item, index) in items" :key="index">
     	<div
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
@@ -193,7 +193,7 @@ export default {
       items,
       imageURL: null,
       setup,
-      loading: true,
+      loaded: false,
     }
   },
   components: {
@@ -202,9 +202,9 @@ export default {
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
       this.refreshImageURL()
-      this.loading = true
+      this.loaded = false
     } else {
-      this.loading = false
+      this.loaded = true
     }
   },
   
@@ -248,7 +248,7 @@ export default {
 
       // TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST?
 
-      this.loading = false
+      this.loaded = false
       // add loading screen here
 
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
@@ -336,12 +336,6 @@ export default {
     width: 800px;
   }
 
-  .images-container {
-    /* width: 100%; */
-    /* height: 100%; */
-    border: 1px solid;
-  }
-
   .main-img-placeholder {
       border: 2px dashed;
       height: 450px;
@@ -361,6 +355,7 @@ export default {
     width: 100%;
     height: 100%;
     cursor: crosshair;
+    display: block;
   }
 
   .add-image-btn {
