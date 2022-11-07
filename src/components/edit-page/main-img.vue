@@ -6,45 +6,40 @@
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
-    
+    ref = "imagesContainer"
   >
-      <div class="images-container" ref = "imagesContainer">
 
+    <input
+      class="add-image-btn"
+      type="file"
+      v-if="$store.getters.setup($route.params.setupId).imageURL"
+      @change="addMainImg"
+    />
+      <!-- TODO: KEEP ASPECT RATIO CONSISTENT ACROSS ALL SO ITEM COORDS. ALL MATCH UP (CROP PICTURE?) -->
+      <img class="main-img"
+          draggable="false"
+          @click="addItem"
+          :src="imageURL"
+          v-if="imageURL"
+      />
+      <!-- IMAGE PLACEHOLDER -->
+      <div
+        class="main-img-placeholder"
+        v-else
+      >
+      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 
-
+        <loadingWheel v-if="loading"/>
+        
+        <div v-else>
           <input
-            class="add-image-btn"
             type="file"
-            v-if="$store.getters.setup($route.params.setupId).imageURL"
             @change="addMainImg"
           />
-            <!-- TODO: KEEP ASPECT RATIO CONSISTENT ACROSS ALL SO ITEM COORDS. ALL MATCH UP (CROP PICTURE?) -->
-            <img class="main-img"
-                draggable="false"
-                @click="addItem"
-                :src="imageURL"
-                v-if="imageURL"
-            />
-            <!-- IMAGE PLACEHOLDER -->
-            <div
-              class="main-img-placeholder"
-              v-else
-            >
-            <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
-
-              <loadingWheel v-if="loading"/>
-              
-              <div v-else>
-                <input
-                  type="file"
-                  @change="addMainImg"
-                />
-              </div>
-              
-              
-            
-            </div>
-            
+        </div>
+        
+        
+      
       </div>
     <!--  TARGET  -->
     <div v-if="loading" v-for="(item, index) in items" :key="index">
@@ -143,7 +138,6 @@
           </div>
         </div>
 
-
         <!-- STORE URL -->
         <div class="details-text-wrapper">
             <p style="color:white">URL:</p>
@@ -167,8 +161,6 @@
 
   </div>
 
-
-
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
 
@@ -184,8 +176,7 @@ function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
 
-
-// make sure target doesn't go off image-container when moving
+// TODO: make sure target doesn't go off image-container when moving
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
 export default {
@@ -255,6 +246,9 @@ export default {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
 
+      // TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST?
+
+      this.loading = false
       // add loading screen here
 
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
@@ -338,18 +332,19 @@ export default {
   
   .img-main-container {
     position: relative;
-    height: 600px;
+    height: 100%;
     width: 800px;
   }
 
   .images-container {
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 100%; */
+    border: 1px solid;
   }
 
   .main-img-placeholder {
       border: 2px dashed;
-      height: 100%;
+      height: 450px;
       width: 100%;
       display: flex;
       justify-content: space-around;
