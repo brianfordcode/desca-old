@@ -1,6 +1,5 @@
 <template>
 
-<!-- MAIN IMAGE -->
   <div
     class="img-main-container"
     @mousemove = "onMouseMove"
@@ -9,39 +8,40 @@
     ref = "imagesContainer"
   >
 
+    <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
     <input
       class="add-image-btn"
       type="file"
-      v-if="$store.getters.setup($route.params.setupId).imageURL"
+      v-if="loaded"
       @change="addMainImg"
     />
-      <!-- TODO: KEEP ASPECT RATIO CONSISTENT ACROSS ALL SO ITEM COORDS. ALL MATCH UP (CROP PICTURE?) -->
-      <img class="main-img"
-          draggable="false"
-          @click="addItem"
-          :src="imageURL"
-          v-if="imageURL"
-      />
-      <!-- IMAGE PLACEHOLDER -->
-      <div
-        class="main-img-placeholder"
-        v-else
-      >
-      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 
-        <loadingWheel v-if="!loaded"/>
-        
-        <div v-else>
-          <input
-            type="file"
-            @change="addMainImg"
-          />
-        </div>
-        
-        
-      
+    <!-- MAIN IMG -->
+    <img class="main-img"
+        draggable="false"
+        @click="addItem"
+        :src="imageURL"
+        v-if="loaded && imageURL"
+    />
+
+    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+    <div v-if="!loaded" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
+      <loadingWheel/>
+    </div>
+
+    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
+
+    <!-- IMAGE PLACEHOLDER -->
+    <div class="main-img-placeholder" v-if="!imageURL">
+      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
+      <div>
+        <input type="file" @change="addMainImg"/>
       </div>
-    <!--  TARGET  -->
+        
+    </div>
+
+
+    <!--  ITEM TARGET  -->
     <div v-for="(item, index) in items" :key="index">
     	<div
         class="target"
@@ -184,7 +184,6 @@ export default {
     const setup = this.$store.getters.setup(this.$route.params.setupId)
     const items = setup ? copy(setup.items) : []
     
-
     return {
       dragging: null,
       displayedItemIndex: null,
@@ -201,11 +200,11 @@ export default {
   },
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
-      this.refreshImageURL()
-      this.loaded = false
-    } else {
+      await this.refreshImageURL()
       this.loaded = true
-    }
+    } else {
+      this.loaded = false
+    };
   },
   
   watch: {
@@ -247,21 +246,23 @@ export default {
       const user = this.$store.state.user
 
       // TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST?
-
-      this.loaded = false
+      
+      this.imageURL = null
       // add loading screen here
 
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
 
-      this.setup.imageURL = this.imageURL
+      this.imageURL = this.setup.imageURL
+      this.loaded = true
+
     },
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
       // console.log('from main img comp:', this.imageURL)
-      console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
+      // console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
       
     },
     addItem(e) {

@@ -14,13 +14,14 @@ function deletePic(key) {
 
     const pic = ref(storage, key);
 
-    console.log(key)
+    // console.log(pic)
 
     // Delete the file
     deleteObject(pic).then(() => {
         console.log('File deleted successfully')
     }).catch((error) => {
         console.log('Uh-oh, an error occurred!')
+        console.log(error)
     });    
 }
 

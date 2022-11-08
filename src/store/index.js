@@ -149,11 +149,11 @@ const store = createStore({
     },
     deleteSetup(context, { user, setupId } ) {
       
+      if (context.getters.setup(setupId).imageURL != '') {
       // delete from firebase storage
-      const key = `${user.uid}/${setupId}`
-      deletePic(key)
-
-
+        const key = `${user.uid}/${setupId}`
+        deletePic(key)
+      }
       context.commit('deleteSetup', setupId)
       // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
       deleteDoc(doc(db, "setups", setupId))
