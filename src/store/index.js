@@ -24,7 +24,7 @@ const store = createStore({
       profileDetails: {},
       setups: [],
       viewingSetup: [],
-      viewingSetupLoaded: false,
+      viewingSetupLoaded: false, 
     }
   },
   getters: {

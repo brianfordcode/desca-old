@@ -1,47 +1,49 @@
 <template>
 
-<div
-  class="img-main-container"
-  @mousemove = "onMouseMove"
-  @mouseup = "dragging = null"
-  @mouseleave="dragging = null"
-  ref = "imagesContainer"
-  v-if="imageURL"
->
+  <div
+    class="img-main-container"
+    @mousemove = "onMouseMove"
+    @mouseup = "dragging = null"
+    @mouseleave="dragging = null"
+    ref = "imagesContainer"
+  >
 
-  <!-- MAIN IMG -->
-  <img class="main-img"
-      draggable="false"
-      @click="addItem"
-      :src="imageURL"
-      v-if="imageURL"
-  />
+    <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
+    <input
+      class="add-image-btn"
+      type="file"
+      v-if="loaded"
+      @change="addMainImg"
+    />
 
-  <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-  <input
-    class="add-image-btn"
-    type="file"
-    v-if="imageURL"
-    @change="addMainImg"
-  />
+    <!-- MAIN IMG -->
+    <img class="main-img"
+        draggable="false"
+        @click="addItem"
+        :src="imageURL"
+        v-if="loaded && imageURL"
+    />
 
-  <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
-  <div v-if="!imageURL" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
-    <loadingWheel/>
-  </div>
+    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+    <div v-if="!loaded" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
+      <loadingWheel/>
+    </div>
 
-</div>
+    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
 
-
-<!-- IMAGE PLACEHOLDER -->
-<div class="main-img-placeholder" v-if="!imageURL" >
-    <input type="file" @change="addMainImg"/>
-</div>
+    <!-- IMAGE PLACEHOLDER -->
+    <div class="main-img-placeholder" v-if="!imageURL">
+      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
+      <div>
+        <input type="file" @change="addMainImg"/>
+      </div>
+        
+    </div>
 
 
     <!--  ITEM TARGET  -->
     <div v-for="(item, index) in items" :key="index">
-      <div
+    	<div
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
         @mousedown="dragging = index"
@@ -156,13 +158,8 @@
       </div>
     
     </div>
- 
 
-
-    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
-    
-
-
+  </div>
 
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
@@ -174,11 +171,10 @@ import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
 import {downloadPic} from "../../manage-pic.js"
 import loadingWheel from "../loading-wheel.vue"
-
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
-
+// TODO: make sure target doesn't go off image-container when moving
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
 export default {
@@ -194,18 +190,18 @@ export default {
       items,
       imageURL: null,
       setup,
+      loaded: false,
     }
   },
   components: {
     itemList, VueResizer, loadingWheel
   },
-
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
       await this.refreshImageURL()
-      console.log('imageURL:', this.imageURL)
+      this.loaded = true
     } else {
-      console.log('imageURL:', this.imageURL)
+      this.loaded = false
     };
   },
   
@@ -220,7 +216,6 @@ export default {
       this.items = copy(newItems)
     }
   },
-
   computed: {
     setupId() {
       return this.$route.params.setupId
@@ -246,22 +241,22 @@ export default {
     async addMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
-
       // TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST?
       
       this.imageURL = null
       // add loading screen here
-
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
-
       this.imageURL = this.setup.imageURL
-
+      this.loaded = true
     },
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
+      // console.log('from main img comp:', this.imageURL)
+      // console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
+      
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
@@ -283,19 +278,15 @@ export default {
       this.displayedItemIndex = null
       this.items.splice(index, 1)
       this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
-
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
     },
     onMouseMove(event) {
         event.preventDefault()
-
         if (this.dragging === null) { return }
-
         this.hoveredItem = null;
         this.displayedItemIndex = null;
-
         const {x, y, width, height} = this.$refs.imagesContainer.getBoundingClientRect()
         const point = {
           x: clamp(event.clientX - x, 0, width),
@@ -304,9 +295,7 @@ export default {
         const item = this.items[this.dragging]
         item.x = point.x
         item.y = point.y
-
         this.$store.dispatch('saveItem', { index: this.dragging, setupId: this.setupId, item})
-
     },
     sizeChange({width, height}) {
       this.detailBoxDimensions.width = width;
@@ -315,14 +304,9 @@ export default {
     save() {
       const index = this.displayedItemIndex
       this.displayedItemIndex = null
-
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
-
     },
-
   },
-
-
 }
   
 </script>
@@ -334,18 +318,16 @@ export default {
     height: 100%;
     width: 800px;
   }
-
   .main-img-placeholder {
       border: 2px dashed;
       height: 450px;
-      width: 800px;
+      width: 100%;
       display: flex;
       justify-content: space-around;
       align-items: center;
       opacity: 0.5;
       cursor: pointer;
   }
-
   .main-img-placeholder:hover {
       opacity: 1;
   }
@@ -356,7 +338,6 @@ export default {
     cursor: crosshair;
     display: block;
   }
-
   .add-image-btn {
     position: absolute;
     bottom: 0;
@@ -376,11 +357,9 @@ export default {
     cursor: pointer;
     transition: opacity .1s ease-in-out;
   }
-
   .target:hover {
       opacity: 1;
   }
-
   .tooltip {
     position: absolute;
     background: rgba(0,0,0,0.5);
@@ -391,7 +370,6 @@ export default {
     font-size: 12px;
   }
   
-
   /* DETAILS BOX */
   .details-box {
     position: absolute;
@@ -402,30 +380,25 @@ export default {
     background-color: rgba(0,0,0,0.65);
     z-index: 1000;
   }
-
   .details-text-wrapper {
       display: flex;
       align-items: center;
       justify-content: flex-end;
       margin: 5px;
   }
-
   .details-text-wrapper p {
       padding-right: 5px;
   }
-
   input {
       width: 200px;
       padding: 5px;
       outline: none;
       border: none;
   }
-
   #category {
       outline: none;
       border: none;
   }
-
   .btn {
       position: absolute;
       right: 0;
@@ -441,7 +414,6 @@ export default {
       background-color: green;
       width: 60px;
   }
-
   .remove-btn {
       top: 0;
       background-color: rgb(192, 7, 7);
@@ -467,7 +439,4 @@ export default {
           -webkit-transform: rotate(360deg);
         }
     }
-
-
-
 </style>
