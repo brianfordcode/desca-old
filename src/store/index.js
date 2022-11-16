@@ -94,24 +94,21 @@ const store = createStore({
         context.commit('setLoggedInUser', user);
         await context.dispatch('fetchUserDetails', user.uid)
         await context.dispatch('fetchUserSetups', user)
-        
         // SETUP PAGE OPENS AFTER LOG IN
         await router.push(`/setups/${context.state.user.uid}`)
-        
         context.commit('setLoaded')
-      
       })
     },
     async fetchUserDetails(context, user) {
-
       const q = query(collection(db, "profileDetails"), where("user", "==", user));
       const querySnapshot = await getDocs(q);
-
       const profileDetailsDoc = querySnapshot.docs[0]
 
       if (profileDetailsDoc) {
+          // IF USER EXISTS, LOAD DETAILS
           context.commit('setProfDetails', { details: profileDetailsDoc.data(), user })
       } else {
+          // ELSE CREATE A NEW USER
         const {uid, displayName, photoURL} = context.state.user
         const profileDetails = {
           user: uid,
@@ -127,6 +124,7 @@ const store = createStore({
           allowComments: false,
           liveStatus: false,
         }
+
         context.dispatch('changeDetails', { details: profileDetails, user } )
       }
     },
@@ -141,6 +139,7 @@ const store = createStore({
       router.push('/')
       logOut()
     },
+
     // SETUPS
     addSetup(context, setup) {
       context.commit('addSetup', setup)
@@ -148,12 +147,10 @@ const store = createStore({
       setDoc(doc(db, "setups", setup.setupId), setup);
     },
     deleteSetup(context, { user, setupId } ) {
-      
-      if (context.getters.setup(setupId).imageURL != '') {
-      // delete from firebase storage
-        const key = `${user.uid}/${setupId}`
-        deletePic(key)
-      }
+      const key = `${user.uid}/${setupId}`
+
+      if (context.getters.setup(setupId).imageURL != '') { deletePic(key) }
+
       context.commit('deleteSetup', setupId)
       // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
       deleteDoc(doc(db, "setups", setupId))
@@ -190,7 +187,6 @@ const store = createStore({
       context.dispatch('fetchUserSetups', user)
 
     },
-
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
       updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
@@ -215,7 +211,9 @@ const store = createStore({
 })
 
 const auth = getAuth();
+
 onAuthStateChanged(auth, async (user) => {
+
   if (user) {
     const uid = user.uid;
 

@@ -2,7 +2,7 @@
 
   <div
     class="main-container"
-    v-if="$store.state.viewingSetupLoaded"
+    v-if="$store.state.viewingSetupLoaded && imageURL"
   >
 
     <!-- MAIN IMAGE -->
@@ -146,13 +146,17 @@
 
   </div>
 
-  <div v-else>loading</div>
+  <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+  <div v-else style="height: 300px; width: 800px; display: flex; justify-content: space-around; align-items: center;">
+    <loadingWheel/>
+  </div>
 
 </template>
 
 <script>
 import VueResizer from '../vender/vue-resizer'
 import { downloadPic } from "../manage-pic.js"
+import loadingWheel from "./loading-wheel.vue"
 
 export default {
   async created() {
@@ -161,7 +165,7 @@ export default {
 
     this.refreshImageURL()
   },
-  components: { VueResizer },
+  components: { VueResizer, loadingWheel },
   data() {
     const setup = this.$store.getters.setup(this.$route.params.setupId)
 

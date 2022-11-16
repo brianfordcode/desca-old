@@ -1,49 +1,47 @@
 <template>
 
-  <div
-    class="img-main-container"
-    @mousemove = "onMouseMove"
-    @mouseup = "dragging = null"
-    @mouseleave="dragging = null"
-    ref = "imagesContainer"
-  >
+<div
+  class="img-main-container"
+  @mousemove = "onMouseMove"
+  @mouseup = "dragging = null"
+  @mouseleave="dragging = null"
+  ref = "imagesContainer"
+  v-if="imageURL"
+>
 
-    <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-    <input
-      class="add-image-btn"
-      type="file"
-      v-if="loaded"
-      @change="addMainImg"
-    />
+  <!-- MAIN IMG -->
+  <img class="main-img"
+      draggable="false"
+      @click="addItem"
+      :src="imageURL"
+      v-if="imageURL"
+  />
 
-    <!-- MAIN IMG -->
-    <img class="main-img"
-        draggable="false"
-        @click="addItem"
-        :src="imageURL"
-        v-if="loaded && imageURL"
-    />
+  <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
+  <input
+    class="add-image-btn"
+    type="file"
+    v-if="imageURL"
+    @change="addMainImg"
+  />
 
-    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
-    <div v-if="!loaded" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
-      <loadingWheel/>
-    </div>
+  <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+  <div v-if="!imageURL" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
+    <loadingWheel/>
+  </div>
 
-    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
+</div>
 
-    <!-- IMAGE PLACEHOLDER -->
-    <div class="main-img-placeholder" v-if="!imageURL">
-      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
-      <div>
-        <input type="file" @change="addMainImg"/>
-      </div>
-        
-    </div>
+
+<!-- IMAGE PLACEHOLDER -->
+<div class="main-img-placeholder" v-if="!imageURL" >
+    <input type="file" @change="addMainImg"/>
+</div>
 
 
     <!--  ITEM TARGET  -->
     <div v-for="(item, index) in items" :key="index">
-    	<div
+      <div
         class="target"
         @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
         @mousedown="dragging = index"
@@ -158,8 +156,13 @@
       </div>
     
     </div>
+ 
 
-  </div>
+
+    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
+    
+
+
 
   <!-- ITEM LIST -->
   <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
@@ -176,7 +179,6 @@ function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
 
-// TODO: make sure target doesn't go off image-container when moving
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
 export default {
@@ -192,18 +194,18 @@ export default {
       items,
       imageURL: null,
       setup,
-      loaded: false,
     }
   },
   components: {
     itemList, VueResizer, loadingWheel
   },
+
   async created() {
     if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
       await this.refreshImageURL()
-      this.loaded = true
+      console.log('imageURL:', this.imageURL)
     } else {
-      this.loaded = false
+      console.log('imageURL:', this.imageURL)
     };
   },
   
@@ -254,16 +256,12 @@ export default {
       this.refreshImageURL()
 
       this.imageURL = this.setup.imageURL
-      this.loaded = true
 
     },
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
-      // console.log('from main img comp:', this.imageURL)
-      // console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
-      
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
@@ -340,7 +338,7 @@ export default {
   .main-img-placeholder {
       border: 2px dashed;
       height: 450px;
-      width: 100%;
+      width: 800px;
       display: flex;
       justify-content: space-around;
       align-items: center;

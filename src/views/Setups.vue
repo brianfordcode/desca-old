@@ -26,11 +26,17 @@
                         draggable="false"
                         :src="setup.imageURL"
                         alt="main-img"
+                        @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])"
                     />
                 </div>
-
-                <p v-else style=" opacity: 0.5; border: 1px solid; height: auto; display: flex; align-items: center; justify-content: space-around;">No Image!</p>
                 
+                <!-- NO IMAGE TEXT -->
+                <!-- TODO: INSTEAD OF THIS, JUST DON'T MAKE A NEW SETUP -->
+                <p v-else
+                   class="no-img-text"
+                >
+                No Image!
+                </p>
                 
                 <!-- BUTTONS -->
                 <div
@@ -137,6 +143,7 @@ export default {
     },
     methods: {
         makeNewSetup() {
+            
             const setupId = 'setup' + '-' + Date.now();
             
             const setup = {    
@@ -197,6 +204,15 @@ export default {
     box-shadow: 0px 0px 33px -20px #000000;
     display: flex;
     justify-content: center;
+}
+
+.no-img-text {
+    opacity: 0.5;
+    border: 1px solid;
+    height: 248px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .btn {
@@ -279,7 +295,6 @@ export default {
     border: 2px dashed;
     height: 250px;
     width: 326.47px;
-
     display: flex;
     justify-content: space-around;
     align-items: center;
