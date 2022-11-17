@@ -6,42 +6,17 @@
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
     ref = "imagesContainer"
+    v-if="imageURL"
   >
 
     <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
     <input
       class="add-image-btn"
       type="file"
-      v-if="loaded"
       @change="addMainImg"
     />
-
-    <!-- MAIN IMG -->
-    <img class="main-img"
-        draggable="false"
-        @click="addItem"
-        :src="imageURL"
-        v-if="loaded && imageURL"
-    />
-
-    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
-    <div v-if="!loaded" style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
-      <loadingWheel/>
-    </div>
-
-    <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
-
-    <!-- IMAGE PLACEHOLDER -->
-    <div class="main-img-placeholder" v-if="!imageURL">
-      <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
-      <div>
-        <input type="file" @change="addMainImg"/>
-      </div>
-        
-    </div>
-
-
-    <!--  ITEM TARGET  -->
+    
+    <!--  ITEM TARGETS  -->
     <div v-for="(item, index) in items" :key="index">
     	<div
         class="target"
@@ -159,10 +134,33 @@
     
     </div>
 
+    <!-- MAIN IMG -->
+    <img class="main-img"
+        draggable="false"
+        @click="addItem"
+        :src="imageURL"
+    />
+
   </div>
 
-  <!-- ITEM LIST -->
-  <itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
+    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+    <div v-else style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
+      <loadingWheel/>
+    </div>
+
+    <!-- IMAGE PLACEHOLDER -->
+    <div class="main-img-placeholder" v-if="!imageURL">
+      <div>
+        <input type="file" @change="addMainImg"/>
+      </div>
+    </div>
+
+
+
+
+
+<!-- ITEM LIST -->
+<itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
 
 </template>
 
@@ -190,19 +188,13 @@ export default {
       items,
       imageURL: null,
       setup,
-      loaded: false,
     }
   },
   components: {
     itemList, VueResizer, loadingWheel
   },
   async created() {
-    if (this.$store.getters.setup(this.$route.params.setupId).imageURL) {
-      await this.refreshImageURL()
-      this.loaded = true
-    } else {
-      this.loaded = false
-    };
+    if (this.setup.imageURL) { await this.refreshImageURL() }
   },
   
   watch: {
@@ -241,22 +233,17 @@ export default {
     async addMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
-      // TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST?
       
       this.imageURL = null
       // add loading screen here
       await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
       this.imageURL = this.setup.imageURL
-      this.loaded = true
     },
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
-      // console.log('from main img comp:', this.imageURL)
-      // console.log(this.$store.getters.setup(this.$route.params.setupId).imageURL)
-      
     },
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
@@ -321,7 +308,7 @@ export default {
   .main-img-placeholder {
       border: 2px dashed;
       height: 450px;
-      width: 100%;
+      width: 800px;
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -440,3 +427,8 @@ export default {
         }
     }
 </style>
+
+
+<!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
+<!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
+<!-- TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST? -->
