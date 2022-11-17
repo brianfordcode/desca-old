@@ -198,13 +198,12 @@ export default {
     }
 
 .placeholder {
-    margin-top:10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: absolute;
     border: 2px dashed;
-    height: 200px;
+    height: 100px;
     width: 100%;
     text-align: center;
     opacity: 0.5;

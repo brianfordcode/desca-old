@@ -143,17 +143,16 @@
 
 </div>
 
-
-
-<!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
 <loadingWheel v-if="!imageURL"/>
 
 <!-- IMAGE PLACEHOLDER -->
-<div class="main-img-placeholder" v-if="imageURL === 'no image'">
-  <div>
-    <input type="file" @change="addMainImg"/>
-  </div>
-</div>
+  <input
+    v-if="imageURL === 'no image'"
+    class="main-img-placeholder" 
+    type="file" 
+    @change="addMainImg"
+    accept=".jpg, .jpeg, .png"
+  />
 
 <!-- ITEM LIST -->
 <itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL && imageURL !='no image'"/>
@@ -299,7 +298,7 @@ export default {
   .img-main-container {
     position: relative;
     height: 100%;
-    width: 800px;
+    width: 100%;
   }
   .main-img-placeholder {
       border: 2px dashed;
