@@ -4,8 +4,8 @@ import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
 import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
-import {uploadPic} from "../upload-pic.js"
-import { downloadPic, deletePic } from '../manage-pic.js';
+// import {uploadPic} from "../upload-pic.js"
+import { downloadPic, deletePic, uploadPic} from '../manage-pic.js';
 
 
 const db = getFirestore();
@@ -52,19 +52,9 @@ const store = createStore({
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.setupId !== setupId)
     },
-    addMainImg(state, { currentSetup, picture }) {
-
+    changeMainImg(state, { currentSetup, url }) {
       const setup = state.setups.find(s => s.setupId ===  currentSetup.setupId)
-      
-      console.log('state info before:', setup)
-
-      setup.imageURL = picture
-      // state.setup
-
-      console.log(state.setups)
-      // console.log(currentSetup)
-
-
+      setup.imageURL = url
     },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
@@ -153,24 +143,18 @@ const store = createStore({
     // SETUPS
     addSetup(context, setup) {
       context.commit('addSetup', setup)
-      // PUSH TO FIREBASE
       setDoc(doc(db, "setups", setup.setupId), setup);
-      // console.log(context.state.setups)
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
-
-      if (context.getters.setup(setupId).imageURL != '') { deletePic(key) }
-
+      deletePic(key)
       context.commit('deleteSetup', setupId)
-      // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
       deleteDoc(doc(db, "setups", setupId))
 
     },
     addItem(context, { item, setupId }) {
       const items = [...context.getters.setup(setupId).items, copy(item)]
       context.commit('setItems', { items, setupId })
-      // ADD ITEMS TO FIREBASE DOCUMENT
       updateDoc(doc(db, "setups", setupId), {items: items});
     },
     moveItem(context, { setupId, itemIndex, point }) {
@@ -183,22 +167,14 @@ const store = createStore({
       const items = context.getters.setup(setupId).items
       updateDoc(doc(db, "setups", setupId), {items});
     },
-    async addMainImg(context, {currentSetupRoute, user, image}) {
-
+    async changeMainImg(context, {currentSetupRoute, user, image}) {
       const key = `${user.uid}/${currentSetupRoute}`
-
-      // FIREBASE STORAGE UPLOAD FUNCTIONALITY 
       await uploadPic(key, image)
-
       const url = await downloadPic(key)
-
       const currentSetup = context.getters.setup(currentSetupRoute)
-      const picture = url
-      updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
+      updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: url});
       context.dispatch('fetchUserSetups', user)
-
-      context.commit('addMainImg', {currentSetup, picture})
-
+      context.commit('changeMainImg', {currentSetup, url})
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
@@ -251,3 +227,6 @@ onAuthStateChanged(auth, async (user) => {
 
 
 export default store
+
+
+ // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??

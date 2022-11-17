@@ -14,7 +14,7 @@
     <p style="position: absolute;">upload new image!</p>
     <input
       type="file"
-      @change="addMainImg"
+      @change="changeMainImg"
       accept=".jpg, .jpeg, .png"
     />    
   </div>
@@ -156,7 +156,7 @@
   <p style="position: absolute;">Click to upload your setup!</p>
   <input
     type="file" 
-    @change="addMainImg"
+    @change="changeMainImg"
     accept=".jpg, .jpeg, .png"
   />  
 </div>
@@ -233,21 +233,28 @@ export default {
     }
   },
   methods: {
-    async addMainImg(event) {
+
+
+    async changeMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
       
       this.imageURL = null
-      // add loading screen here
-      await this.$store.dispatch('addMainImg', {currentSetupRoute, user, image: event.target.files[0]})
+
+      await this.$store.dispatch('changeMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
       this.imageURL = this.setup.imageURL
     },
+
+
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
     },
+
+
+
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
       const x = e.clientX - rect.left

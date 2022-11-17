@@ -112,10 +112,10 @@
 
         <!-- PLACEHOLDER -->
         <div
-            @click="makeNewSetup"
+            
             class="placeholder"
         >
-        Add a Setup!
+        <input type="file" @change="makeNewSetup">
         </div>
 
     </div>
@@ -130,7 +130,7 @@
 
 <script>
 import profileHeader from '../components/profile-header/profile-header.vue'
-import {downloadPic} from "../manage-pic.js"
+import {uploadPic, downloadPic} from "../manage-pic.js"
 
 export default {
 
@@ -158,23 +158,30 @@ export default {
     },
 
     methods: {
-        makeNewSetup() {
-            
+       async makeNewSetup(event) {
+
             const setupId = 'setup' + '-' + Date.now();
-            
+            const user = this.$store.state.user.uid         
+            const key = `${user}/${setupId}`
+
+            // UPLOAD PIC
+            await uploadPic(key, event.target.files[0])
+            const imageURL = await downloadPic(key)
+
             const setup = {    
-                user: this.$store.state.user.uid,
+                user,
                 timeCreated: Date.now(),
                 setupId,
-                imageURL: '',
+                imageURL,
                 items: []
             }
-            this.$store.dispatch('addSetup', setup)
 
-            this.modalOpen = false;
+            this.$store.dispatch('addSetup', setup)
 
             // open new setup
             this.$router.push(`/edit/${this.$store.state.user.uid}/${setupId}`)
+
+
         },
         showButtons(index) {
             this.selectedSetup = index

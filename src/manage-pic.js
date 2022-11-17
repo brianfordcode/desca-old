@@ -1,5 +1,5 @@
 
-import { getStorage, ref, getDownloadURL, deleteObject } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, deleteObject, uploadBytes } from "firebase/storage";
 
 const storage = getStorage();
 
@@ -25,4 +25,20 @@ function deletePic(key) {
     });    
 }
 
-export { downloadPic, deletePic }
+function uploadPic(key, image) {
+
+    const storage = getStorage();
+    
+    console.log(key)
+    
+    const storageRef = ref(storage, key);
+
+   
+    // 'image' comes from the Blob or File API
+    return uploadBytes(storageRef, image).then((snapshot) => {
+      console.log('Uploaded your setup!');
+    });
+
+}
+
+export { downloadPic, deletePic, uploadPic }
