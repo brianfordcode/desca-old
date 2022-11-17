@@ -1,154 +1,152 @@
 <template>
 
-  <div
-    class="img-main-container"
-    @mousemove = "onMouseMove"
-    @mouseup = "dragging = null"
-    @mouseleave="dragging = null"
-    ref = "imagesContainer"
-    v-if="imageURL && imageURL !='no image'"
-  >
+<div
+  class="img-main-container"
+  @mousemove = "onMouseMove"
+  @mouseup = "dragging = null"
+  @mouseleave="dragging = null"
+  ref = "imagesContainer"
+  v-if="imageURL && imageURL !='no image'"
+>
 
-    <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-    <input
-      class="add-image-btn"
-      type="file"
-      @change="addMainImg"
-    />
-    
-    <!--  ITEM TARGETS  -->
-    <div v-for="(item, index) in items" :key="index">
-    	<div
-        class="target"
-        @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
-        @mousedown="dragging = index"
-        @mouseenter="handleMouseOver(item, index)"
-        @mouseleave="hoveredItem = null"
-        alt="target"
-        draggable="false"
-        :style="{
-                  top: (item.y - 13) + 'px',
-                  left: (item.x - 13) + 'px'
-                }"
-    ></div>
+  <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
+  <input
+    class="add-image-btn"
+    type="file"
+    @change="addMainImg"
+  />
+  
+  <!--  ITEM TARGETS  -->
+  <div v-for="(item, index) in items" :key="index">
+    <div
+      class="target"
+      @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
+      @mousedown="dragging = index"
+      @mouseenter="handleMouseOver(item, index)"
+      @mouseleave="hoveredItem = null"
+      alt="target"
+      draggable="false"
+      :style="{
+                top: (item.y - 13) + 'px',
+                left: (item.x - 13) + 'px'
+              }"
+  ></div>
 
-      <!-- TOOLTIP ON HOVER -->
-      <p
-        class="tooltip"
-        v-if="hoveredItem === index"
-        :style="{
-                  top: (item.y + 20) + 'px',
-                  left: (item.x - 55) + 'px'
-                }"
-      >
-      Click to move<br>Double click to edit
-      </p>
+    <!-- TOOLTIP ON HOVER -->
+    <p
+      class="tooltip"
+      v-if="hoveredItem === index"
+      :style="{
+                top: (item.y + 20) + 'px',
+                left: (item.x - 55) + 'px'
+              }"
+    >
+    Click to move<br>Double click to edit
+    </p>
 
-      <!-- DETAILS BOX -->
-      <div class="details-box"
-           v-if="displayedItemIndex === index"
-           :style="{
-             top: (this.detailBlockPlacement.y) + 'px',
-             left: (this.detailBlockPlacement.x ) + 'px'
-           }"
-           
-      >
-        <VueResizer emitOnMount @notify="sizeChange"/>
-        <!-- CATEGORY SELECTION -->
-        <div class="details-text-wrapper">
-            <p style="color:white">Category:</p>
-            <select
-                name="category"
-                id="category" 
-                v-model="item.category"
-                style="width:200px; height: 30px;"
-            >
-                <option value="none" disabled>Select Category</option>
-                <option value="keyboard">Keyboard</option>
-                <option value="monitor">Monitor</option>
-                <option value="speaker">Speaker</option>
-                <option value="chair">Chair</option>
-                <option value="desk">Desk</option>
-                <option value="mouse">Mouse</option>
-                <option value="computer">Computer</option>
-                <option value="microphone">Microphone</option>
-                <option value="accessory">Accessory</option>
-                <option value="webcam">Webcam</option>
-                <option value="headphone">Headphone</option>
-            </select>
-        </div>
-        <!-- MODEL -->
-        <div
-          class="details-text-wrapper"
-          v-if="item.category != 'computer'"
-        >
-            <p style="color:white">Model:</p>
-            <input v-model="item.name"/>
-        </div>
-        <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
-        <div
-          class="computer-details"
-          v-if="item.category === 'computer'"
-        >
-          <p style="color: white; padding-top: 10px;">Specs:</p>
-          <div class="details-text-wrapper">
-            <p style="color:white">CPU:</p>
-            <input v-model="item.categoryDetails.cpu"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">GPU:</p>
-            <input v-model="item.categoryDetails.gpu"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">SSD</p>
-            <input v-model="item.categoryDetails.ssd"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">RAM</p>
-            <input v-model="item.categoryDetails.ram"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">case:</p>
-            <input v-model="item.categoryDetails.case"/>
-          </div>
-        </div>
-
-        <!-- STORE URL -->
-        <div class="details-text-wrapper">
-            <p style="color:white">URL:</p>
-            <input v-model="item.url"/>
-        </div>
-
-        <!-- BUTTONS -->
-          <button
-              class="enter-btn btn"
-              @click.stop="save"
-          >ENTER
-          </button>
-          <button
-            class="remove-btn btn"
-            @click.stop="removeItem(index)"
-          >REMOVE
-          </button>
+    <!-- DETAILS BOX -->
+    <div class="details-box"
+          v-if="displayedItemIndex === index"
+          :style="{
+            top: (this.detailBlockPlacement.y) + 'px',
+            left: (this.detailBlockPlacement.x ) + 'px'
+          }"
+          
+    >
+      <VueResizer emitOnMount @notify="sizeChange"/>
+      <!-- CATEGORY SELECTION -->
+      <div class="details-text-wrapper">
+          <p style="color:white">Category:</p>
+          <select
+              name="category"
+              id="category" 
+              v-model="item.category"
+              style="width:200px; height: 30px;"
+          >
+              <option value="none" disabled>Select Category</option>
+              <option value="keyboard">Keyboard</option>
+              <option value="monitor">Monitor</option>
+              <option value="speaker">Speaker</option>
+              <option value="chair">Chair</option>
+              <option value="desk">Desk</option>
+              <option value="mouse">Mouse</option>
+              <option value="computer">Computer</option>
+              <option value="microphone">Microphone</option>
+              <option value="accessory">Accessory</option>
+              <option value="webcam">Webcam</option>
+              <option value="headphone">Headphone</option>
+          </select>
       </div>
-    
+      <!-- MODEL -->
+      <div
+        class="details-text-wrapper"
+        v-if="item.category != 'computer'"
+      >
+          <p style="color:white">Model:</p>
+          <input v-model="item.name"/>
+      </div>
+      <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
+      <div
+        class="computer-details"
+        v-if="item.category === 'computer'"
+      >
+        <p style="color: white; padding-top: 10px;">Specs:</p>
+        <div class="details-text-wrapper">
+          <p style="color:white">CPU:</p>
+          <input v-model="item.categoryDetails.cpu"/>
+        </div>
+        <div class="details-text-wrapper">
+          <p style="color:white">GPU:</p>
+          <input v-model="item.categoryDetails.gpu"/>
+        </div>
+        <div class="details-text-wrapper">
+          <p style="color:white">SSD</p>
+          <input v-model="item.categoryDetails.ssd"/>
+        </div>
+        <div class="details-text-wrapper">
+          <p style="color:white">RAM</p>
+          <input v-model="item.categoryDetails.ram"/>
+        </div>
+        <div class="details-text-wrapper">
+          <p style="color:white">case:</p>
+          <input v-model="item.categoryDetails.case"/>
+        </div>
+      </div>
+
+      <!-- STORE URL -->
+      <div class="details-text-wrapper">
+          <p style="color:white">URL:</p>
+          <input v-model="item.url"/>
+      </div>
+
+      <!-- BUTTONS -->
+        <button
+            class="enter-btn btn"
+            @click.stop="save"
+        >ENTER
+        </button>
+        <button
+          class="remove-btn btn"
+          @click.stop="removeItem(index)"
+        >REMOVE
+        </button>
     </div>
-
-    <!-- MAIN IMG -->
-    <img class="main-img"
-        draggable="false"
-        @click="addItem"
-        :src="imageURL"
-    />
-
+  
   </div>
+
+  <!-- MAIN IMG -->
+  <img class="main-img"
+      draggable="false"
+      @click="addItem"
+      :src="imageURL"
+  />
+
+</div>
 
 
 
 <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
-<div v-if="!imageURL" style="height: 300px; width: 800px; display: flex; justify-content: space-around; align-items: center;">
-  <loadingWheel/>
-</div>
+<loadingWheel v-if="!imageURL"/>
 
 <!-- IMAGE PLACEHOLDER -->
 <div class="main-img-placeholder" v-if="imageURL === 'no image'">
@@ -157,10 +155,8 @@
   </div>
 </div>
 
-
-
 <!-- ITEM LIST -->
-<itemList @toggleItemDisplay="index => displayedItemIndex = index"/>
+<itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL && imageURL !='no image'"/>
 
 </template>
 

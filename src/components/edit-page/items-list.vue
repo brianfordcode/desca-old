@@ -198,6 +198,7 @@ export default {
     }
 
 .placeholder {
+    margin-top:10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
