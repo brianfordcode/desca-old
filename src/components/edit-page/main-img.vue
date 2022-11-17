@@ -6,7 +6,7 @@
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
     ref = "imagesContainer"
-    v-if="imageURL"
+    v-if="imageURL && imageURL !='no image'"
   >
 
     <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
@@ -143,19 +143,19 @@
 
   </div>
 
-    <!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
-    <div v-else style="height: 300px; display: flex; justify-content: space-around; align-items: center;">
-      <loadingWheel/>
-    </div>
-
-    <!-- IMAGE PLACEHOLDER -->
-    <div class="main-img-placeholder" v-if="!imageURL">
-      <div>
-        <input type="file" @change="addMainImg"/>
-      </div>
-    </div>
 
 
+<!-- SPINNING WHEEL WHILE LOADING MAIN IMG -->
+<div v-if="!imageURL" style="height: 300px; width: 800px; display: flex; justify-content: space-around; align-items: center;">
+  <loadingWheel/>
+</div>
+
+<!-- IMAGE PLACEHOLDER -->
+<div class="main-img-placeholder" v-if="imageURL === 'no image'">
+  <div>
+    <input type="file" @change="addMainImg"/>
+  </div>
+</div>
 
 
 
@@ -194,7 +194,7 @@ export default {
     itemList, VueResizer, loadingWheel
   },
   async created() {
-    if (this.setup.imageURL) { await this.refreshImageURL() }
+    if (this.setup.imageURL) { await this.refreshImageURL() } else {this.imageURL = "no image"; console.log(this.imageURL)}
   },
   
   watch: {
