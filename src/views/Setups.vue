@@ -25,9 +25,9 @@
                     <img
                         draggable="false"
                         :src="setup.imageURL"
-                        alt="main-img"
-                        @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])"
+                        alt="main-img"  
                     />
+                    <!-- @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])" -->
                 </div>
                 
                 <!-- NO IMAGE TEXT -->
@@ -141,6 +141,22 @@ export default {
             selectedSetup: null,
         }
     },
+    created() {
+        console.log(this.$store.state.setups)
+        const store = this.$store
+        
+        store.state.setups.forEach(setup => { 
+            if (setup.imageURL === "") {
+                const setupId = setup.setupId
+                const user = setup.user
+                store.dispatch('deleteSetup', {user, setupId})
+            }
+        })
+
+
+
+    },
+
     methods: {
         makeNewSetup() {
             

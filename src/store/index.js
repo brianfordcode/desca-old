@@ -52,9 +52,19 @@ const store = createStore({
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.setupId !== setupId)
     },
-    addMainImg(state, currentSetup, picture) {
+    addMainImg(state, { currentSetup, picture }) {
+
+      const setup = state.setups.find(s => s.setupId ===  currentSetup.setupId)
       
-      // mutation for addMainImg
+      console.log('state info before:', setup)
+
+      setup.imageURL = picture
+      // state.setup
+
+      console.log(state.setups)
+      // console.log(currentSetup)
+
+
     },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
@@ -145,6 +155,7 @@ const store = createStore({
       context.commit('addSetup', setup)
       // PUSH TO FIREBASE
       setDoc(doc(db, "setups", setup.setupId), setup);
+      // console.log(context.state.setups)
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
@@ -185,6 +196,8 @@ const store = createStore({
       const picture = url
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: picture});
       context.dispatch('fetchUserSetups', user)
+
+      context.commit('addMainImg', {currentSetup, picture})
 
     },
     saveItem(context, {index, setupId, item}) {

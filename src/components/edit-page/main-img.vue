@@ -10,12 +10,15 @@
 >
 
   <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-  <input
-    class="add-image-btn"
-    type="file"
-    @change="addMainImg"
-  />
-  
+  <div class="add-image-btn">
+    <p style="position: absolute;">upload new image!</p>
+    <input
+      type="file"
+      @change="addMainImg"
+      accept=".jpg, .jpeg, .png"
+    />    
+  </div>
+
   <!--  ITEM TARGETS  -->
   <div v-for="(item, index) in items" :key="index">
     <div
@@ -145,14 +148,19 @@
 
 <loadingWheel v-if="!imageURL"/>
 
-<!-- IMAGE PLACEHOLDER -->
+<!-- IMAGE UPLOAD PLACEHOLDER -->
+<div
+  v-if="imageURL === 'no image'"
+  class="main-img-placeholder"
+>
+  <p style="position: absolute;">Click to upload your setup!</p>
   <input
-    v-if="imageURL === 'no image'"
-    class="main-img-placeholder" 
     type="file" 
     @change="addMainImg"
     accept=".jpg, .jpeg, .png"
-  />
+  />  
+</div>
+
 
 <!-- ITEM LIST -->
 <itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL && imageURL !='no image'"/>
@@ -189,7 +197,7 @@ export default {
     itemList, VueResizer, loadingWheel
   },
   async created() {
-    if (this.setup.imageURL) { await this.refreshImageURL() } else {this.imageURL = "no image"; console.log(this.imageURL)}
+    this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
   },
   
   watch: {
@@ -303,12 +311,11 @@ export default {
   .main-img-placeholder {
       border: 2px dashed;
       height: 450px;
-      width: 800px;
+      width: 100%;
       display: flex;
       justify-content: space-around;
       align-items: center;
       opacity: 0.5;
-      cursor: pointer;
   }
   .main-img-placeholder:hover {
       opacity: 1;
@@ -324,9 +331,22 @@ export default {
     position: absolute;
     bottom: 0;
     color: white;
+    opacity: 0.75;
     background: green;
-    padding: 7px;
     cursor: pointer;
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .add-image-btn:hover {
+    opacity: 1;
+  }
+
+  input {
+    width:100%;
+    height: 100%;
+    opacity: 0;
   }
   
   .target {
@@ -427,3 +447,5 @@ export default {
 <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
 <!-- TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST? -->
+<!-- TODO: CONVERT TARGETS TO % SO MOBILE SUPPORTED -->
+<!-- TODO: WHY DOES IMAGE UPLOAD BTN BTM LEFT CURSOR POINTER NOT WORK? -->
