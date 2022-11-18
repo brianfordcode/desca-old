@@ -60,15 +60,7 @@
             >
         </div>
 
-        <!-- ALLOW COMMENTS -->
-        <div class="allow-comments">
-            <input type="checkbox"
-                v-model="editProfileDetails.allowComments"
-            >
-            <p>Allow Comments</p>
-        </div>
-
-        </div>
+      </div>
 
     </div>
 
@@ -94,8 +86,6 @@ export default {
 
   .details-box {
     position: absolute;
-    top: 20px;
-    transform: translateY(80px);
     background-color: rgba(0,0,0,0.75);
     z-index: 100000;
     color: white;
@@ -146,3 +136,5 @@ export default {
   }
 
 </style>
+
+<!-- TODO: CHANGE PROFILE PIC IMAGE BUTTON FUNCTIONALITY -->

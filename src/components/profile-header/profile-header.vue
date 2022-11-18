@@ -6,7 +6,7 @@
     <!-- PROF PIC -->
       <div class="prof-pic">
         <img draggable="false" 
-             style="width: 100px; height: auto;"
+             style="width: 100px; height: 100px;"
              :src="profileDetails.profPic"
              v-if="profileDetails.profPic"
              referrerpolicy="no-referrer"
@@ -104,7 +104,7 @@
             ref="textToggle"
             v-if="$route.name != 'View'"
         >
-        {{!this.editOpen ? "Change Profile Details" : 'SUBMIT'}}
+        {{!this.editOpen ? "Edit Details" : 'SUBMIT'}}
         </button>
 
 
@@ -118,7 +118,7 @@
 
 </div>
 
-<loadingWheel v-else style="height: 50px; width:50px; border: 1px solid; margin: 10px;" />
+<loadingWheel v-else style="height: 100px; width:100px; margin: 40px;" />
 
 </template>
 
@@ -187,7 +187,7 @@ function copy(value) {
   }
 
   .edit-btn {
-    width: 150px;
+    width: 120px;
     height: 25px;
     background: green;
     color: white;

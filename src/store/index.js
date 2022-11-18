@@ -121,7 +121,6 @@ const store = createStore({
             discordLink: '',
             websiteLink: '',
           },
-          allowComments: false,
           liveStatus: false,
         }
 

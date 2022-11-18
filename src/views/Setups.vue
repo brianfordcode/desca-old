@@ -140,9 +140,6 @@ export default {
                 store.dispatch('deleteSetup', {user, setupId})
             }
         })
-
-
-
     },
 
     methods: {
@@ -189,12 +186,6 @@ export default {
 </script>
 
 <style scoped>
-
-.loginhome-container {
-    /* max-width: 1200px;
-    width: 90%;
-    margin: 0 auto; */
-}
 
 .setup-links-container {
     display: flex;
