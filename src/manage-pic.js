@@ -36,6 +36,7 @@ function uploadPic(key, image) {
    
     // 'image' comes from the Blob or File API
     return uploadBytes(storageRef, image).then((snapshot) => {
+        console.log(snapshot.metadata);
       console.log('Uploaded your setup!');
     });
 

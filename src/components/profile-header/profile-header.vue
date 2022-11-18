@@ -2,7 +2,6 @@
   <div
     class="container"
     v-if="profileDetails"
-    :style="`height: ${$route.name === 'View' ? `75px` : `max-content;`};`"
   >
     <!-- PROF PIC -->
       <div class="prof-pic">
@@ -119,12 +118,13 @@
 
 </div>
 
-<div v-else>loading</div>
+<loadingWheel v-else style="height: 50px; width:50px; border: 1px solid; margin: 10px;" />
 
 </template>
 
 <script>
 import detailsChangeBox from './details-change-box.vue'
+import loadingWheel from '../loading-wheel.vue'
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -136,9 +136,7 @@ function copy(value) {
       const routerUser = this.$route.params.user;
       this.$store.dispatch('fetchUserDetails', routerUser)
     },
-    components: {
-      detailsChangeBox
-    },
+    components: { detailsChangeBox, loadingWheel },
     data() {
       return {
         editOpen: false,
@@ -166,7 +164,7 @@ function copy(value) {
 
 <style scoped>
   .container {
-    margin: 20px 0 5px 0;
+    margin: 50px 0 20px 0;
     position: relative;
     display: flex;
   }

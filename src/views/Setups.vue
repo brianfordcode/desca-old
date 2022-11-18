@@ -1,14 +1,16 @@
 <template>
 
-<div class="loginhome-container" v-if="$store.state.loaded">
+<div style="max-width: 1200px; width: 90%; margin: 0 auto">
 
     <profileHeader style="z-index: 10000;"/>
 
-    <h2 style="color: black; margin: 20px 0 20px 0;">My Setups:</h2>
+    <h2>My Setups:</h2>
 
-    <div class="setup-links-container">
+    <div
+        class="setup-links-container"
+        v-if="$store.state.loaded"
+    >
         <!-- LIST CONTAINER -->
-        <!-- TODO: WHY ON INITIAL UPLOAD OF PIC DOES IT NOT LOAD WHEN GO BACK TO SETUPS PAGE? -->
         <div 
             class="setup-links"
             v-for="(setup, index) in $store.state.setups"
@@ -94,7 +96,7 @@
                     Share
                     </div>
                 </div>
-           
+            
             </div>
             
         </div>
@@ -107,9 +109,9 @@
 
     </div>
 
-</div>
+    <loadingWheel v-else style="width: 100%;"/>
 
-<loadingWheel v-else style="width: 100%;"/>
+</div>
 
 </template>
 
@@ -189,9 +191,9 @@ export default {
 <style scoped>
 
 .loginhome-container {
-    max-width: 1200px;
+    /* max-width: 1200px;
     width: 90%;
-    margin: 0 auto;
+    margin: 0 auto; */
 }
 
 .setup-links-container {
@@ -202,7 +204,7 @@ export default {
 }
 
 .setup-image-container {
-    margin: 10px;
+    margin: 20px 20px 0 0;
     position: relative;
     height: 200px;
     width: 275px;
@@ -303,7 +305,7 @@ export default {
 }
 
 .placeholder {
-    margin: 10px;
+    margin: 20px 20px 0 0;
     border: 2px dashed;
     height: 200px;
     width: 275px;

@@ -2,7 +2,7 @@
     
     <div class="edit-container">
 
-      <profileHeader style="z-index: 10000;"/>
+      <profileHeader style="z-index: 10000; margin: 20px 0"/>
 
       <mainImg/>
 
@@ -28,9 +28,9 @@ export default {
 .edit-container {
   max-width: 1200px;
   width: 800px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
 }
 
 </style>
