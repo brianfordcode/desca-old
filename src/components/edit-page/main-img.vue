@@ -6,12 +6,12 @@
   @mouseup = "dragging = null"
   @mouseleave="dragging = null"
   ref = "imagesContainer"
-  v-if="imageURL && imageURL !='no image'"
+  v-if="imageURL"
 >
 
   <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-  <div class="add-image-btn">
-    <p style="position: absolute;">upload new image!</p>
+  <div class="change-image-btn">
+    <p style="position: absolute;">Change Image</p>
     <input
       type="file"
       @change="changeMainImg"
@@ -146,24 +146,10 @@
 
 </div>
 
-<loadingWheel v-if="!imageURL"/>
-
-<!-- IMAGE UPLOAD PLACEHOLDER -->
-<div
-  v-if="imageURL === 'no image'"
-  class="main-img-placeholder"
->
-  <p style="position: absolute;">Click to upload your setup!</p>
-  <input
-    type="file" 
-    @change="changeMainImg"
-    accept=".jpg, .jpeg, .png"
-  />  
-</div>
-
-
 <!-- ITEM LIST -->
-<itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL && imageURL !='no image'"/>
+<itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL"/>
+
+<loadingWheel v-else/>
 
 </template>
 
@@ -233,28 +219,19 @@ export default {
     }
   },
   methods: {
-
-
     async changeMainImg(event) {
       const currentSetupRoute = this.$route.params.setupId
       const user = this.$store.state.user
-      
       this.imageURL = null
-
       await this.$store.dispatch('changeMainImg', {currentSetupRoute, user, image: event.target.files[0]})
       this.refreshImageURL()
       this.imageURL = this.setup.imageURL
     },
-
-
     async refreshImageURL() {
       const key = `${this.setup.user}/${this.$route.params.setupId}`
       const url = await downloadPic(key)
       this.imageURL = url
     },
-
-
-
     addItem(e) {
       const rect = e.target.getBoundingClientRect()
       const x = e.clientX - rect.left
@@ -315,26 +292,13 @@ export default {
     height: 100%;
     width: 100%;
   }
-  .main-img-placeholder {
-      border: 2px dashed;
-      height: 450px;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      opacity: 0.5;
-  }
-  .main-img-placeholder:hover {
-      opacity: 1;
-  }
-  
   .main-img {
     width: 100%;
     height: 100%;
     cursor: crosshair;
     display: block;
   }
-  .add-image-btn {
+  .change-image-btn {
     position: absolute;
     bottom: 0;
     color: white;
@@ -346,14 +310,13 @@ export default {
     justify-content: space-around;
     align-items: center;
   }
-  .add-image-btn:hover {
+  .change-image-btn:hover {
     opacity: 1;
   }
 
   input {
-    width:100%;
-    height: 100%;
     opacity: 0;
+    cursor: pointer;
   }
   
   .target {
@@ -427,29 +390,8 @@ export default {
       top: 0;
       background-color: rgb(192, 7, 7);
   }
-  
-  .spin {
-        display: inline-block;
-        width: 50px;
-        height: 50px;
-        border: 3px solid rgba(255, 255, 255, .3);
-        border-radius: 50%;
-        border-top-color: rgb(13, 13, 118);;
-        animation: spin 1s ease-in-out infinite;
-        -webkit-animation: spin 1s ease-in-out infinite;
-      }
-      @keyframes spin {
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-      }
-      @-webkit-keyframes spin {
-        to {
-          -webkit-transform: rotate(360deg);
-        }
-    }
-</style>
 
+</style>
 
 <!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
