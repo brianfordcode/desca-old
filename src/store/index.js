@@ -24,7 +24,8 @@ const store = createStore({
       profileDetails: {},
       setups: [],
       viewingSetup: [],
-      viewingSetupLoaded: false, 
+      viewingSetupLoaded: false,
+      uploadProgress: null,
     }
   },
   getters: {
@@ -33,7 +34,7 @@ const store = createStore({
     },
     getProfileDetails: state => user => {
       return state.profileDetails[user]
-    }
+    },
   },
   mutations: {
     setLoaded(state) {
@@ -82,6 +83,12 @@ const store = createStore({
     },
     saveItems(state, { setupId, items}) {
       state.setups.find(s => s.setupId === setupId).items = copy(items)
+    },
+    uploadProgress(state, progress) {
+      state.uploadProgress = progress
+    },
+    resetUploadProgress(state) {
+      state.uploadProgress = null
     },
     logOut(state) {
       state.loggedIn = false
@@ -143,6 +150,7 @@ const store = createStore({
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       setDoc(doc(db, "setups", setup.setupId), setup);
+      context.commit('resetUploadProgress')
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
@@ -195,6 +203,9 @@ const store = createStore({
       context.commit('fetchViewingSetup', viewingSetup.data())
       context.commit('setViewingSetupLoaded')
     },
+    uploadProgress(context, progress) {
+      context.commit('uploadProgress', progress)
+    }
   }
 })
 

@@ -1,5 +1,6 @@
 
-import { getStorage, ref, getDownloadURL, deleteObject, uploadBytes } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, deleteObject, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import store from './store/index.js'
 
 const storage = getStorage();
 
@@ -33,10 +34,20 @@ function uploadPic(key, image) {
     
     const storageRef = ref(storage, key);
 
-   
+    const metadata = {
+        contentType: 'image/jpeg',
+      };
+
+    const uploadTask = uploadBytesResumable(storageRef, image)
+
+    uploadTask.on('state_changed', 
+  (snapshot) => {
+        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+        store.dispatch('uploadProgress', progress)
+    })
+
     // 'image' comes from the Blob or File API
-    return uploadBytes(storageRef, image).then((snapshot) => {
-        console.log(snapshot.metadata);
+    return uploadTask.then((snapshot) => {
       console.log('Uploaded your setup!');
     });
 

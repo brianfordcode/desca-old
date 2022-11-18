@@ -101,10 +101,21 @@
             
         </div>
 
-        <!-- PLACEHOLDER -->
+        <!-- UPLOAD PLACEHOLDER -->
         <div class="placeholder">
-            <p style="position: absolute;">Add a Setup!</p>
-            <input type="file" @change="makeNewSetup">
+            <p style="position: absolute;" v-if="uploadProgress === null">Add a Setup!</p>
+            <input
+                v-if="uploadProgress === null"
+                type="file"
+                accept=".jpeg,.jpg,.png"
+                @change="makeNewSetup"
+            >
+            <div v-else style="display: flex; flex-direction: column; align-items: center;">
+                <p>Uploading:</p>
+                <p >{{uploadProgress}}%</p>
+                <p v-show="uploadProgress === 100">Going to your setup!</p>
+            </div>
+            
         </div>
 
     </div>
@@ -130,10 +141,9 @@ export default {
         }
     },
     created() {
-        console.log(this.$store.state.setups)
         const store = this.$store
         
-        store.state.setups.forEach(setup => { 
+        this.$store.state.setups.forEach(setup => { 
             if (setup.imageURL === "") {
                 const setupId = setup.setupId
                 const user = setup.user
@@ -141,6 +151,12 @@ export default {
             }
         })
     },
+    computed: {
+        uploadProgress() {
+            const uploadProgress = this.$store.state.uploadProgress
+            return uploadProgress
+        }
+    },  
 
     methods: {
        async makeNewSetup(event) {
