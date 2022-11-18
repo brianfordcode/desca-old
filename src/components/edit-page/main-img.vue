@@ -309,12 +309,16 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
   }
   .change-image-btn:hover {
     opacity: 1;
   }
 
   input {
+    height: 100%;
+    width: 100%;
+    border: 1px solid;
     opacity: 0;
     cursor: pointer;
   }
@@ -361,12 +365,7 @@ export default {
   .details-text-wrapper p {
       padding-right: 5px;
   }
-  input {
-      width: 200px;
-      padding: 5px;
-      outline: none;
-      border: none;
-  }
+
   #category {
       outline: none;
       border: none;

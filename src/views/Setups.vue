@@ -27,17 +27,7 @@
                         :src="setup.imageURL"
                         alt="main-img"  
                     />
-                    <!-- @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])" -->
                 </div>
-                
-                <!-- NO IMAGE TEXT -->
-                <!-- TODO: INSTEAD OF THIS, JUST DON'T MAKE A NEW SETUP -->
-                <p v-else
-                   class="no-img-text"
-                >
-                No Image!
-                </p>
-                
                 <!-- BUTTONS -->
                 <div
                     class="buttons-container"
@@ -104,37 +94,33 @@
                     Share
                     </div>
                 </div>
-                    
-                
+           
             </div>
             
         </div>
 
         <!-- PLACEHOLDER -->
-        <div
-            
-            class="placeholder"
-        >
-        <input type="file" @change="makeNewSetup">
+        <div class="placeholder">
+            <p style="position: absolute;">Add a Setup!</p>
+            <input type="file" @change="makeNewSetup">
         </div>
 
     </div>
 
 </div>
 
-<div v-else>loading</div>
-
-    <!-- <div>{{ $store.state.setups }}</div> -->
+<loadingWheel v-else style="width: 100%;"/>
 
 </template>
 
 <script>
 import profileHeader from '../components/profile-header/profile-header.vue'
 import {uploadPic, downloadPic} from "../manage-pic.js"
+import loadingWheel from "../components/loading-wheel.vue"
 
 export default {
 
-    components: { profileHeader },
+    components: { profileHeader, loadingWheel },
     data() {
         return {
             modalOpen: false,
@@ -180,8 +166,6 @@ export default {
 
             // open new setup
             this.$router.push(`/edit/${this.$store.state.user.uid}/${setupId}`)
-
-
         },
         showButtons(index) {
             this.selectedSetup = index
@@ -206,24 +190,28 @@ export default {
 
 .loginhome-container {
     max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
 }
 
 .setup-links-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
 }
 
 .setup-image-container {
+    margin: 10px;
     position: relative;
-    height: 250px;
-    width: 350px;
+    height: 200px;
+    width: 275px;
     overflow: hidden;
 }
 
 .image-wrapper {
-    height: 100%;
+    height: 110%;
+    width: 100%;
     box-shadow: 0px 0px 33px -20px #000000;
     display: flex;
     justify-content: center;
@@ -315,9 +303,10 @@ export default {
 }
 
 .placeholder {
+    margin: 10px;
     border: 2px dashed;
-    height: 250px;
-    width: 326.47px;
+    height: 200px;
+    width: 275px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -329,4 +318,14 @@ export default {
     opacity: 1;
 }
 
+input {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
 </style>
+
+
+<!-- @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])" -->
