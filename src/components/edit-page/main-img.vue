@@ -9,15 +9,30 @@
   v-if="imageURL"
 >
 
-  <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-  <div class="change-image-btn">
+  
+  <!-- <div class="change-image-btn">
     <p style="position: absolute;">Change Image</p>
     <input
       type="file"
       @change="changeMainImg"
       accept=".jpg, .jpeg, .png"
     />    
-  </div>
+  </div> -->
+
+<!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
+  <label
+    class="change-image-btn"
+    for="input"
+  >
+    Change Image
+    <input
+      id="input"
+      type="file"
+      @change="changeMainImg"
+      accept=".jpg, .jpeg, .png"
+      style="display: none;"
+    >
+  </label>
 
   <!--  ITEM TARGETS  -->
   <div v-for="(item, index) in items" :key="index">
@@ -301,11 +316,12 @@ export default {
   .change-image-btn {
     position: absolute;
     bottom: 0;
-    color: white;
+    left: 0;
     opacity: 0.75;
     background: green;
+    color: white;
     cursor: pointer;
-    width: 20%;
+    padding: 3px 7px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -315,11 +331,13 @@ export default {
     opacity: 1;
   }
 
-  input {
-    height: 100%;
-    width: 100%;
+  .details-box input {
+    height: 30px;
+    width: 200px;
     border: 1px solid;
-    opacity: 0;
+    outline: none;
+    padding-left: 5px;
+    /* opacity: 0; */
     cursor: pointer;
   }
   

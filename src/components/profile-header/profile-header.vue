@@ -164,7 +164,7 @@ function copy(value) {
 
 <style scoped>
   .container {
-    margin: 50px 0 20px 0;
+    margin: 30px 0 20px 0;
     position: relative;
     display: flex;
   }

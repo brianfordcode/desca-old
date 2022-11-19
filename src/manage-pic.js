@@ -29,19 +29,10 @@ function deletePic(key) {
 function uploadPic(key, image) {
 
     const storage = getStorage();
-    
-    console.log(key)
-    
     const storageRef = ref(storage, key);
-
-    const metadata = {
-        contentType: 'image/jpeg',
-      };
-
     const uploadTask = uploadBytesResumable(storageRef, image)
 
-    uploadTask.on('state_changed', 
-  (snapshot) => {
+    uploadTask.on('state_changed', (snapshot) => {
         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         store.dispatch('uploadProgress', progress)
     })

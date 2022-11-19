@@ -7,7 +7,6 @@ import {  getAuth, onAuthStateChanged } from "firebase/auth";
 // import {uploadPic} from "../upload-pic.js"
 import { downloadPic, deletePic, uploadPic} from '../manage-pic.js';
 
-
 const db = getFirestore();
 
 function copy(value) {
@@ -157,7 +156,6 @@ const store = createStore({
       deletePic(key)
       context.commit('deleteSetup', setupId)
       deleteDoc(doc(db, "setups", setupId))
-
     },
     addItem(context, { item, setupId }) {
       const items = [...context.getters.setup(setupId).items, copy(item)]
@@ -210,9 +208,7 @@ const store = createStore({
 })
 
 const auth = getAuth();
-
 onAuthStateChanged(auth, async (user) => {
-
   if (user) {
     const uid = user.uid;
 
@@ -232,7 +228,6 @@ onAuthStateChanged(auth, async (user) => {
       store.commit('logOut')
 
   }
-
 });
 
 

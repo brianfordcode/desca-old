@@ -9,13 +9,19 @@
             <input type="text" v-model="editProfileDetails.profName"/>
         </div>
 
-        <!-- UPLOAD PICTURE -->
-        <button
-            class="upload-btn btn"
-            @click="uploadProfImg"
-        >
-        Upload Profile Pic
-        </button>
+        <!-- UPLOAD PROFILE PICTURE -->
+        <label for="input" class="upload-btn-wrapper btn">
+          upload profile pic
+          <input
+            id="input"
+            type="file"
+            @change="uploadProfImg"
+            accept=".jpg, .jpeg, .png"
+            style="display: none;"
+          >
+        </label>
+
+
 
         <!-- TWITCH -->
         <div class="twitch input">
@@ -111,10 +117,6 @@ export default {
     height: 25px;
   }
 
-  .allow-comments > p {
-    padding-left: 5px;
-  }
-
   input {
     outline: none;
     border: none;
@@ -126,15 +128,11 @@ export default {
     padding-right: 7px
   }
 
-  .btn {
+  .upload-btn-wrapper {
     background: green;
-    color: white;
-    padding: 5px;
+    padding: 3px 7px;
     cursor: pointer;
-    border: none;
-    
   }
-
 </style>
 
 <!-- TODO: CHANGE PROFILE PIC IMAGE BUTTON FUNCTIONALITY -->
