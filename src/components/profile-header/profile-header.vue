@@ -110,7 +110,6 @@
         <!-- PROFILE CHANGE DETAILS BOX -->
         <detailsChangeBox
           :editProfileDetails="editProfileDetails"
-          :profPic="profPic"
           v-if="editOpen"
         />
 
@@ -152,6 +151,7 @@ function copy(value) {
         if (this.editOpen) {
           this.editProfileDetails = copy(this.profileDetails)
         } else {
+          this.editProfileDetails.profPic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic //IF NEW PROFPIC IS UPLOADED
           this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
         }
       }

@@ -121,8 +121,6 @@
 
     
     <loadingWheel v-else style="width: 100%;"/>
-    
-    <p>{{$store.state.profileDetails}}</p>
 
 </div>
 
