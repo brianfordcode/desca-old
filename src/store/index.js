@@ -58,6 +58,10 @@ const store = createStore({
       setup.imageURL = url
       state.uploadProgress = null
     },
+    changeProfPic(state, {user, url}) {
+      const details = this.getters.getProfileDetails(user.uid)
+      details.profPic = url
+    },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
     },
@@ -178,7 +182,13 @@ const store = createStore({
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: url});
       context.dispatch('fetchUserSetups', user)
       context.commit('changeMainImg', {currentSetup, url})
-      
+    },
+    async changeProfPic(context, {profPicId, user, image}) {
+      const key = `${user.uid}/${profPicId}`
+      await uploadPic(key, image)
+      const url = await downloadPic(key)
+      updateDoc(doc(db, "profileDetails", user.uid), {profPic: url});
+      context.commit('changeProfPic', {user, url})
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})

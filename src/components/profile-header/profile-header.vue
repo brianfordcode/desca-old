@@ -141,7 +141,6 @@ function copy(value) {
       return {
         editOpen: false,
         editProfileDetails: null,
-        profPic: null
       }
     },
     methods: {
@@ -149,10 +148,7 @@ function copy(value) {
 
       enterBtn() {
         this.editOpen = !this.editOpen
-
-        console.log(this.profPic)
         
-
         if (this.editOpen) {
           this.editProfileDetails = copy(this.profileDetails)
         } else {

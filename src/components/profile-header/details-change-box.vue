@@ -69,23 +69,14 @@ export default {
     editProfileDetails: {
         type: Object,
     },
-    profPic: {
-      type: String
-    }
   },
   methods: {
     async uploadProfImg(event) {
 
-      const profPicUpload = 'profPic' + '-' + Date.now();
-      const user = this.$store.state.user.uid
-      const key = `${user}/${profPicUpload}`
+      const profPicId = 'profPic' + '-' + Date.now();
+      const user = this.$store.state.user
 
-      await uploadPic(key, event.target.files[0])
-      const profPic = await downloadPic(key)
-
-      this.profPic = profPic
-
-      // console.log(typeof(this.profPic))
+      await this.$store.dispatch('changeProfPic', {profPicId, user, image: event.target.files[0]})
 
     },
   },
