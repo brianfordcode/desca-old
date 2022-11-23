@@ -112,8 +112,7 @@
             >
             <div v-else style="display: flex; flex-direction: column; align-items: center;">
                 <p>Uploading:</p>
-                <p >{{uploadProgress}}%</p>
-                <p v-show="uploadProgress === 100">Going to your setup!</p>
+                <p >{{uploadProgress}}{{isNaN(uploadProgress) ? '' : "%" }}</p>
             </div>
             
         </div>
@@ -338,3 +337,4 @@ input {
 
 
 <!-- @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])" -->
+<!-- TODO: ONLY ALLOW WEBSITE ADDRESSES IN INPUTS -->

@@ -48,6 +48,7 @@ const store = createStore({
     },
     addSetup(state, setup) {
       state.setups.push(setup)
+      state.uploadProgress = null
     },
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.setupId !== setupId)
@@ -55,6 +56,7 @@ const store = createStore({
     changeMainImg(state, { currentSetup, url }) {
       const setup = state.setups.find(s => s.setupId ===  currentSetup.setupId)
       setup.imageURL = url
+      state.uploadProgress = null
     },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
@@ -85,9 +87,6 @@ const store = createStore({
     },
     uploadProgress(state, progress) {
       state.uploadProgress = progress
-    },
-    resetUploadProgress(state) {
-      state.uploadProgress = null
     },
     logOut(state) {
       state.loggedIn = false
@@ -149,7 +148,6 @@ const store = createStore({
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       setDoc(doc(db, "setups", setup.setupId), setup);
-      context.commit('resetUploadProgress')
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
@@ -180,6 +178,7 @@ const store = createStore({
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: url});
       context.dispatch('fetchUserSetups', user)
       context.commit('changeMainImg', {currentSetup, url})
+      
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})

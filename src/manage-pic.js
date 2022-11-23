@@ -12,12 +12,8 @@ async function downloadPic(key) {
 
 // DELETE PIC
 function deletePic(key) {
-
     const pic = ref(storage, key);
 
-    // console.log(pic)
-
-    // Delete the file
     deleteObject(pic).then(() => {
         console.log('File deleted successfully')
     }).catch((error) => {
@@ -27,7 +23,6 @@ function deletePic(key) {
 }
 
 function uploadPic(key, image) {
-
     const storage = getStorage();
     const storageRef = ref(storage, key);
     const uploadTask = uploadBytesResumable(storageRef, image)
@@ -36,10 +31,8 @@ function uploadPic(key, image) {
         const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
         store.dispatch('uploadProgress', progress)
     })
-
-    // 'image' comes from the Blob or File API
     return uploadTask.then((snapshot) => {
-      console.log('Uploaded your setup!');
+      store.dispatch('uploadProgress', "Going to your Setup!")
     });
 
 }

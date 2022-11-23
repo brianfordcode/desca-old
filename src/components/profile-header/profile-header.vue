@@ -19,7 +19,6 @@
         <h1 class="prof-name">{{ profileDetails.profName }}</h1>
 
         <!-- LINKS -->
-        <!-- TODO: ONLY ALLOW WEBSITES WITH HTTP, ETC. -->
         <div class="links-wrapper">
 
           <!-- TWITCH -->
@@ -111,6 +110,7 @@
         <!-- PROFILE CHANGE DETAILS BOX -->
         <detailsChangeBox
           :editProfileDetails="editProfileDetails"
+          :profPic="profPic"
           v-if="editOpen"
         />
 
@@ -141,11 +141,17 @@ function copy(value) {
       return {
         editOpen: false,
         editProfileDetails: null,
+        profPic: null
       }
     },
     methods: {
+      // console.log(Object.values(this.$store.getters.getProfileDetails(this.$route.params.user).socialLinks))
+
       enterBtn() {
         this.editOpen = !this.editOpen
+
+        console.log(this.profPic)
+        
 
         if (this.editOpen) {
           this.editProfileDetails = copy(this.profileDetails)

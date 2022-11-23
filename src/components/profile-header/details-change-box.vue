@@ -1,7 +1,8 @@
 <template>
 
     <div class="details-box">
-        <div class="details-text">
+      
+      <form class="details-text">
 
         <!-- PROFILE NAME -->
         <div class="name-input input">
@@ -21,52 +22,39 @@
           >
         </label>
 
-
-
         <!-- TWITCH -->
         <div class="twitch input">
             <img src="/social-links/twitch-logo.png" alt="twitch"/>
-            <input v-model="editProfileDetails.socialLinks.twitchLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.twitchLink" type="url">
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
             <img src="/social-links/twitter-logo.png" alt="twitter"/>
-            <input v-model="editProfileDetails.socialLinks.twitterLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.twitterLink" type="url">
         </div>
         <!-- YOUTUBE -->
         <div class="youtube input">
             <img src="/social-links/youtube-logo.png" alt="youtube"/>
-            <input v-model="editProfileDetails.socialLinks.youtubeLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.youtubeLink" type="url">
         </div>
         <!-- DISCORD -->
         <div class="discord input">
             <img src="/social-links/discord-logo.png" alt="discord"/>
-            <input v-model="editProfileDetails.socialLinks.discordLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.discordLink" type="url">
         </div>
         <!-- FACEBOOK -->
         <div class="facebook input">
             <img src="/social-links/facebook-logo.png" alt="facebook"/>
-            <input v-model="editProfileDetails.socialLinks.facebookLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.facebookLink" type="url">
         </div>
         <!-- WEBSITE -->
         <div class="website input">
             <img src="/social-links/website-logo.png" alt="website"/>
-            <input v-model="editProfileDetails.socialLinks.websiteLink"
-                    type="text"
-            >
+            <input v-model="editProfileDetails.socialLinks.websiteLink" type="url">
         </div>
 
-      </div>
+
+      </form>
 
     </div>
 
@@ -74,17 +62,33 @@
 </template>
 
 <script>
+import {uploadPic, downloadPic} from "/Users/brianford/Documents/desca/src/manage-pic.js"
+
 export default {
   props: {
     editProfileDetails: {
         type: Object,
+    },
+    profPic: {
+      type: String
     }
   },
   methods: {
-    uploadProfImg() { 
-      console.log('profile picture upload')
+    async uploadProfImg(event) {
+
+      const profPicUpload = 'profPic' + '-' + Date.now();
+      const user = this.$store.state.user.uid
+      const key = `${user}/${profPicUpload}`
+
+      await uploadPic(key, event.target.files[0])
+      const profPic = await downloadPic(key)
+
+      this.profPic = profPic
+
+      // console.log(typeof(this.profPic))
+
     },
-  }
+  },
 }
 </script>
 
