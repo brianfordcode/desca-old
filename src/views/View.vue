@@ -1,5 +1,7 @@
 <template>
 
+<editDetailsBox/>
+
     <div class="edit-container">
 
       <profileHeader style="z-index: 10000;"/>
@@ -13,10 +15,12 @@
 <script>
 import profileHeader from '../components/profile-header/profile-header.vue'
 import viewPage from '../components/view-page.vue'
+import editDetailsBox from '../components/edit-details-box.vue'
+
 
 export default {
   components: {
-    viewPage, profileHeader
+    viewPage, profileHeader, editDetailsBox
   }
 
 }
@@ -26,6 +30,7 @@ export default {
 
 .edit-container {
   max-width: 1200px;
+  width: 800px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

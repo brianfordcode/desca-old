@@ -1,5 +1,7 @@
 <template>
 
+<editDetailsBox/>
+
 <div style="max-width: 1200px; width: 90%; margin: 0 auto">
 
     <profileHeader style="z-index: 10000;"/>
@@ -121,6 +123,8 @@
 
     
     <loadingWheel v-else style="width: 100%;"/>
+    
+    <!-- <p>{{$store.state.profileDetails}}</p> -->
 
 </div>
 
@@ -130,10 +134,11 @@
 import profileHeader from '../components/profile-header/profile-header.vue'
 import {uploadPic, downloadPic} from "../manage-pic.js"
 import loadingWheel from "../components/loading-wheel.vue"
+import editDetailsBox from '../components/edit-details-box.vue'
 
 export default {
 
-    components: { profileHeader, loadingWheel },
+    components: { profileHeader, loadingWheel, editDetailsBox },
     data() {
         return {
             modalOpen: false,

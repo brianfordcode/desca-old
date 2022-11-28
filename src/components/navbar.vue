@@ -47,20 +47,18 @@
             </div>
 
             <!-- PROFILE ICON AND LOG IN/OUT -->
-            <div>
-                <div class="prof-img-container">
-                    <img
-                        class="profile-icon"
-                        :src="`${!$store.state.loggedIn ? require('../assets/profile-icon.png') : $store.state.user.photoURL}`"
-                        alt="prof-icon"
-                    >
-                    <p
-                        class="logInOutBtn"
-                        @click="`${!$store.state.loggedIn ? $store.dispatch('logIn') : $store.dispatch('logOut')}`"
-                    >
-                    Log {{!$store.state.loggedIn ? 'In' : 'Out'}}
-                    </p>
-                </div>
+            <div class="prof-img-container" @click="openProfDetails()">
+                <img
+                    class="profile-icon"
+                    :src="`${!$store.state.loggedIn ? require('../assets/profile-icon.png') : $store.state.user.photoURL}`"
+                    alt="prof-icon"
+                >
+                <p
+                    class="logInOutBtn"
+                    @click="logIn()"
+                >
+                {{!$store.state.loggedIn ? 'Log In' : '&#9660;'}}
+                </p>
             </div>
 
         </div>
@@ -68,7 +66,8 @@
     </div>
     
   </div>
-  
+
+  <!-- BANNER -->
   <p class="banner" :style="`${currentPage === 'Editing' ? 'background: rgb(245, 101, 35);' : 'background: #57B0FC;'}`">{{currentPage}}</p>
 
 
@@ -81,6 +80,12 @@ export default {
         }
     },
     methods: {
+        logIn() {
+            if (!this.$store.state.loggedIn) { this.$store.dispatch('logIn') }
+        },
+        openProfDetails() {
+            if (this.$store.state.loggedIn) { this.$store.dispatch('editDetailsOpen') }
+        },  
         share() {
             console.log('share pushed')
         },
@@ -140,19 +145,23 @@ export default {
 }
 
 .prof-img-container {
-    height: 100%;
+    /* height: 100%; */
+    /* border: 1px solid; */
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-left: 10px;
 }
 
 .profile-icon {
     border-radius: 50%;
     height: 100%;
-    margin: 10px;
+
 }
 
 .logInOutBtn {
+    margin-left:5px;
     color: white;
     cursor: pointer
 }

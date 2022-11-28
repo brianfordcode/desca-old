@@ -1,5 +1,7 @@
 <template>
 
+<editDetailsBox/>
+
   <div class="main-container">
     <div class="left-side-container">
       <div class="text-btn-wrapper">
@@ -49,11 +51,11 @@
 </template>
 
 <script>
+import editDetailsBox from '../components/edit-details-box.vue'
 
 export default {
   name: 'Home',
-  components: {
-  },
+  components: { editDetailsBox },
   mounted: function () {
     window.setInterval(() => {
       this.picIndex > this.featuredSetups.length - 2 ? this.picIndex = 0 : this.picIndex++

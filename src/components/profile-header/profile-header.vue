@@ -6,7 +6,7 @@
     <!-- PROF PIC -->
       <div class="prof-pic">
         <img draggable="false" 
-             style="width: 100px; height: 100px;"
+             style="width: 100px; height: auto;"
              :src="profileDetails.profPic"
              v-if="profileDetails.profPic"
              referrerpolicy="no-referrer"
@@ -97,18 +97,19 @@
         </div>
             
         <!-- EDIT DETAILS BUTTON -->
-        <button
+        <!-- <button
             class="edit-btn btn"
             @click="enterBtn()"
             ref="textToggle"
             v-if="$route.name != 'View'"
         >
         {{!this.editOpen ? "Edit Details" : 'SUBMIT'}}
-        </button>
+        </button> -->
 
 
         <!-- PROFILE CHANGE DETAILS BOX -->
         <detailsChangeBox
+          style="position: absolute;"
           :editProfileDetails="editProfileDetails"
           v-if="editOpen"
         />
@@ -174,6 +175,7 @@ function copy(value) {
   .prof-pic {
     height: 100px;
     width: 100px;
+    object-fit: cover;
     overflow: hidden;
     border-radius: 100px;
     background-color: grey;
