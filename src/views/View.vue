@@ -30,7 +30,7 @@ export default {
 
 .edit-container {
   max-width: 1200px;
-  width: 800px;
+  width:800px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;

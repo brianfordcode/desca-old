@@ -205,6 +205,7 @@ export default {
     border: 2px dashed;
     height: 100px;
     width: 100%;
+    min-width: min-content;
     text-align: center;
     opacity: 0.5;
     cursor: default;

@@ -321,6 +321,7 @@ export default {
     border: 2px dashed;
     height: 200px;
     width: 275px;
+    min-width: 275px;
     display: flex;
     justify-content: space-around;
     align-items: center;

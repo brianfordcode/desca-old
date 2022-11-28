@@ -4,14 +4,12 @@
     v-if="profileDetails"
   >
     <!-- PROF PIC -->
-      <div class="prof-pic">
-        <img draggable="false" 
-             style="width: 100px; height: auto;"
-             :src="profileDetails.profPic"
-             v-if="profileDetails.profPic"
-             referrerpolicy="no-referrer"
+        <img class="prof-pic"
+            draggable="false"
+            :src="profileDetails.profPic"
+            v-if="profileDetails.profPic"
+            referrerpolicy="no-referrer"
         />
-      </div>
 
       <div class="details">
 
@@ -108,11 +106,11 @@
 
 
         <!-- PROFILE CHANGE DETAILS BOX -->
-        <detailsChangeBox
+        <!-- <detailsChangeBox
           style="position: absolute;"
           :editProfileDetails="editProfileDetails"
           v-if="editOpen"
-        />
+        /> -->
 
       </div>
 
@@ -170,15 +168,16 @@ function copy(value) {
     margin: 30px 0 20px 0;
     position: relative;
     display: flex;
+    align-items: center;
+    min-width: max-content;
   }
   
   .prof-pic {
     height: 100px;
     width: 100px;
+    min-width: 100px;
+    border-radius: 50%;
     object-fit: cover;
-    overflow: hidden;
-    border-radius: 100px;
-    background-color: grey;
     box-shadow: 0px 0px 33px -20px #000000;
   }
   

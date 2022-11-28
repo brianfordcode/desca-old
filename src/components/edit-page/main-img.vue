@@ -305,7 +305,7 @@ export default {
   .img-main-container {
     position: relative;
     height: 100%;
-    width: 100%;
+    width: 800px;
   }
   .main-img {
     width: 100%;

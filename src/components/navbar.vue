@@ -47,18 +47,13 @@
             </div>
 
             <!-- PROFILE ICON AND LOG IN/OUT -->
-            <div class="prof-img-container" @click="openProfDetails()">
+            <div class="prof-img-container" @click="!$store.state.loggedIn ? logIn() : openProfDetails()" title="edit details">
                 <img
                     class="profile-icon"
-                    :src="`${!$store.state.loggedIn ? require('../assets/profile-icon.png') : $store.state.user.photoURL}`"
+                    :src="profilePic"
                     alt="prof-icon"
                 >
-                <p
-                    class="logInOutBtn"
-                    @click="logIn()"
-                >
-                {{!$store.state.loggedIn ? 'Log In' : '&#9660;'}}
-                </p>
+                <p class="log-in-btn">{{!$store.state.loggedIn ? 'Log In' : '&#9660;'}}</p>
             </div>
 
         </div>
@@ -77,6 +72,14 @@
 export default {
     data() {
         return {
+            profilePic: null
+        }
+    },
+    created(){
+        if (this.$store.state.loggedIn) {
+            this.profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
+        } else {
+            this.profilePic = require('../assets/profile-icon.png')
         }
     },
     methods: {
@@ -94,7 +97,21 @@ export default {
         currentPage() {
             if (this.$route.name === 'Edit') return 'Editing'
             if (this.$route.name === 'View') return 'Viewing'
-        }
+        },
+    //    profilePic() {
+    //     const profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
+        
+    //     if (this.$store.state.loggedIn) {
+    //         return profilePic
+    //     } else {
+
+    //     }
+
+    //     if (profilePic === 'undefined') {
+
+    //     }
+    //         return this.$store.state.loggedIn ? this.$store.getters.getProfileDetails(this.$route.params.user).profPic : require('../assets/profile-icon.png')
+    //     }
     }
 
 }
@@ -145,22 +162,22 @@ export default {
 }
 
 .prof-img-container {
-    /* height: 100%; */
-    /* border: 1px solid; */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-left: 10px;
+    height: auto;
 }
 
 .profile-icon {
     border-radius: 50%;
     height: 100%;
-
+    object-fit: cover;
+    width: 30px;
 }
 
-.logInOutBtn {
+.log-in-btn {
     margin-left:5px;
     color: white;
     cursor: pointer
@@ -173,3 +190,5 @@ export default {
 }
 
 </style>
+
+<!-- TODO: GET PROFILE PIC IN NAVBAR WORKING -->

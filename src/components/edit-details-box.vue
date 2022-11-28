@@ -58,9 +58,8 @@ export default {
 <style scoped>
 .container {
     z-index: 10000000000;
-    border: 1px solid;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-color: rgba(0,0,0,0.7);
     position: absolute;
     display: flex;
