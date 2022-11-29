@@ -93,24 +93,6 @@
           </a>
 
         </div>
-            
-        <!-- EDIT DETAILS BUTTON -->
-        <!-- <button
-            class="edit-btn btn"
-            @click="enterBtn()"
-            ref="textToggle"
-            v-if="$route.name != 'View'"
-        >
-        {{!this.editOpen ? "Edit Details" : 'SUBMIT'}}
-        </button> -->
-
-
-        <!-- PROFILE CHANGE DETAILS BOX -->
-        <!-- <detailsChangeBox
-          style="position: absolute;"
-          :editProfileDetails="editProfileDetails"
-          v-if="editOpen"
-        /> -->
 
       </div>
 
@@ -124,10 +106,6 @@
 import detailsChangeBox from './details-change-box.vue'
 import loadingWheel from '../loading-wheel.vue'
 
-// function copy(value) {
-//   return JSON.parse(JSON.stringify(value))
-// }
-
 
   export default {
     created() {
@@ -137,23 +115,10 @@ import loadingWheel from '../loading-wheel.vue'
     components: { detailsChangeBox, loadingWheel },
     data() {
       return {
-        // editOpen: false,
         editProfileDetails: null,
       }
     },
     methods: {
-      // console.log(Object.values(this.$store.getters.getProfileDetails(this.$route.params.user).socialLinks))
-
-      // enterBtn() {
-      //   this.editOpen = !this.editOpen
-        
-      //   if (this.editOpen) {
-      //     this.editProfileDetails = copy(this.profileDetails)
-      //   } else {
-      //     this.editProfileDetails.profPic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic //IF NEW PROFPIC IS UPLOADED
-      //     this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
-      //   }
-      // }
     },
     computed: {
       profileDetails() {
@@ -187,16 +152,6 @@ import loadingWheel from '../loading-wheel.vue'
 
   .details {
     margin-left: 10px;
-  }
-
-  .edit-btn {
-    width: 120px;
-    height: 25px;
-    background: green;
-    color: white;
-    padding: 5px;
-    cursor: pointer;
-    border: none;
   }
 
   .sm-logo {

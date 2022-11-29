@@ -11,14 +11,10 @@
         <p class="log-in-btn">&#9660;</p>
     </div>
 
+
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">
         <div class="details-box-wrapper">
-
-            <detailsChangeBox
-                :editProfileDetails="editProfileDetails"
-            />
-
 
             <!-- BUTTONS -->
             <div
@@ -39,6 +35,9 @@
             >
             Log Out
             </div>
+
+            <detailsChangeBox :editProfileDetails="editProfileDetails"/>
+        
         </div>
     </div>
 
@@ -52,29 +51,10 @@ function copy(value) {
 }
 
 export default {
-    created() {
-    //   const routerUser = this.$route.params.user;
-    //   this.$store.dispatch('fetchUserDetails', routerUser)
-
-    //   if (this.$store.state.editDetailsToggle) { 
-        //    this.editProfileDetails = copy(this.$store.getters.getProfileDetails(this.$route.params.user))
-    //   }
-
-    //   console.log(this.editProfileDetails)
-
-    //   console.log(this.$store.getters.getProfileDetails(this.$route.params.user).profPic)
-
-    //   if (this.$store.state.loggedIn) {
-        // this.$store.getters.getProfileDetails(this.$route.params.user).profPic
-    //   }
-
-
-    },
     data() {
         return {
             editProfileDetails: null,
             editDetailsToggle: false,
-            // profilePic: null
         }
     },
     components: { detailsChangeBox },
@@ -114,7 +94,6 @@ export default {
 
 <style scoped>
 .modal-container {
-    z-index: 10000000000;
     height: 100vh;
     width: 100%;
     left: 0;
@@ -130,10 +109,13 @@ export default {
 
 .details-box-wrapper {
     background-color: rgba(255,255,255,0.85);
-    height: 400px;
+    height: 420px;
     width: 300px;
     border-radius: 15px;
     position: relative;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .btn {
@@ -147,6 +129,7 @@ export default {
 
 .discard-changes-btn {
     right: 0;
+    top: 0;
     background-color: rgb(182, 13, 13);
     border-top-right-radius: 10px;
 }

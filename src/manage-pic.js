@@ -32,7 +32,7 @@ function uploadPic(key, image) {
         store.dispatch('uploadProgress', progress)
     })
     return uploadTask.then((snapshot) => {
-      store.dispatch('uploadProgress', "Going to your Setup!")
+      store.dispatch('uploadProgress', "Uploaded!")
     });
 
 }

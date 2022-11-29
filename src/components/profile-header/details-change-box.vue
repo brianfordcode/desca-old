@@ -1,62 +1,67 @@
 <template>
 
-    <div class="details-box">
-      
       <form class="details-text">
 
         <!-- PROFILE NAME -->
         <div class="name-input input">
-            <p style="padding-right: 5px">Name</p>
+            <p style="padding-right: 5px; font-weight: bold;">Name:</p>
             <input type="text" v-model="editProfileDetails.profName"/>
         </div>
 
         <!-- UPLOAD PROFILE PICTURE -->
-        <label for="input" class="upload-btn-wrapper btn">
-          upload profile pic
-          <input
-            id="input"
-            type="file"
-            @change="uploadProfImg"
-            accept=".jpg, .jpeg, .png"
-            style="display: none;"
+        <div>
+          <img
+            class="prof-pic-preview"
+            :src="this.$store.getters.getProfileDetails(this.$route.params.user).profPic"
+            alt="prof-pic"
           >
-        </label>
+          <p v-if="$store.state.uploadProgress > 0">Uploading: {{this.$store.state.uploadProgress}}%</p>
+          <label v-else for="input" class="upload-btn-wrapper btn">
+            Change Profile Pic
+            <input
+              id="input"
+              type="file"
+              @change="uploadProfImg"
+              accept=".jpg, .jpeg, .png"
+              style="display: none;"
+            >
+          </label>
+          
+        </div>
 
         <!-- TWITCH -->
         <div class="twitch input">
-            <img src="/social-links/twitch-logo.png" alt="twitch"/>
+            <img src="/social-links/twitch-logo.png" alt="twitch" title="twitch"/>
             <input v-model="editProfileDetails.socialLinks.twitchLink" type="url">
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
-            <img src="/social-links/twitter-logo.png" alt="twitter"/>
+            <img src="/social-links/twitter-logo.png" alt="twitter" title="twitter"/>
             <input v-model="editProfileDetails.socialLinks.twitterLink" type="url">
         </div>
         <!-- YOUTUBE -->
         <div class="youtube input">
-            <img src="/social-links/youtube-logo.png" alt="youtube"/>
+            <img src="/social-links/youtube-logo.png" alt="youtube" title="youtube"/>
             <input v-model="editProfileDetails.socialLinks.youtubeLink" type="url">
         </div>
         <!-- DISCORD -->
         <div class="discord input">
-            <img src="/social-links/discord-logo.png" alt="discord"/>
+            <img src="/social-links/discord-logo.png" alt="discord" title="discord"/>
             <input v-model="editProfileDetails.socialLinks.discordLink" type="url">
         </div>
         <!-- FACEBOOK -->
         <div class="facebook input">
-            <img src="/social-links/facebook-logo.png" alt="facebook"/>
+            <img src="/social-links/facebook-logo.png" alt="facebook" title="facebook"/>
             <input v-model="editProfileDetails.socialLinks.facebookLink" type="url">
         </div>
         <!-- WEBSITE -->
         <div class="website input">
-            <img src="/social-links/website-logo.png" alt="website"/>
+            <img src="/social-links/website-logo.png" alt="website" title="website"/>
             <input v-model="editProfileDetails.socialLinks.websiteLink" type="url">
         </div>
 
 
       </form>
-
-    </div>
 
 
 </template>
@@ -76,6 +81,7 @@ export default {
       const profPicId = 'profPic' + '-' + Date.now();
       const user = this.$store.state.user
 
+
       await this.$store.dispatch('changeProfPic', {profPicId, user, image: event.target.files[0]})
 
     },
@@ -85,18 +91,10 @@ export default {
 
 <style scoped>
 
-  .details-box {
-    position: absolute;
-    background-color: rgba(0,0,0,0.75);
-    z-index: 100000;
-    color: white;
-  }
-
   .details-text {
-    padding: 30px 40px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
   }
 
   .details-text > * {
@@ -114,7 +112,7 @@ export default {
 
   input {
     outline: none;
-    border: none;
+    border: 1px solid;
     padding: 5px;
   }
 
@@ -123,11 +121,18 @@ export default {
     padding-right: 7px
   }
 
+  .prof-pic-preview {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
   .upload-btn-wrapper {
     background: green;
+    color: white;
     padding: 3px 7px;
     cursor: pointer;
   }
 </style>
-
-<!-- TODO: CHANGE PROFILE PIC IMAGE BUTTON FUNCTIONALITY -->
