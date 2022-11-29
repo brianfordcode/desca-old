@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
     <div class="elements-container">
+
         <!-- logo -->
         <img
             id="logo"
@@ -47,14 +48,17 @@
             </div>
 
             <!-- PROFILE ICON AND LOG IN/OUT -->
-            <div class="prof-img-container" @click="!$store.state.loggedIn ? logIn() : openProfDetails()" title="edit details">
+            <!-- <div class="prof-img-container" @click="!$store.state.loggedIn ? logIn() : openProfDetails()" title="edit details">
                 <img
                     class="profile-icon"
                     :src="profilePic"
                     alt="prof-icon"
                 >
                 <p class="log-in-btn">{{!$store.state.loggedIn ? 'Log In' : '&#9660;'}}</p>
-            </div>
+            </div> -->
+
+            <detailsChangeBox v-if="$store.state.loggedIn"/>
+            <p style="color: white;" v-else @click="logIn()">log in</p>
 
         </div>
 
@@ -69,12 +73,17 @@
 </template>
 
 <script>
+import detailsChangeBox from './edit-details-modal.vue'
+
+
+
 export default {
     data() {
         return {
             profilePic: null
         }
     },
+    components: {detailsChangeBox},
     created(){
         if (this.$store.state.loggedIn) {
             this.profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
@@ -87,7 +96,7 @@ export default {
             if (!this.$store.state.loggedIn) { this.$store.dispatch('logIn') }
         },
         openProfDetails() {
-            if (this.$store.state.loggedIn) { this.$store.dispatch('editDetailsOpen') }
+            if (this.$store.state.loggedIn) { this.$store.dispatch('editDetailsToggle') }
         },  
         share() {
             console.log('share pushed')
@@ -98,20 +107,6 @@ export default {
             if (this.$route.name === 'Edit') return 'Editing'
             if (this.$route.name === 'View') return 'Viewing'
         },
-    //    profilePic() {
-    //     const profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
-        
-    //     if (this.$store.state.loggedIn) {
-    //         return profilePic
-    //     } else {
-
-    //     }
-
-    //     if (profilePic === 'undefined') {
-
-    //     }
-    //         return this.$store.state.loggedIn ? this.$store.getters.getProfileDetails(this.$route.params.user).profPic : require('../assets/profile-icon.png')
-    //     }
     }
 
 }

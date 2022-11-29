@@ -124,9 +124,9 @@
 import detailsChangeBox from './details-change-box.vue'
 import loadingWheel from '../loading-wheel.vue'
 
-function copy(value) {
-  return JSON.parse(JSON.stringify(value))
-}
+// function copy(value) {
+//   return JSON.parse(JSON.stringify(value))
+// }
 
 
   export default {
@@ -137,23 +137,23 @@ function copy(value) {
     components: { detailsChangeBox, loadingWheel },
     data() {
       return {
-        editOpen: false,
+        // editOpen: false,
         editProfileDetails: null,
       }
     },
     methods: {
       // console.log(Object.values(this.$store.getters.getProfileDetails(this.$route.params.user).socialLinks))
 
-      enterBtn() {
-        this.editOpen = !this.editOpen
+      // enterBtn() {
+      //   this.editOpen = !this.editOpen
         
-        if (this.editOpen) {
-          this.editProfileDetails = copy(this.profileDetails)
-        } else {
-          this.editProfileDetails.profPic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic //IF NEW PROFPIC IS UPLOADED
-          this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
-        }
-      }
+      //   if (this.editOpen) {
+      //     this.editProfileDetails = copy(this.profileDetails)
+      //   } else {
+      //     this.editProfileDetails.profPic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic //IF NEW PROFPIC IS UPLOADED
+      //     this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
+      //   }
+      // }
     },
     computed: {
       profileDetails() {
@@ -165,7 +165,7 @@ function copy(value) {
 
 <style scoped>
   .container {
-    margin: 30px 0 20px 0;
+    margin: 15px 0 15px 0;
     position: relative;
     display: flex;
     align-items: center;

@@ -25,7 +25,7 @@ const store = createStore({
       viewingSetup: [],
       viewingSetupLoaded: false,
       uploadProgress: null,
-      editDetailsOpen: false, 
+      editDetailsToggle: false, 
     }
   },
   getters: {
@@ -90,13 +90,14 @@ const store = createStore({
     saveItems(state, { setupId, items}) {
       state.setups.find(s => s.setupId === setupId).items = copy(items)
     },
-    editDetailsOpen(state) {
-      state.editDetailsOpen = !state.editDetailsOpen
+    editDetailsToggle(state) {
+      state.editDetailsToggle = !state.editDetailsToggle
     },
     uploadProgress(state, progress) {
       state.uploadProgress = progress
     },
     logOut(state) {
+      state.editDetailsToggle = false
       state.loggedIn = false
     }
   },
@@ -187,8 +188,6 @@ const store = createStore({
       context.dispatch('fetchUserSetups', user)
       context.commit('changeMainImg', {currentSetup, url})
     },
-
-
     async changeProfPic(context, {profPicId, user, image}) {
       const key = `${user.uid}/${profPicId}`
       await uploadPic(key, image)
@@ -205,8 +204,8 @@ const store = createStore({
       updateDoc(doc(db, "setups", setupId), { items });
     },
     // PROFILE HEADER DETAILS
-    editDetailsOpen(context) {
-      context.commit('editDetailsOpen')
+    editDetailsToggle(context) {
+      context.commit('editDetailsToggle')
     },
     changeDetails(context, { details, user }) {
       context.commit('setProfDetails', { details, user })
