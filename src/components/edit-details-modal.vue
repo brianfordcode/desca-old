@@ -40,7 +40,7 @@
             Log Out
             </div>
 
-            <detailsChangeBox :editProfileDetails="editProfileDetails"/>
+            <changeDetails :editProfileDetails="editProfileDetails"/>
         
         </div>
     </div>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import detailsChangeBox from './profile-header/details-change-box.vue'
+import changeDetails from './profile-header/details-change-box.vue'
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -61,7 +61,7 @@ export default {
             editDetailsToggle: false,
         }
     },
-    components: { detailsChangeBox },
+    components: { changeDetails },
 
     methods: {
         logIn() {
@@ -157,6 +157,7 @@ export default {
     justify-content: space-between;
     margin-left: 10px;
     height: auto;
+    margin-right: 25px;
 }
 
 .profile-icon {

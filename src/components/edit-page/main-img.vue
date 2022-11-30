@@ -9,16 +9,6 @@
   v-if="imageURL"
 >
 
-  
-  <!-- <div class="change-image-btn">
-    <p style="position: absolute;">Change Image</p>
-    <input
-      type="file"
-      @change="changeMainImg"
-      accept=".jpg, .jpeg, .png"
-    />    
-  </div> -->
-
 <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
   <label
     class="change-image-btn"

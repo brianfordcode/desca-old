@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <div class="elements-container">
+    <!-- <div class="elements-container"> -->
 
         <!-- logo -->
         <img
@@ -51,7 +51,7 @@
 
         </div>
 
-    </div>
+    <!-- </div> -->
     
   </div>
 
@@ -108,21 +108,25 @@ export default {
     height: 50px;
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.10);
     z-index: 100000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.elements-container {
+/* .elements-container {
     height: 100%;
-    width: 95%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-}
+} */
 
 #logo {
     width: 100px;
+    margin-left: 25px;
     cursor: pointer;
 }
 
