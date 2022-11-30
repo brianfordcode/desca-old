@@ -20,7 +20,7 @@
       >
       <VueResizer emitOnMount @notify="sizeChange"/>
           <!-- ICON -->
-          <img class="icon" 
+          <img class="icon"
               :src="getIconPic(hoveredItem)"
               :alt="hoveredItem.category"
               v-if="hoveredItem.category"
@@ -53,7 +53,6 @@
         :src="imageURL"
         alt="main-image"
       />
-
     </div>
 
     <div class="item-container">
@@ -136,9 +135,6 @@
               {{item.name}}
               </p>
           </div>
-
-
-          
         </div>
       </div>
 

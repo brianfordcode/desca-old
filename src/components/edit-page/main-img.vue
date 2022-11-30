@@ -55,10 +55,7 @@
     <!-- DETAILS BOX -->
     <div class="details-box"
           v-if="displayedItemIndex === index"
-          :style="{
-            top: (this.detailBlockPlacement.y) + 'px',
-            left: (this.detailBlockPlacement.x ) + 'px'
-          }"
+
           
     >
       <VueResizer emitOnMount @notify="sizeChange"/>
@@ -151,10 +148,10 @@
 
 </div>
 
+<loadingWheel v-else/>
+
 <!-- ITEM LIST -->
 <itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL"/>
-
-<loadingWheel v-else/>
 
 </template>
 
@@ -188,7 +185,10 @@ export default {
     itemList, VueResizer, loadingWheel
   },
   async created() {
-    this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
+    if (this.setup.imageURL) {
+      await this.refreshImageURL()
+    }
+    // this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
   },
   
   watch: {

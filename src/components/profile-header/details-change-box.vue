@@ -18,9 +18,9 @@
           >
           <spinningWheel v-else style="transform: scale(0.5); width: 60px; height: 50px;"/>
           <label for="input" class="upload-btn-wrapper btn">
-            {{$store.state.uploadProgress === null || $store.state.uploadProgress === 'Uploaded!' ? 'Change Profile Pic' : 'Uploading: ' + this.$store.state.uploadProgress + '%'}}
+            {{uploadProgress}}
             <input
-              id="input"
+            id="input"
               type="file"
               @change="uploadProfImg"
               accept=".jpg, .jpeg, .png"
@@ -72,6 +72,7 @@
 <script>
 import {uploadPic, downloadPic} from "/Users/brianford/Documents/desca/src/manage-pic.js"
 import spinningWheel from '../loading-wheel.vue'
+import store from "../../store";
 
 export default {
   props: {
@@ -80,28 +81,51 @@ export default {
     },
   },
   components: { spinningWheel },
+  data() {
+    return {
+      uploading: false,
+    }
+  },
   methods: {
     async uploadProfImg(event) {
+
+      this.uploading = true
 
       this.editProfileDetails.profPic = null;
 
       const profPicId = 'profPic' + '-' + Date.now();
       const user = this.$store.state.user
-      const image = event.target.files[0]
 
       const key = `${user.uid}/${profPicId}`
-      await uploadPic(key, image)
-      const url = await downloadPic(key)
+      const image = event.target.files[0]
 
-      
+      await uploadPic(key, image)
+    
+      const url = await downloadPic(key)
 
       this.editProfileDetails.profPic = url
 
-      // await this.$store.dispatch('changeProfPic', {profPicId, user, image})
-
+      this.uploading = false
     },
+
   },
-}
+  computed: {
+    uploadProgress() {
+      const uploadProgress = this.$store.state.uploadProgress
+
+      if (!this.uploading) {
+        return 'Change Profile Pic'
+      } else if (this.uploading) {
+          if (isNaN(uploadProgress)) {
+            return uploadProgress
+          } else {
+            return 'Uploading: ' + uploadProgress + '%'
+          } 
+      }         
+    }
+
+    }
+  }
 </script>
 
 <style scoped>

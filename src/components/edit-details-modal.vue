@@ -5,23 +5,28 @@
         <img
             class="profile-icon"
             :src="profileDetails.profPic"
-            
             alt="prof-icon"
         >
-        <p class="log-in-btn">&#9660;</p>
-        
-    
+        <div class="log-in-btn">&#9660;</div>
     </div>
 
-    <p style="color: white;" v-if="!$store.state.loggedIn" @click="logIn()">log in</p>
+    <!-- PROF ICON WHEN NOT LOGGED IN -->
+    <img
+        v-else-if="!$store.state.loggedIn"
+        src="../assets/profile-icon.png"
+        alt="not-logged-in"
+        title="Log In"
+        style="cursor: pointer; margin-right: 25px;"
+        @click="logIn()"
+    >
 
 
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">
         <div class="details-box-wrapper">
-
             <!-- BUTTONS -->
             <div
+                v-if="profileDetails != editProfileDetails"
                 class="discard-changes-btn btn"
                 @click="discardChanges()"
             >
@@ -68,20 +73,19 @@ export default {
             this.$store.dispatch('logIn')
         },
         openProfDetails() {
-            this.editDetailsToggle = !this.editDetailsToggle
             this.editProfileDetails = copy(this.profileDetails)
+            this.editDetailsToggle = true
         },
         discardChanges() {
-            this.editDetailsToggle = !this.editDetailsToggle
+            this.editDetailsToggle = false
         },
         submit() {
             this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
-
             this.editDetailsToggle = false
         },
         logOut() {
+            this.editDetailsToggle = false
             this.$store.dispatch('logOut')
-
         }
     },
     computed: {
@@ -108,6 +112,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    animation:  fadeIn .175s; 
 }
 
 .details-box-wrapper {
@@ -119,6 +124,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    animation:  fadeIn .25s; 
 }
 
 .btn {
@@ -173,5 +179,12 @@ export default {
     cursor: pointer
 }
 
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 
 </style>
+
+<!-- TODO: WHEN UPLOADING IMAGE AND UPLOAD BROWSER WINDOW IS CLOSED, CURRENT IMAGE CHANGES... -->

@@ -49,7 +49,6 @@ const store = createStore({
     },
     addSetup(state, setup) {
       state.setups.push(setup)
-      state.uploadProgress = null
     },
     deleteSetup(state, setupId) {
       state.setups = state.setups.filter(setup => setup.setupId !== setupId)
@@ -57,7 +56,6 @@ const store = createStore({
     changeMainImg(state, { currentSetup, url }) {
       const setup = state.setups.find(s => s.setupId ===  currentSetup.setupId)
       setup.imageURL = url
-      state.uploadProgress = null
     },
     setItems(state, { items, setupId }) {
       state.setups.find(s => s.setupId === setupId).items = items
@@ -93,8 +91,10 @@ const store = createStore({
       state.uploadProgress = progress
     },
     logOut(state) {
-      state.editDetailsToggle = false
       state.loggedIn = false
+    },
+    resetUploadProgress(state) {
+      state.uploadProgress = null
     }
   },
   actions: {
@@ -153,6 +153,7 @@ const store = createStore({
     addSetup(context, setup) {
       context.commit('addSetup', setup)
       setDoc(doc(db, "setups", setup.setupId), setup);
+      context.commit('resetUploadProgress')
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
@@ -183,6 +184,7 @@ const store = createStore({
       updateDoc(doc(db, "setups", currentSetup.setupId), {imageURL: url});
       context.dispatch('fetchUserSetups', user)
       context.commit('changeMainImg', {currentSetup, url})
+      context.commit('resetUploadProgress')
     },
     saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
@@ -199,6 +201,7 @@ const store = createStore({
     changeDetails(context, { details, user }) {
       context.commit('setProfDetails', { details, user })
       setDoc(doc(db, "profileDetails", user), details);
+      context.commit('resetUploadProgress')
     },
     async fetchViewingSetup(context, routerAddress) {
       const q = query(collection(db, "setups"), where("setupId", "==", routerAddress));
@@ -209,7 +212,7 @@ const store = createStore({
     },
     uploadProgress(context, progress) {
       context.commit('uploadProgress', progress)
-    }
+    },
   }
 })
 

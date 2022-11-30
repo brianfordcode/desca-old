@@ -103,9 +103,9 @@
 
         <!-- UPLOAD PLACEHOLDER -->
         <div class="placeholder">
-            <p style="position: absolute;" v-if="uploadProgress === null">Add a Setup!</p>
+            <p style="position: absolute;" v-if="!uploading">Add a Setup!</p>
             <input
-                v-if="uploadProgress === null"
+                v-if="!uploading"
                 type="file"
                 accept=".jpeg,.jpg,.png"
                 @change="makeNewSetup"
@@ -138,6 +138,7 @@ export default {
         return {
             modalOpen: false,
             selectedSetup: null,
+            uploading: false
         }
     },
     created() {
@@ -153,13 +154,14 @@ export default {
     },
     computed: {
         uploadProgress() {
-            const uploadProgress = this.$store.state.uploadProgress
-            return uploadProgress
+            return this.$store.state.uploadProgress
         }
     },  
 
     methods: {
        async makeNewSetup(event) {
+
+            this.uploading = true
 
             const setupId = 'setup' + '-' + Date.now();
             const user = this.$store.state.user.uid         
@@ -181,6 +183,8 @@ export default {
 
             // open new setup
             this.$router.push(`/edit/${this.$store.state.user.uid}/${setupId}`)
+            
+            this.uploading = false
         },
         showButtons(index) {
             this.selectedSetup = index
