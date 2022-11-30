@@ -82,8 +82,10 @@ export default {
 
             const user = this.$store.state.user
             const profPicId = this.profileDetails.profPic.profPicId
-
-            if (profPicId) { this.$store.dispatch('deleteProfPic', {user, profPicId}) }
+            
+            if (profPicId && profPicId != this.editProfileDetails.profPic.profPicId) { 
+                this.$store.dispatch('deleteProfPic', {user, profPicId})
+            }
 
             this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
             
