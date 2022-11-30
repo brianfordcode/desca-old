@@ -9,15 +9,16 @@
         </div>
 
         <!-- UPLOAD PROFILE PICTURE -->
-        <div>
+        <div> 
           <img
+            v-if="editProfileDetails.profPic"
             class="prof-pic-preview"
-            :src="this.$store.getters.getProfileDetails(this.$route.params.user).profPic"
+            :src="editProfileDetails.profPic"
             alt="prof-pic"
           >
-          <p v-if="$store.state.uploadProgress > 0">Uploading: {{this.$store.state.uploadProgress}}%</p>
-          <label v-else for="input" class="upload-btn-wrapper btn">
-            Change Profile Pic
+          <spinningWheel v-else style="transform: scale(0.5); width: 60px; height: 50px;"/>
+          <label for="input" class="upload-btn-wrapper btn">
+            {{$store.state.uploadProgress === null || $store.state.uploadProgress === 'Uploaded!' ? 'Change Profile Pic' : 'Uploading: ' + this.$store.state.uploadProgress + '%'}}
             <input
               id="input"
               type="file"
@@ -26,13 +27,15 @@
               style="display: none;"
             >
           </label>
-          
         </div>
 
+        <!-- <p v-else style="height:50px; ">Uploading: {{this.$store.state.uploadProgress}}%</p>   -->
+        
+        <p style="font-weight: bold; transform: translateX(-85%);">Your Channels:</p> 
         <!-- TWITCH -->
         <div class="twitch input">
             <img src="/social-links/twitch-logo.png" alt="twitch" title="twitch"/>
-            <input v-model="editProfileDetails.socialLinks.twitchLink" type="url">
+            <input v-model="editProfileDetails.socialLinks.twitchLink" type="url" required>
         </div>
         <!-- TWITTER -->
         <div class="twitter input">
@@ -68,6 +71,7 @@
 
 <script>
 import {uploadPic, downloadPic} from "/Users/brianford/Documents/desca/src/manage-pic.js"
+import spinningWheel from '../loading-wheel.vue'
 
 export default {
   props: {
@@ -75,14 +79,25 @@ export default {
         type: Object,
     },
   },
+  components: { spinningWheel },
   methods: {
     async uploadProfImg(event) {
 
+      this.editProfileDetails.profPic = null;
+
       const profPicId = 'profPic' + '-' + Date.now();
       const user = this.$store.state.user
+      const image = event.target.files[0]
 
+      const key = `${user.uid}/${profPicId}`
+      await uploadPic(key, image)
+      const url = await downloadPic(key)
 
-      await this.$store.dispatch('changeProfPic', {profPicId, user, image: event.target.files[0]})
+      
+
+      this.editProfileDetails.profPic = url
+
+      // await this.$store.dispatch('changeProfPic', {profPicId, user, image})
 
     },
   },
@@ -130,9 +145,12 @@ export default {
   }
 
   .upload-btn-wrapper {
+    margin: 10px 0;
     background: green;
     color: white;
     padding: 3px 7px;
     cursor: pointer;
+    width: 135px;
+    text-align: center;
   }
 </style>

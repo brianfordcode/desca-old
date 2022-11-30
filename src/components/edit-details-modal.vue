@@ -9,7 +9,11 @@
             alt="prof-icon"
         >
         <p class="log-in-btn">&#9660;</p>
+        
+    
     </div>
+
+    <p style="color: white;" v-if="!$store.state.loggedIn" @click="logIn()">log in</p>
 
 
     <!-- MODAL -->
@@ -61,7 +65,7 @@ export default {
 
     methods: {
         logIn() {
-            if (!this.$store.state.loggedIn) { this.$store.dispatch('logIn') }
+            this.$store.dispatch('logIn')
         },
         openProfDetails() {
             this.editDetailsToggle = !this.editDetailsToggle
@@ -71,7 +75,6 @@ export default {
             this.editDetailsToggle = !this.editDetailsToggle
         },
         submit() {
-            this.editProfileDetails.profPic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic //IF NEW PROFPIC IS UPLOADED
             this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
 
             this.editDetailsToggle = false
@@ -109,7 +112,7 @@ export default {
 
 .details-box-wrapper {
     background-color: rgba(255,255,255,0.85);
-    height: 420px;
+    height: 450px;
     width: 300px;
     border-radius: 15px;
     position: relative;
@@ -128,10 +131,10 @@ export default {
 }
 
 .discard-changes-btn {
-    right: 0;
-    top: 0;
+    bottom: 0;
+    left: 0;
     background-color: rgb(182, 13, 13);
-    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .submit-btn {
@@ -142,10 +145,10 @@ export default {
 }
 
 .logout-btn {
-    bottom: 0;
-    left: 0;
+    right: 0;
+    top: 0;
     background-color: rgb(13, 16, 152);
-    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .prof-img-container {
     cursor: pointer;

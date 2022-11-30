@@ -47,18 +47,7 @@
                 </router-link>
             </div>
 
-            <!-- PROFILE ICON AND LOG IN/OUT -->
-            <!-- <div class="prof-img-container" @click="!$store.state.loggedIn ? logIn() : openProfDetails()" title="edit details">
-                <img
-                    class="profile-icon"
-                    :src="profilePic"
-                    alt="prof-icon"
-                >
-                <p class="log-in-btn">{{!$store.state.loggedIn ? 'Log In' : '&#9660;'}}</p>
-            </div> -->
-
-            <detailsChangeBox v-if="$store.state.loggedIn"/>
-            <p style="color: white;" v-else @click="logIn()">log in</p>
+            <detailsChangeBox/>
 
         </div>
 

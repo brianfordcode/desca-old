@@ -130,7 +130,7 @@ import loadingWheel from '../loading-wheel.vue'
 
 <style scoped>
   .container {
-    margin: 15px 0 15px 0;
+    margin: 20px 0 15px 0;
     position: relative;
     display: flex;
     align-items: center;
