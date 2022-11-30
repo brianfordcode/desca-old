@@ -111,7 +111,7 @@
                 @change="makeNewSetup"
             >
             <div v-else style="display: flex; flex-direction: column; align-items: center;">
-                <p>Uploading:</p>
+                <p v-if="!isNaN(uploadProgress)">Uploading:</p>
                 <p >{{uploadProgress}}{{isNaN(uploadProgress) ? '' : "%" }}</p>
             </div>
             

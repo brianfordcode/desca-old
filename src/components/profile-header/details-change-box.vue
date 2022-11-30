@@ -11,12 +11,13 @@
         <!-- UPLOAD PROFILE PICTURE -->
         <div> 
           <img
-            v-if="editProfileDetails.profPic"
+            v-if="editProfileDetails.profPic.photoURL"
             class="prof-pic-preview"
-            :src="editProfileDetails.profPic"
+            :src="editProfileDetails.profPic.photoURL"
             alt="prof-pic"
           >
           <spinningWheel v-else style="transform: scale(0.5); width: 60px; height: 50px;"/>
+          
           <label for="input" class="upload-btn-wrapper btn">
             {{uploadProgress}}
             <input
@@ -29,8 +30,6 @@
           </label>
         </div>
 
-        <!-- <p v-else style="height:50px; ">Uploading: {{this.$store.state.uploadProgress}}%</p>   -->
-        
         <p style="font-weight: bold; transform: translateX(-85%);">Your Channels:</p> 
         <!-- TWITCH -->
         <div class="twitch input">
@@ -72,7 +71,6 @@
 <script>
 import {uploadPic, downloadPic} from "/Users/brianford/Documents/desca/src/manage-pic.js"
 import spinningWheel from '../loading-wheel.vue'
-import store from "../../store";
 
 export default {
   props: {
@@ -88,23 +86,16 @@ export default {
   },
   methods: {
     async uploadProfImg(event) {
-
       this.uploading = true
-
-      this.editProfileDetails.profPic = null;
-
+      this.editProfileDetails.profPic.photoURL = null;
       const profPicId = 'profPic' + '-' + Date.now();
       const user = this.$store.state.user
-
       const key = `${user.uid}/${profPicId}`
       const image = event.target.files[0]
-
       await uploadPic(key, image)
-    
       const url = await downloadPic(key)
-
-      this.editProfileDetails.profPic = url
-
+      this.editProfileDetails.profPic.photoURL = url
+      this.editProfileDetails.profPic.profPicId = profPicId
       this.uploading = false
     },
 
@@ -124,8 +115,8 @@ export default {
       }         
     }
 
-    }
   }
+}
 </script>
 
 <style scoped>
@@ -178,3 +169,5 @@ export default {
     text-align: center;
   }
 </style>
+
+<!-- TODO: REQUIRE URL (HTTPS://, ETC) IN CHANNEL INPUTS -->

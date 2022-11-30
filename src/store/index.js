@@ -123,7 +123,10 @@ const store = createStore({
         const profileDetails = {
           user: uid,
           profName: displayName,
-          profPic: photoURL,
+          profPic: {
+            photoURL: photoURL,
+            profPicId: null
+          },
           socialLinks: {
             twitchLink: '',
             twitterLink: '',
@@ -157,9 +160,14 @@ const store = createStore({
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
+      console.log('from store', key)
       deletePic(key)
       context.commit('deleteSetup', setupId)
       deleteDoc(doc(db, "setups", setupId))
+    },
+    deleteProfPic(context, { user, profPicId }) {
+      const key = `${user.uid}/${profPicId}`
+      deletePic(key)
     },
     addItem(context, { item, setupId }) {
       const items = [...context.getters.setup(setupId).items, copy(item)]

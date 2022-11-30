@@ -4,7 +4,7 @@
     <div class="prof-img-container" v-if="profileDetails" @click="openProfDetails()" title="edit details">
         <img
             class="profile-icon"
-            :src="profileDetails.profPic"
+            :src="profileDetails.profPic.photoURL"
             alt="prof-icon"
         >
         <div class="log-in-btn">&#9660;</div>
@@ -26,7 +26,6 @@
         <div class="details-box-wrapper">
             <!-- BUTTONS -->
             <div
-                v-if="profileDetails != editProfileDetails"
                 class="discard-changes-btn btn"
                 @click="discardChanges()"
             >
@@ -80,7 +79,14 @@ export default {
             this.editDetailsToggle = false
         },
         submit() {
+
+            const user = this.$store.state.user
+            const profPicId = this.profileDetails.profPic.profPicId
+
+            if (profPicId) { this.$store.dispatch('deleteProfPic', {user, profPicId}) }
+
             this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
+            
             this.editDetailsToggle = false
         },
         logOut() {
@@ -184,7 +190,4 @@ export default {
   100% { opacity: 1; }
 }
 
-
 </style>
-
-<!-- TODO: WHEN UPLOADING IMAGE AND UPLOAD BROWSER WINDOW IS CLOSED, CURRENT IMAGE CHANGES... -->

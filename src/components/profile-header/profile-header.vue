@@ -6,8 +6,8 @@
     <!-- PROF PIC -->
         <img class="prof-pic"
             draggable="false"
-            :src="profileDetails.profPic"
-            v-if="profileDetails.profPic"
+            :src="profileDetails.profPic.photoURL"
+            v-if="profileDetails.profPic.photoURL"
             referrerpolicy="no-referrer"
         />
 

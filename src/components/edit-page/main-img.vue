@@ -55,7 +55,11 @@
     <!-- DETAILS BOX -->
     <div class="details-box"
           v-if="displayedItemIndex === index"
-
+          :style="{
+            // top: (this.detailBlockPlacement.y) + 'px',
+            // left: (this.detailBlockPlacement.x ) + 'px'
+            
+          }"
           
     >
       <VueResizer emitOnMount @notify="sizeChange"/>
