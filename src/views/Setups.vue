@@ -127,7 +127,7 @@
 </template>
 
 <script>
-import profileHeader from '../components/profile-header/profile-header.vue'
+import profileHeader from '../components/edit-page/profile-header.vue'
 import {uploadPic, downloadPic} from "../manage-pic.js"
 import loadingWheel from "../components/loading-wheel.vue"
 

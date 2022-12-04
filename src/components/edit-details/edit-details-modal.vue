@@ -13,7 +13,7 @@
     <!-- PROF ICON WHEN NOT LOGGED IN -->
     <img
         v-else-if="!$store.state.loggedIn"
-        src="../assets/profile-icon.png"
+        src="/assets/profile-icon.png"
         alt="not-logged-in"
         title="Log In"
         style="cursor: pointer; margin-right: 25px;"
@@ -44,7 +44,7 @@
             Log Out
             </div>
 
-            <changeDetails :editProfileDetails="editProfileDetails"/>
+            <changeDetails :editProfileDetails="editProfileDetails" style="margin: 45px;"/>
         
         </div>
     </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import changeDetails from './profile-header/details-change-box.vue'
+import changeDetails from './details-change-box.vue'
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -125,7 +125,7 @@ export default {
 
 .details-box-wrapper {
     background-color: rgba(255,255,255,0.85);
-    height: 450px;
+    /* height: 450px; */
     width: 300px;
     border-radius: 15px;
     position: relative;

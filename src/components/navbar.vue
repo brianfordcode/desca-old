@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import detailsChangeBox from './edit-details-modal.vue'
+import detailsChangeBox from './edit-details/edit-details-modal.vue'
 
 
 

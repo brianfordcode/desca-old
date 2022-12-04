@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import profileHeader from '../components/profile-header/profile-header.vue'
+import profileHeader from '../components/edit-page/profile-header.vue'
 import viewPage from '../components/view-page.vue'
 
 
