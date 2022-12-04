@@ -13,7 +13,7 @@
     <!-- PROF ICON WHEN NOT LOGGED IN -->
     <img
         v-else-if="!$store.state.loggedIn"
-        src="/assets/profile-icon.png"
+        src="/profile-icon.png"
         alt="not-logged-in"
         title="Log In"
         style="cursor: pointer; margin-right: 25px;"
@@ -76,6 +76,14 @@ export default {
             this.editDetailsToggle = true
         },
         discardChanges() {
+
+            const user = this.$store.state.user
+            const profPicId = this.profileDetails.profPic.profPicId
+            
+            if (profPicId && profPicId != this.editProfileDetails.profPic.profPicId) { 
+                this.$store.dispatch('deleteProfPic', {user, profPicId})
+            }
+            
             this.editDetailsToggle = false
         },
         submit() {

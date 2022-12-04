@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import detailsChangeBox from '../profile-header/details-change-box.vue'
+import detailsChangeBox from '../edit-details/details-change-box.vue'
 import loadingWheel from '../loading-wheel.vue'
 
 
