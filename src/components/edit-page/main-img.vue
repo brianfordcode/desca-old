@@ -59,44 +59,19 @@
     >
       <div class="details-box">
         <!-- CATEGORY SELECTION -->
-        <!-- <div class="details-text-wrapper">
-            <p style="color:white">Category:</p>
-            <select
-                name="category"
-                id="category" 
-                v-model="item.category"
-                style="width:200px; height: 30px;"
-            >
-                <option value="none" disabled>Select Category</option>
-                <option value="keyboard">Keyboard</option>
-                <option value="monitor">Monitor</option>
-                <option value="speaker">Speaker</option>
-                <option value="chair">Chair</option>
-                <option value="desk">Desk</option>
-                <option value="mouse">Mouse</option>
-                <option value="computer">Computer</option>
-                <option value="microphone">Microphone</option>
-                <option value="accessory">Accessory</option>
-                <option value="webcam">Webcam</option>
-                <option value="headphone">Headphone</option>
-            </select>
-        </div> -->
-        
-
-        <div style="display: flex; justify-content: space-between; margin: 10px 0 15px 0;">
-          <div style="height: 30px;" v-for="(item, index) in itemChoices">
-            <img
-              style="height: 100%;"
-              :src="item.pic"
-              alt="item.name"
-              @click="itemChosen(item.name, index)"
-            >
-            
+        <div style="margin: 10px 0 10px 0;">
+          <div style="display: flex; justify-content: space-between;">
+              <img v-for="(item, index) in itemChoices"
+                style="height: 20px; cursor: pointer;"
+                :src="item.pic"
+                alt="item.name"
+                @click="itemChosen(item.name, index)"
+              >
           </div>
-          
-        </div>
 
-        <p style="color: white;">{{this.itemToPreview}}</p>
+          <p style="text-transform: capitalize; color: white; text-align: center; margin-top: 10px;">{{itemToPreview}}</p>
+
+        </div>
 
         <!-- MODEL -->
         <div
@@ -153,7 +128,7 @@
           </button>
           <button
             class="discard-btn btn"
-            @click.stop="this.displayedItemIndex = null"
+            @click.stop="discardChanges()"
           >Discard Changes
           </button>
 
@@ -233,6 +208,22 @@ export default {
           name: 'microphone',
           pic: require('../../assets/icons/microphone.png')
         },
+        {
+          name: 'monitor',
+          pic: require('../../assets/icons/monitor.png')
+        },
+        {
+          name: 'mouse',
+          pic: require('../../assets/icons/mouse.png')
+        },
+        {
+          name: 'speaker',
+          pic: require('../../assets/icons/speaker.png')
+        },
+        {
+          name: 'webcam',
+          pic: require('../../assets/icons/webcam.png')
+        },
       ]
     }
   },
@@ -274,7 +265,7 @@ export default {
     },
     itemToPreview() {
       const itemChoice = this.items[this.displayedItemIndex].category
-      return itemChoice ? itemChoice : ''
+      return itemChoice 
     },
   },
   methods: {
@@ -337,8 +328,12 @@ export default {
       this.itemSelected = '';
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
     },
-    itemChosen(name, index) {
+    itemChosen(name) {
       this.items[this.displayedItemIndex].category = name
+    },
+    discardChanges() {
+      this.items[this.displayedItemIndex].category = this.currentSetup.items[this.displayedItemIndex].category
+      this.displayedItemIndex = null
     }
   },
 }
@@ -422,6 +417,7 @@ export default {
     z-index: 1000;
     border-radius: 15px;
     user-select: none;
+    width: 350px;
   }
 
   .details-box input {
@@ -431,7 +427,6 @@ export default {
     outline: none;
     padding-left: 5px;
     /* opacity: 0; */
-    cursor: pointer;
   }
   .details-text-wrapper {
       display: flex;
