@@ -96,7 +96,7 @@
           
         </div>
 
-        <p style="color: white;">{{this.itemSelected}}</p>
+        <p style="color: white;">{{this.itemToPreview}}</p>
 
         <!-- MODEL -->
         <div
@@ -204,7 +204,6 @@ export default {
       items,
       imageURL: null,
       setup,
-      itemSelected: '',
       itemChoices: [
         {
           name: 'accessory',
@@ -272,7 +271,11 @@ export default {
     itemsToWatch() {
       const setup = this.$store.getters.setup(this.$route.params.setupId)
       return setup ? setup.items : []
-    }
+    },
+    itemToPreview() {
+      const itemChoice = this.items[this.displayedItemIndex].category
+      return itemChoice ? itemChoice : ''
+    },
   },
   methods: {
     async changeMainImg(event) {
@@ -335,10 +338,7 @@ export default {
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
     },
     itemChosen(name, index) {
-      this.itemSelected = name
       this.items[this.displayedItemIndex].category = name
-      console.log(this.items[this.displayedItemIndex])
-
     }
   },
 }
