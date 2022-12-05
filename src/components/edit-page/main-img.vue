@@ -53,16 +53,11 @@
     </p>
 
     <!-- DETAILS BOX -->
-    <div v-if="displayedItemIndex === index" style="height: 100%; width: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: space-around; align-items: center; position: absolute;">
-      <div class="details-box"
-            
-            :style="{
-              // top: (this.detailBlockPlacement.y) + 'px',
-              // left: (this.detailBlockPlacement.x ) + 'px'
-              
-            }"
-            
-      >
+    <div
+      class="details-container"
+      v-if="displayedItemIndex === index"
+    >
+      <div class="details-box">
         <VueResizer emitOnMount @notify="sizeChange"/>
         <!-- CATEGORY SELECTION -->
         <div class="details-text-wrapper">
@@ -163,7 +158,10 @@
 <loadingWheel v-else/>
 
 <!-- ITEM LIST -->
-<itemList @toggleItemDisplay="index => displayedItemIndex = index" v-if="imageURL"/>
+<itemList
+  @toggleItemDisplay="index => displayedItemIndex = index"
+  v-if="imageURL"
+/>
 
 </template>
 
@@ -187,7 +185,6 @@ export default {
       dragging: null,
       displayedItemIndex: null,
       hoveredItem: null,
-      detailBoxDimensions: {width: null, height: null},
       items,
       imageURL: null,
       setup,
@@ -224,12 +221,6 @@ export default {
     },
     currentlySelectedItem() {
       return this.currentSetup.items[this.displayedItemIndex]
-    },
-    detailBlockPlacement() {
-      if (!this.currentlySelectedItem) return null
-      const x = this.currentlySelectedItem.x >= 400 ? this.currentlySelectedItem.x - this.detailBoxDimensions.width : this.currentlySelectedItem.x
-      const y = this.currentlySelectedItem.y >= 300 ? this.currentlySelectedItem.y - this.detailBoxDimensions.height : this.currentlySelectedItem.y
-      return { x, y }
     },
     itemsToWatch() {
       const setup = this.$store.getters.setup(this.$route.params.setupId)
@@ -288,10 +279,6 @@ export default {
         item.x = point.x
         item.y = point.y
         this.$store.dispatch('saveItem', { index: this.dragging, setupId: this.setupId, item})
-    },
-    sizeChange({width, height}) {
-      this.detailBoxDimensions.width = width;
-      this.detailBoxDimensions.height = height;
     },
     save() {
       const index = this.displayedItemIndex
@@ -359,6 +346,17 @@ export default {
   }
   
   /* DETAILS BOX */
+
+  .details-container {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+  }
+
   .details-box {
     position: absolute;
     display: flex;
