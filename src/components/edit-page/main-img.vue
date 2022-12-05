@@ -58,7 +58,6 @@
       v-if="displayedItemIndex === index"
     >
       <div class="details-box">
-        <VueResizer emitOnMount @notify="sizeChange"/>
         <!-- CATEGORY SELECTION -->
         <div class="details-text-wrapper">
             <p style="color:white">Category:</p>
@@ -166,10 +165,10 @@
 </template>
 
 <script>
-import VueResizer from '../../vender/vue-resizer'
 import itemList from './items-list.vue'
-import {downloadPic} from "../../manage-pic.js"
+import { downloadPic } from "../../manage-pic.js"
 import loadingWheel from "../loading-wheel.vue"
+
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
@@ -191,7 +190,7 @@ export default {
     }
   },
   components: {
-    itemList, VueResizer, loadingWheel
+    itemList, loadingWheel
   },
   async created() {
     if (this.setup) {
