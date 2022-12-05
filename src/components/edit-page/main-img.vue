@@ -59,7 +59,7 @@
     >
       <div class="details-box">
         <!-- CATEGORY SELECTION -->
-        <div class="details-text-wrapper">
+        <!-- <div class="details-text-wrapper">
             <p style="color:white">Category:</p>
             <select
                 name="category"
@@ -80,7 +80,24 @@
                 <option value="webcam">Webcam</option>
                 <option value="headphone">Headphone</option>
             </select>
+        </div> -->
+        
+
+        <div style="display: flex; justify-content: space-between; margin: 10px 0 15px 0;">
+          <div style="height: 30px;" v-for="(item, index) in itemChoices">
+            <img
+              style="height: 100%;"
+              :src="item.pic"
+              alt="item.name"
+              @click="itemChosen(item.name, index)"
+            >
+            
+          </div>
+          
         </div>
+
+        <p style="color: white;">{{this.itemSelected}}</p>
+
         <!-- MODEL -->
         <div
           class="details-text-wrapper"
@@ -187,6 +204,37 @@ export default {
       items,
       imageURL: null,
       setup,
+      itemSelected: '',
+      itemChoices: [
+        {
+          name: 'accessory',
+          pic: require('../../assets/icons/accessory.png')
+        },
+        {
+          name: 'chair',
+          pic: require('../../assets/icons/chair.png')
+        },
+        {
+          name: 'computer',
+          pic: require('../../assets/icons/computer.png')
+        },
+        {
+          name: 'desk',
+          pic: require('../../assets/icons/desk.png')
+        },
+        {
+          name: 'headset',
+          pic: require('../../assets/icons/headset.png')
+        },
+        {
+          name: 'keyboard',
+          pic: require('../../assets/icons/keyboard.png')
+        },
+        {
+          name: 'microphone',
+          pic: require('../../assets/icons/microphone.png')
+        },
+      ]
     }
   },
   components: {
@@ -257,9 +305,10 @@ export default {
       this.$store.dispatch('addItem', { item, setupId })
     },
     removeItem(index) {
-      this.displayedItemIndex = null
-      this.items.splice(index, 1)
-      this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
+      this.displayedItemIndex = null;
+      this.itemSelected = '';
+      this.items.splice(index, 1);
+      this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index });
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
@@ -282,8 +331,15 @@ export default {
     save() {
       const index = this.displayedItemIndex
       this.displayedItemIndex = null
+      this.itemSelected = '';
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
     },
+    itemChosen(name, index) {
+      this.itemSelected = name
+      this.items[this.displayedItemIndex].category = name
+      console.log(this.items[this.displayedItemIndex])
+
+    }
   },
 }
   
@@ -407,16 +463,16 @@ export default {
       right: 0;
       background-color: green;
       width: 60px;
-      border-bottom-right-radius: 15px;
+      border-bottom-right-radius: 10px;
   }
   .discard-btn {
     bottom: 0;
     left: 0;
-    border-bottom-left-radius: 15px;
+    border-bottom-left-radius: 10px;
     background-color: rgb(192, 7, 7);
   }
   .remove-btn {
-      border-top-right-radius: 15px;
+      border-top-right-radius: 10px;
       top: 0;
       right: 0;
       background-color: rgb(192, 7, 7);
