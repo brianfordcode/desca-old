@@ -53,92 +53,100 @@
     </p>
 
     <!-- DETAILS BOX -->
-    <div class="details-box"
-          v-if="displayedItemIndex === index"
-          :style="{
-            // top: (this.detailBlockPlacement.y) + 'px',
-            // left: (this.detailBlockPlacement.x ) + 'px'
+    <div v-if="displayedItemIndex === index" style="height: 100%; width: 100%; background-color: rgba(0,0,0,0.7); display: flex; justify-content: space-around; align-items: center; position: absolute;">
+      <div class="details-box"
             
-          }"
-          
-    >
-      <VueResizer emitOnMount @notify="sizeChange"/>
-      <!-- CATEGORY SELECTION -->
-      <div class="details-text-wrapper">
-          <p style="color:white">Category:</p>
-          <select
-              name="category"
-              id="category" 
-              v-model="item.category"
-              style="width:200px; height: 30px;"
-          >
-              <option value="none" disabled>Select Category</option>
-              <option value="keyboard">Keyboard</option>
-              <option value="monitor">Monitor</option>
-              <option value="speaker">Speaker</option>
-              <option value="chair">Chair</option>
-              <option value="desk">Desk</option>
-              <option value="mouse">Mouse</option>
-              <option value="computer">Computer</option>
-              <option value="microphone">Microphone</option>
-              <option value="accessory">Accessory</option>
-              <option value="webcam">Webcam</option>
-              <option value="headphone">Headphone</option>
-          </select>
-      </div>
-      <!-- MODEL -->
-      <div
-        class="details-text-wrapper"
-        v-if="item.category != 'computer'"
+            :style="{
+              // top: (this.detailBlockPlacement.y) + 'px',
+              // left: (this.detailBlockPlacement.x ) + 'px'
+              
+            }"
+            
       >
-          <p style="color:white">Model:</p>
-          <input v-model="item.name"/>
-      </div>
-      <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
-      <div
-        class="computer-details"
-        v-if="item.category === 'computer'"
-      >
-        <p style="color: white; padding-top: 10px;">Specs:</p>
+        <VueResizer emitOnMount @notify="sizeChange"/>
+        <!-- CATEGORY SELECTION -->
         <div class="details-text-wrapper">
-          <p style="color:white">CPU:</p>
-          <input v-model="item.categoryDetails.cpu"/>
+            <p style="color:white">Category:</p>
+            <select
+                name="category"
+                id="category" 
+                v-model="item.category"
+                style="width:200px; height: 30px;"
+            >
+                <option value="none" disabled>Select Category</option>
+                <option value="keyboard">Keyboard</option>
+                <option value="monitor">Monitor</option>
+                <option value="speaker">Speaker</option>
+                <option value="chair">Chair</option>
+                <option value="desk">Desk</option>
+                <option value="mouse">Mouse</option>
+                <option value="computer">Computer</option>
+                <option value="microphone">Microphone</option>
+                <option value="accessory">Accessory</option>
+                <option value="webcam">Webcam</option>
+                <option value="headphone">Headphone</option>
+            </select>
         </div>
-        <div class="details-text-wrapper">
-          <p style="color:white">GPU:</p>
-          <input v-model="item.categoryDetails.gpu"/>
+        <!-- MODEL -->
+        <div
+          class="details-text-wrapper"
+          v-if="item.category != 'computer'"
+        >
+            <p style="color:white">Model:</p>
+            <input v-model="item.name"/>
         </div>
-        <div class="details-text-wrapper">
-          <p style="color:white">SSD</p>
-          <input v-model="item.categoryDetails.ssd"/>
+        <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
+        <div
+          class="computer-details"
+          v-if="item.category === 'computer'"
+        >
+          <p style="color: white; padding-top: 10px;">Specs:</p>
+          <div class="details-text-wrapper">
+            <p style="color:white">CPU:</p>
+            <input v-model="item.categoryDetails.cpu"/>
+          </div>
+          <div class="details-text-wrapper">
+            <p style="color:white">GPU:</p>
+            <input v-model="item.categoryDetails.gpu"/>
+          </div>
+          <div class="details-text-wrapper">
+            <p style="color:white">SSD</p>
+            <input v-model="item.categoryDetails.ssd"/>
+          </div>
+          <div class="details-text-wrapper">
+            <p style="color:white">RAM</p>
+            <input v-model="item.categoryDetails.ram"/>
+          </div>
+          <div class="details-text-wrapper">
+            <p style="color:white">case:</p>
+            <input v-model="item.categoryDetails.case"/>
+          </div>
         </div>
-        <div class="details-text-wrapper">
-          <p style="color:white">RAM</p>
-          <input v-model="item.categoryDetails.ram"/>
-        </div>
-        <div class="details-text-wrapper">
-          <p style="color:white">case:</p>
-          <input v-model="item.categoryDetails.case"/>
-        </div>
-      </div>
 
-      <!-- STORE URL -->
-      <div class="details-text-wrapper">
-          <p style="color:white">URL:</p>
-          <input v-model="item.url"/>
-      </div>
+        <!-- STORE URL -->
+        <div class="details-text-wrapper">
+            <p style="color:white">URL:</p>
+            <input v-model="item.url"/>
+        </div>
 
-      <!-- BUTTONS -->
-        <button
-            class="enter-btn btn"
-            @click.stop="save"
-        >ENTER
-        </button>
-        <button
-          class="remove-btn btn"
-          @click.stop="removeItem(index)"
-        >REMOVE
-        </button>
+        <!-- BUTTONS -->
+          <button
+              class="enter-btn btn"
+              @click.stop="save"
+          >Submit
+          </button>
+          <button
+            class="remove-btn btn"
+            @click.stop="removeItem(index)"
+          >Remove Item
+          </button>
+          <button
+            class="discard-btn btn"
+            @click.stop="this.displayedItemIndex = null"
+          >Discard Changes
+          </button>
+
+      </div>
     </div>
   
   </div>
@@ -189,12 +197,13 @@ export default {
     itemList, VueResizer, loadingWheel
   },
   async created() {
-    if (this.setup.imageURL) {
-      await this.refreshImageURL()
-    }
-    // this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
-  },
-  
+    if (this.setup) {
+        if (this.setup.imageURL) {
+          await this.refreshImageURL()
+        }
+          this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
+        }
+    },
   watch: {
     itemsToWatch(newItems) {
       // IF NEW ITEM ADDED, SHOW ITS EDITOR. IF ITEM MOVES, DON'T SHOW EDITOR
@@ -306,6 +315,7 @@ export default {
     height: 100%;
     cursor: crosshair;
     display: block;
+    user-select: none;
   }
   .change-image-btn {
     position: absolute;
@@ -323,16 +333,6 @@ export default {
   }
   .change-image-btn:hover {
     opacity: 1;
-  }
-
-  .details-box input {
-    height: 30px;
-    width: 200px;
-    border: 1px solid;
-    outline: none;
-    padding-left: 5px;
-    /* opacity: 0; */
-    cursor: pointer;
   }
   
   .target {
@@ -364,9 +364,21 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 25px 20px 25px 20px;
-    background-color: rgba(0,0,0,0.65);
+    padding: 40px 20px 40px 20px;
+    background-color: rgb(13, 13, 118);
     z-index: 1000;
+    border-radius: 15px;
+    user-select: none;
+  }
+
+  .details-box input {
+    height: 30px;
+    width: 200px;
+    border: 1px solid;
+    outline: none;
+    padding-left: 5px;
+    /* opacity: 0; */
+    cursor: pointer;
   }
   .details-text-wrapper {
       display: flex;
@@ -384,28 +396,36 @@ export default {
   }
   .btn {
       position: absolute;
-      right: 0;
       border: none;
       margin: 0;
       cursor: pointer;
       color: white;
-      padding: 5px;
+      font-size: 14px;
+      padding: 6px;
+      font-weight: bold;
   }
   
   .enter-btn {
       bottom: 0;
+      right: 0;
       background-color: green;
       width: 60px;
+      border-bottom-right-radius: 15px;
+  }
+  .discard-btn {
+    bottom: 0;
+    left: 0;
+    border-bottom-left-radius: 15px;
+    background-color: rgb(192, 7, 7);
   }
   .remove-btn {
+      border-top-right-radius: 15px;
       top: 0;
+      right: 0;
       background-color: rgb(192, 7, 7);
   }
 
 </style>
 
-<!-- TODO: LOADING SCREEN FOR WHEN THERE IS IMAGE TO NOT HAVE PLACEHOLDER APPEAR -->
 <!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
-<!-- TODO: WHEN NEW SETUP PIC IS UPLOADED, CLEAR THE ITEMS LIST? -->
 <!-- TODO: CONVERT TARGETS TO % SO MOBILE SUPPORTED -->
-<!-- TODO: WHY DOES IMAGE UPLOAD BTN BTM LEFT CURSOR POINTER NOT WORK? -->

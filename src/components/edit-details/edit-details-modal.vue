@@ -167,10 +167,10 @@ export default {
 }
 
 .logout-btn {
-    right: 0;
+    left: 0;
     top: 0;
     background-color: rgb(13, 16, 152);
-    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 .prof-img-container {
     cursor: pointer;

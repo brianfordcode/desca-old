@@ -77,7 +77,7 @@ export default {
         if (this.$store.state.loggedIn) {
             this.profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
         } else {
-            this.profilePic = '../assets/profile-icon.png'
+            this.profilePic = '/profile-icon.png'
         }
     },
     methods: {
