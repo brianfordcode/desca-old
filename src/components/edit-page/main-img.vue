@@ -58,63 +58,71 @@
       v-if="displayedItemIndex === index"
     >
       <div class="details-box">
+
         <!-- CATEGORY SELECTION -->
         <div style="margin: 10px 0 10px 0;">
-          <div style="display: flex; justify-content: space-between;">
-              <img v-for="(item, index) in itemChoices"
-                style="height: 20px; cursor: pointer;"
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+              <img v-for="(item, index) in itemChoices" :key="index"
+              :class="{
+                'selected': index === this.itemChoiceIndex || this.itemChoices[index].name === this.items[this.displayedItemIndex].category,
+                'unselected-item-choice': true,
+              }"
+                :title="item.name"
                 :src="item.pic"
                 alt="item.name"
                 @click="itemChosen(item.name, index)"
               >
           </div>
 
-          <p style="text-transform: capitalize; color: white; text-align: center; margin-top: 10px;">{{itemToPreview}}</p>
+          <p class="item-selected-name">{{itemToPreview}}</p>
 
         </div>
 
         <!-- MODEL -->
-        <div
-          class="details-text-wrapper"
-          v-if="item.category != 'computer'"
-        >
-            <p style="color:white">Model:</p>
-            <input v-model="item.name"/>
+        <div style="display: flex; justify-content: space-around;">
+          <div style="width: min-content">
+            <div
+              class="details-text-wrapper"
+              v-if="item.category != 'computer'"
+            >
+                <p style="color:white">Model:</p>
+                <input v-model="item.name"/>
+            </div>
+            <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
+            <div
+              class="computer-details"
+              v-if="item.category === 'computer'"
+            >
+              <p style="color: white; padding-top: 10px;">Specs:</p>
+              <div class="details-text-wrapper">
+                <p style="color:white">CPU:</p>
+                <input v-model="item.categoryDetails.cpu"/>
+              </div>
+              <div class="details-text-wrapper">
+                <p style="color:white">GPU:</p>
+                <input v-model="item.categoryDetails.gpu"/>
+              </div>
+              <div class="details-text-wrapper">
+                <p style="color:white">SSD</p>
+                <input v-model="item.categoryDetails.ssd"/>
+              </div>
+              <div class="details-text-wrapper">
+                <p style="color:white">RAM</p>
+                <input v-model="item.categoryDetails.ram"/>
+              </div>
+              <div class="details-text-wrapper">
+                <p style="color:white">case:</p>
+                <input v-model="item.categoryDetails.case"/>
+              </div>
+            </div>
+            <!-- STORE URL -->
+            <div class="details-text-wrapper">
+                <p style="color:white">URL:</p>
+                <input v-model="item.url"/>
+            </div>
         </div>
-        <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
-        <div
-          class="computer-details"
-          v-if="item.category === 'computer'"
-        >
-          <p style="color: white; padding-top: 10px;">Specs:</p>
-          <div class="details-text-wrapper">
-            <p style="color:white">CPU:</p>
-            <input v-model="item.categoryDetails.cpu"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">GPU:</p>
-            <input v-model="item.categoryDetails.gpu"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">SSD</p>
-            <input v-model="item.categoryDetails.ssd"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">RAM</p>
-            <input v-model="item.categoryDetails.ram"/>
-          </div>
-          <div class="details-text-wrapper">
-            <p style="color:white">case:</p>
-            <input v-model="item.categoryDetails.case"/>
-          </div>
         </div>
-
-        <!-- STORE URL -->
-        <div class="details-text-wrapper">
-            <p style="color:white">URL:</p>
-            <input v-model="item.url"/>
-        </div>
-
+        
         <!-- BUTTONS -->
           <button
               class="enter-btn btn"
@@ -179,6 +187,7 @@ export default {
       items,
       imageURL: null,
       setup,
+      itemChoiceIndex: null,
       itemChoices: [
         {
           name: 'accessory',
@@ -325,16 +334,20 @@ export default {
     save() {
       const index = this.displayedItemIndex
       this.displayedItemIndex = null
+      this.itemChoiceIndex = null
       this.itemSelected = '';
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
     },
-    itemChosen(name) {
+    itemChosen(name, index) {
       this.items[this.displayedItemIndex].category = name
+      this.itemChoiceIndex = index
+      console.log(this.itemChoices[index].name === this.items[this.displayedItemIndex].category)
     },
     discardChanges() {
       this.items[this.displayedItemIndex].category = this.currentSetup.items[this.displayedItemIndex].category
       this.displayedItemIndex = null
-    }
+      this.itemChoiceIndex = null
+    },
   },
 }
   
@@ -411,13 +424,13 @@ export default {
     position: absolute;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    border: 1px solid;
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
     z-index: 1000;
     border-radius: 15px;
     user-select: none;
-    width: 350px;
+    width: 375px;
   }
 
   .details-box input {
@@ -436,6 +449,28 @@ export default {
   }
   .details-text-wrapper p {
       padding-right: 5px;
+  }
+
+  .unselected-item-choice {
+    height: 20px;
+    cursor: pointer;
+    opacity: 0.25
+  }
+  
+  .unselected-item-choice:hover {
+    opacity: 1;
+  }
+  .selected {
+    opacity: 1;
+    transform: scale(1.8);
+  }
+
+  .item-selected-name {
+    text-transform: capitalize;
+    height: 22px;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
   }
 
   #category {
