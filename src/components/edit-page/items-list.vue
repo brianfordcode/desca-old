@@ -84,6 +84,8 @@
         <template #item="{element, index}">
             <div class="item-details"
                 @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
+                @mouseover="$emit('hovering', index)"
+                @mouseleave="$emit('leaving')"
                 v-if="element.category != 'computer'"
             >   
                 <!-- ICON -->
@@ -117,7 +119,7 @@
 import draggable from 'vuedraggable'
 
 export default {
-    emits: ["toggleItemDisplay"],
+    emits: ["toggleItemDisplay", "hovering", "leaving"],
     data() {
         return {
             drag: false,

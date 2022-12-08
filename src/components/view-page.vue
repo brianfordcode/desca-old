@@ -151,7 +151,7 @@
 
 <script>
 import VueResizer from '../vender/vue-resizer'
-import { downloadPic } from "../manage-pic.js"
+import { downloadPic } from '../manage-pic.js'
 import loadingWheel from "./loading-wheel.vue"
 
 export default {

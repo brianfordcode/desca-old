@@ -160,7 +160,6 @@ const store = createStore({
     },
     deleteSetup(context, { user, setupId } ) {
       const key = `${user.uid}/${setupId}`
-      console.log('from store', key)
       deletePic(key)
       context.commit('deleteSetup', setupId)
       deleteDoc(doc(db, "setups", setupId))
@@ -180,9 +179,9 @@ const store = createStore({
       updateDoc(doc(db, "setups", setupId), {items});
     },
     removeItem(context, {item, setupId, index }) {
-      context.commit('removeItem', {item, setupId, index })
+      context.commit('removeItem', {item, setupId, index });
       const items = context.getters.setup(setupId).items
-      updateDoc(doc(db, "setups", setupId), {items});
+      updateDoc(doc(db, "setups", setupId), {items}), 1000
     },
     async changeMainImg(context, {currentSetupRoute, user, image}) {
       const key = `${user.uid}/${currentSetupRoute}`

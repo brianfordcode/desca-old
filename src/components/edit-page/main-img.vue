@@ -27,25 +27,26 @@
   <!--  ITEM TARGETS  -->
   <div v-for="(item, index) in items" :key="index">
     <div
-      class="target"
+      :class="{'target': true, 'hovered-target': targetHoverIndex === index }"
       @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
       @mousedown="dragging = index"
       @mouseenter="handleMouseOver(item, index)"
-      @mouseleave="hoveredItem = null"
+      @mouseleave="this.hoveredItem = null"
       alt="target"
       draggable="false"
       :style="{
-                top: (item.y - 13) + 'px',
-                left: (item.x - 13) + 'px'
+                top: (item.y - 25) + 'px',
+                left: (item.x - 25) + 'px'
               }"
-  ></div>
+  >
+  </div>
 
     <!-- TOOLTIP ON HOVER -->
     <p
       class="tooltip"
       v-if="hoveredItem === index"
       :style="{
-                top: (item.y + 20) + 'px',
+                top: (item.y + 30) + 'px',
                 left: (item.x - 55) + 'px'
               }"
     >
@@ -74,7 +75,7 @@
               >
           </div>
 
-          <p class="item-selected-name">{{itemToPreview}}</p>
+          <p class="item-selected-name">{{itemToPreview ? itemToPreview : '&#x21e7; Choose the category above &#x21e7;' }}</p>
 
         </div>
 
@@ -93,7 +94,6 @@
               class="computer-details"
               v-if="item.category === 'computer'"
             >
-              <p style="color: white; padding-top: 10px;">Specs:</p>
               <div class="details-text-wrapper">
                 <p style="color:white">CPU:</p>
                 <input v-model="item.categoryDetails.cpu"/>
@@ -159,6 +159,8 @@
 <!-- ITEM LIST -->
 <itemList
   @toggleItemDisplay="index => displayedItemIndex = index"
+  @hovering="index => this.targetHoverIndex = index"
+  @leaving="this.targetHoverIndex = null"
   v-if="imageURL"
 />
 
@@ -188,6 +190,7 @@ export default {
       imageURL: null,
       setup,
       itemChoiceIndex: null,
+      targetHoverIndex: null,
       itemChoices: [
         {
           name: 'accessory',
@@ -311,7 +314,7 @@ export default {
       this.displayedItemIndex = null;
       this.itemSelected = '';
       this.items.splice(index, 1);
-      this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index });
+      this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
@@ -341,7 +344,6 @@ export default {
     itemChosen(name, index) {
       this.items[this.displayedItemIndex].category = name
       this.itemChoiceIndex = index
-      console.log(this.itemChoices[index].name === this.items[this.displayedItemIndex].category)
     },
     discardChanges() {
       this.items[this.displayedItemIndex].category = this.currentSetup.items[this.displayedItemIndex].category
@@ -384,20 +386,24 @@ export default {
   .change-image-btn:hover {
     opacity: 1;
   }
-  
+
   .target {
-    position: absolute;
-    opacity: .75;
-    width: 20px;
-    border: 3px solid rgba(13, 13, 118,0.65);
-    border-radius: 50%;
-    height: 20px;
-    cursor: pointer;
-    transition: opacity .1s ease-in-out;
+  position: absolute;
+  height:50px;
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
   }
+
   .target:hover {
-      opacity: 1;
+    background-color: rgba(255,255,255,.75);
   }
+  .hovered-target {
+    background-color: rgba(255,255,255,.9);
+    transform: scale(1.5);
+  }
+
   .tooltip {
     position: absolute;
     background: rgba(0,0,0,0.5);
@@ -430,7 +436,7 @@ export default {
     z-index: 1000;
     border-radius: 15px;
     user-select: none;
-    width: 375px;
+    width: 400px;
   }
 
   .details-box input {
@@ -439,7 +445,6 @@ export default {
     border: 1px solid;
     outline: none;
     padding-left: 5px;
-    /* opacity: 0; */
   }
   .details-text-wrapper {
       display: flex;
@@ -456,22 +461,26 @@ export default {
     cursor: pointer;
     opacity: 0.25
   }
-  
+
   .unselected-item-choice:hover {
     opacity: 1;
   }
   .selected {
     opacity: 1;
-    transform: scale(1.8);
+    transform: scale(1.9);
   }
 
   .item-selected-name {
-    text-transform: capitalize;
     height: 22px;
     color: white;
     text-align: center;
     margin-top: 20px;
+    user-select: none;
   }
+
+  .item-selected-name:first-letter {
+    text-transform: uppercase;
+}
 
   #category {
       outline: none;
@@ -486,6 +495,10 @@ export default {
       font-size: 14px;
       padding: 6px;
       font-weight: bold;
+  }
+
+  .computer-details {
+    margin-bottom: 15px;
   }
   
   .enter-btn {
