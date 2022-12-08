@@ -12,10 +12,10 @@
       <div
         class="item-wrapper hovered-item"
         v-if="showItem"
-           :style="{
-             top: (this.detailBlockPlacement.y + 10) + 'px',
-             left: (this.detailBlockPlacement.x) + 'px'
-           }"
+          :style="{
+            top: (this.detailBlockPlacement.y) + 'px',
+            left: (this.detailBlockPlacement.x) + 'px'
+          }"
         @mouseleave="handleMouseLeave"
       >
       <VueResizer emitOnMount @notify="sizeChange"/>
@@ -35,16 +35,31 @@
         v-for="item in $store.state.viewingSetup.items"
         :key="item"
       >
+      
         <div
           class="item-target"
           :style="`
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
             top: ${item.y - 25}px;
             left: ${item.x - 25}px;
-            background: ${item === hoveredItem ? `rgba(255,255,255,0.5)` : `rgba(255,255,255,0.1);`};
+            background: ${item === hoveredItem ? `rgba(255,255,255,.5)` : `rgba(255,255,255,.01);`};
+            z-index: ${item === hoveredItem ? `10000000` : `0`};
           `"
           @mouseover="handleMouseOver(item)"
+          @mouseleave="handleMouseLeave"
           >
+          <a :href="item.url" v-if="item.url" target="_blank">
+            <img
+              src="../assets/shopping-cart.png"
+              alt="shopping-cart"
+              v-if="(item === hoveredItem)"
+              style="height: 30px; opacity: 0.5"
+            >
+          </a>
         </div>
+     
       </div>
       
       <!-- IMAGE -->
@@ -123,6 +138,7 @@
               v-if="item.category != 'computer'"
               @mouseover="hoveredItem = item;"
               @mouseleave="handleMouseLeave"
+              @click="goToUrl(item)"
           >   
               <!-- ICON -->
               <img class="icon" 
@@ -226,6 +242,9 @@ export default {
       this.detailBoxDimensions.width = width;
       this.detailBoxDimensions.height = height;
     },
+    goToUrl(item) {
+      if (item.url) { window.open(item.url, '_blank');}
+    }
   },
   computed: {
     detailBlockPlacement() {
@@ -329,7 +348,7 @@ export default {
 
 .hovered-item {
   position: absolute;
-  z-index: 100000
+  z-index: 100000;
 }
 
 </style>

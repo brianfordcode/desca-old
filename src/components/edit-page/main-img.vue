@@ -35,8 +35,8 @@
       alt="target"
       draggable="false"
       :style="{
-                top: (item.y - 25) + 'px',
-                left: (item.x - 25) + 'px'
+                top: (item.y - 12.5) + 'px',
+                left: (item.x - 12.5) + 'px'
               }"
   >
   </div>
@@ -46,8 +46,8 @@
       class="tooltip"
       v-if="hoveredItem === index"
       :style="{
-                top: (item.y + 30) + 'px',
-                left: (item.x - 55) + 'px'
+                top: (item.y + 20) + 'px',
+                left: (item.x - 60) + 'px'
               }"
     >
     Click to move<br>Double click to edit
@@ -391,8 +391,8 @@ export default {
 
   .target {
   position: absolute;
-  height:50px;
-  width: 50px;
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.5);
