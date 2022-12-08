@@ -79,7 +79,7 @@
               style=" font-size: 14px; margin-right: 20px;"
               v-if="item.category === 'computer'"
               class="comp-details"
-              @mouseover="hoveredItem = item;"
+              @mouseover="hoveredItem = item; handleMouseOver(item)"
               @mouseleave="handleMouseLeave"
           >
               <!-- ICON -->
@@ -140,7 +140,10 @@
               @click="goToUrl(item)"
               :style="`
                 cursor: ${item.url ? 'pointer' : 'default'};
+                transform: scale(${item === hoveredItem ? '1.05' : '1'})
               `"
+              @mouseover="handleMouseOver(item)"
+              @mouseleave="handleMouseLeave"
           >   
               <!-- ICON -->
               <img class="icon" 
