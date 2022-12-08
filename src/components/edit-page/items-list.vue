@@ -5,6 +5,10 @@
     <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item"
     >
         <div
+            @mouseover="(($emit('hovering', index)))"
+            @mouseleave="$emit('leaving')"
+            @mousedown="$emit('leaving')"
+            :class="{'hovered-computer': index === targetHoverIndex}"
             style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
             @click.stop="$emit('toggleItemDisplay', index)"
@@ -82,10 +86,12 @@
         class="items-list-container"
     >
         <template #item="{element, index}">
-            <div class="item-details"
+            <div :class="{'item-details': true, 'hovered-item': index === targetHoverIndex}"
                 @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
-                @mouseover="$emit('hovering', index)"
+                @mouseover="(($emit('hovering', index)))"
                 @mouseleave="$emit('leaving')"
+                @mousedown="$emit('leaving')"
+                @drag="$emit('leaving')"
                 v-if="element.category != 'computer'"
             >   
                 <!-- ICON -->
@@ -125,8 +131,8 @@ export default {
             drag: false,
             draggable: false,
         }
-        
     },
+    props: [ 'targetHoverIndex' ],
     components: { draggable },
     computed: {
         setupId() {
@@ -248,7 +254,16 @@ export default {
 }
 
 .item-details:hover {
+    transform: scale(1.05);
+}
+
+.hovered-item {
+    transform: scale(1.05);
+}
+
+.hovered-computer {
     transform: scale(1.01);
+    background: rgb(13, 13, 118);
 }
 
 .item-details:active {

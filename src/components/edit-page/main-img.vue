@@ -30,8 +30,8 @@
       :class="{'target': true, 'hovered-target': targetHoverIndex === index }"
       @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
       @mousedown="dragging = index"
-      @mouseenter="handleMouseOver(item, index)"
-      @mouseleave="this.hoveredItem = null"
+      @mouseenter="((handleMouseOver(item, index)))"
+      @mouseleave="(this.targetHoverIndex = null, this.hoveredItem = null)"
       alt="target"
       draggable="false"
       :style="{
@@ -161,6 +161,7 @@
   @toggleItemDisplay="index => displayedItemIndex = index"
   @hovering="index => this.targetHoverIndex = index"
   @leaving="this.targetHoverIndex = null"
+  :targetHoverIndex = this.targetHoverIndex
   v-if="imageURL"
 />
 
@@ -318,6 +319,7 @@ export default {
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
+      this.targetHoverIndex = index
     },
     onMouseMove(event) {
         event.preventDefault()
@@ -424,6 +426,7 @@ export default {
     justify-content: space-around;
     align-items: center;
     position: absolute;
+    z-index: 10000;
   }
 
   .details-box {
@@ -433,7 +436,7 @@ export default {
     border: 1px solid;
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
-    z-index: 1000;
+    z-index: 1000000;
     border-radius: 15px;
     user-select: none;
     width: 400px;
