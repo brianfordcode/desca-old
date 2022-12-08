@@ -39,13 +39,14 @@
         <div
           class="item-target"
           :style="`
-          display: flex;
-          justify-content: space-around;
-          align-items: center;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             top: ${item.y - 25}px;
             left: ${item.x - 25}px;
-            background: ${item === hoveredItem ? `rgba(255,255,255,.5)` : `rgba(255,255,255,.01);`};
+            background: ${item === hoveredItem ? `rgba(255,255,255,.75)` : `rgba(255,255,255,.01);`};
             z-index: ${item === hoveredItem ? `10000000` : `0`};
+            cursor: ${item.url ? 'pointer' : 'default'};
           `"
           @mouseover="handleMouseOver(item)"
           @mouseleave="handleMouseLeave"
@@ -136,9 +137,10 @@
         >
           <div class="item-wrapper"
               v-if="item.category != 'computer'"
-              @mouseover="hoveredItem = item;"
-              @mouseleave="handleMouseLeave"
               @click="goToUrl(item)"
+              :style="`
+                cursor: ${item.url ? 'pointer' : 'default'};
+              `"
           >   
               <!-- ICON -->
               <img class="icon" 
@@ -285,7 +287,6 @@ export default {
   height:50px;
   width: 50px;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 /* ITEMS */
@@ -307,7 +308,6 @@ export default {
   padding: 15px;
   position: relative;
   transition: .1s ease-in-out;
-  cursor: pointer;
 }
 
 .icon {
