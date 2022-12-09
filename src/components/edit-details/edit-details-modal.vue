@@ -96,7 +96,8 @@ export default {
             }
 
             this.$store.dispatch('changeDetails', { details: this.editProfileDetails, user: this.$store.state.user.uid})
-            
+            this.$store.dispatch('openActionModal', {text: 'details changed', color: 'green'})
+
             this.editDetailsToggle = false
         },
         logOut() {

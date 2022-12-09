@@ -4,6 +4,11 @@
 
   <router-view v-if="$store.state.loggedIn !== null"/>
 
+  <actionModal
+    :action="this.$store.state.actionModal.text"
+    :backgroundColor="this.$store.state.actionModal.color"
+  />
+
   <!-- <foot/> -->
 
 
@@ -12,10 +17,11 @@
 <script>
 import navBar from './components/navbar.vue'
 import foot from './components/footer.vue'
+import actionModal from './components/action-modal.vue'
 
 
 export default {
-  components: { navBar, foot}
+  components: { navBar, foot, actionModal}
 }
 </script>
 

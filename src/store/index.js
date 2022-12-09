@@ -2,9 +2,7 @@ import { createStore } from 'vuex'
 import { doc, getDocs, deleteDoc, updateDoc, collection, query, where, setDoc, getFirestore, startAfter } from "firebase/firestore"; 
 import { login, logOut } from '../firebase.js'
 import router from '../router/index.js';
-import { validateContextObject } from '@firebase/util';
 import {  getAuth, onAuthStateChanged } from "firebase/auth";
-// import {uploadPic} from "../upload-pic.js"
 import { downloadPic, deletePic, uploadPic} from '../manage-pic.js';
 
 const db = getFirestore();
@@ -25,7 +23,12 @@ const store = createStore({
       viewingSetup: [],
       viewingSetupLoaded: false,
       uploadProgress: null,
-      editDetailsToggle: false, 
+      editDetailsToggle: false,
+      actionModal: {
+        open: false,
+        text: '',
+        color: '',
+      },
     }
   },
   getters: {
@@ -95,6 +98,22 @@ const store = createStore({
     },
     resetUploadProgress(state) {
       state.uploadProgress = null
+    },
+    openActionModal(state, {text, color}) {
+      state.actionModal.open = false
+      setTimeout(() => { state.actionModal.open = true }, 200)
+      
+      state.actionModal.text = text;
+      state.actionModal.color = color;
+
+      setTimeout(() => {
+        state.actionModal.open = false
+        state.actionModal.text = '';
+        state.actionModal.color = '';
+      },
+      2500
+      )
+     
     }
   },
   actions: {
@@ -107,6 +126,7 @@ const store = createStore({
         // SETUP PAGE OPENS AFTER LOG IN
         await router.push(`/setups/${context.state.user.uid}`)
         context.commit('setLoaded')
+        context.commit('openActionModal', {text: 'logged in', color: 'green'})
       })
     },
     async fetchUserDetails(context, user) {
@@ -147,7 +167,7 @@ const store = createStore({
         querySnapshot.forEach(doc => setups.push(doc.data()))
         context.commit('initializeSetups', setups)
     },
-    logOut() {
+    logOut(context) {
       router.push('/')
       logOut()
     },
@@ -193,9 +213,9 @@ const store = createStore({
       context.commit('changeMainImg', {currentSetup, url})
       context.commit('resetUploadProgress')
     },
-    saveItem(context, {index, setupId, item}) {
+    async saveItem(context, {index, setupId, item}) {
       context.commit('saveItem', {index, setupId, item})
-      updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
+      await updateDoc(doc(db, "setups", setupId), {items: context.getters.setup(setupId).items });
     },
     saveItems(context, { setupId, items}) {
       context.commit('saveItems', { setupId, items})
@@ -220,6 +240,9 @@ const store = createStore({
     uploadProgress(context, progress) {
       context.commit('uploadProgress', progress)
     },
+    openActionModal(context, {text, color}) {
+      context.commit('openActionModal', {text, color})
+    }
   }
 })
 
@@ -251,3 +274,4 @@ export default store
 
 
  // TODO: INSTEAD OF PERMANENT DELETE, GOES TO DELETED DATABASE FOLDER??
+//  TODO: IN ACTION MODAL MUTATION, CHECK IF FIREBASE MATCHES TO ACTION?

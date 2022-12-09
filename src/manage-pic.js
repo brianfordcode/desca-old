@@ -15,9 +15,9 @@ function deletePic(key) {
     const pic = ref(storage, key);
 
     deleteObject(pic).then(() => {
-        console.log('File deleted successfully')
+        store.dispatch('openActionModal', {text: 'setup deleted', color: 'red'})
     }).catch((error) => {
-        console.log('Uh-oh, an error occurred!')
+        store.dispatch('openActionModal', {text: 'an error occurred. Please contact support', color: 'red'})
         console.log(error)
     });    
 }

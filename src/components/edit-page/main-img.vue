@@ -237,7 +237,7 @@ export default {
           name: 'webcam',
           pic: require('../../assets/icons/webcam.png')
         },
-      ]
+      ],
     }
   },
   components: {
@@ -316,6 +316,7 @@ export default {
       this.itemSelected = '';
       this.items.splice(index, 1);
       this.$store.dispatch('removeItem', { setupId: this.$route.params.setupId, index })
+      this.$store.dispatch('openActionModal', {text: 'item deleted', color: 'red'})
     },
     handleMouseOver(item, index) {
       this.hoveredItem = this.hoveredItem === index ? null : index;
@@ -341,7 +342,10 @@ export default {
       this.displayedItemIndex = null
       this.itemChoiceIndex = null
       this.itemSelected = '';
+
       this.$store.dispatch('saveItem', { index, setupId: this.setupId, item: this.items[index] })
+      this.$store.dispatch('openActionModal', {text: 'item submitted', color: 'green'})
+
     },
     itemChosen(name, index) {
       this.items[this.displayedItemIndex].category = name

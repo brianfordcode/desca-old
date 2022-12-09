@@ -49,6 +49,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'Home',
   mounted: function () {
