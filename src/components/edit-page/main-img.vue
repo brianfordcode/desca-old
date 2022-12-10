@@ -72,16 +72,22 @@
                 :src="item.pic"
                 alt="item.name"
                 @click="itemChosen(item.name, index)"
-              >
+              />
           </div>
 
-          <p class="item-selected-name">{{itemToPreview ? itemToPreview : '&#x21e7; Choose the category above &#x21e7;' }}</p>
+          <!-- <p class="item-selected-name">{{itemToPreview ? itemToPreview : '&#x21e7; Choose the category above &#x21e7;' }}</p> -->
 
         </div>
 
         <!-- MODEL -->
-        <div style="display: flex; justify-content: space-around;">
-          <div style="width: min-content">
+        <div style="margin-top: 10px; display: flex; justify-content: space-around;">
+          <div>
+            
+            <div style="display: flex; transform: translateX(-15px);">
+              <p style="color: white;">Category:</p>
+              <p style="color: white; font-size: 18px; padding-left: 5px; text-transform: capitalize;">{{itemToPreview ? itemToPreview : '&#x21e7; Choose above &#x21e7;' }}</p>
+            </div>
+            
             <div
               class="details-text-wrapper"
               v-if="item.category != 'computer'"
