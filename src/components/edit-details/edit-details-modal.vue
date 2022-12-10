@@ -181,7 +181,7 @@ export default {
     justify-content: space-between;
     margin-left: 10px;
     height: auto;
-    margin-right: 25px;
+    margin-right: 50px;
 }
 
 .profile-icon {

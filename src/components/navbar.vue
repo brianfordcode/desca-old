@@ -126,7 +126,7 @@ export default {
 
 #logo {
     width: 100px;
-    margin-left: 25px;
+    margin-left: 50px;
     cursor: pointer;
 }
 

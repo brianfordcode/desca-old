@@ -76,11 +76,10 @@ export default {
 }
 
 .wrapper {
-    max-width: 1000px;
-    width: 1000px;
-    height: min-content;
+    width: 100%;
+    /* height: min-content; */
+    margin: 0 100px;
     display: flex;
-    margin: 20px;
     justify-content: space-between;
 }
 
