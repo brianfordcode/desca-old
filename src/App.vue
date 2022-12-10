@@ -1,16 +1,14 @@
 <template>
-
   <navBar/>
-
+  
   <router-view v-if="$store.state.loggedIn !== null"/>
+
+  <foot/>
 
   <actionModal
     :action="this.$store.state.actionModal.text"
     :backgroundColor="this.$store.state.actionModal.color"
   />
-
-  <!-- <foot/> -->
-
 
 </template>
 
@@ -37,9 +35,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  display: flex;
-  flex-direction: column;
+  color: black; /* #2c3e50 */
+  display: inlinef;
 }
 
 </style>

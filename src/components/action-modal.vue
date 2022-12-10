@@ -34,7 +34,7 @@ export default {
     color: white;
     padding: 15px;
     z-index: 100000000000000;
-    bottom: 25px;
+    bottom: 125px;
     left: 50%;
     /* width: ; */
     text-align: center;

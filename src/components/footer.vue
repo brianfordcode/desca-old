@@ -63,17 +63,24 @@ export default {
 .container {
     z-index: 10000000;
     margin-top: 50px;
-    height: min-content;
-    padding: 20px;
+    height: 100px;
     background: rgb(13, 13, 118);
     box-shadow: 0px 0px 33px -20px #000000;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
 }
 
 .wrapper {
-    max-width: 1200px;
-    /* border: 1px solid; */
-    margin: 0 auto;
+    max-width: 1000px;
+    width: 1000px;
+    height: min-content;
     display: flex;
+    margin: 20px;
     justify-content: space-between;
 }
 

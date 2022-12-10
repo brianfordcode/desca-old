@@ -38,3 +38,5 @@ function uploadPic(key, image) {
 }
 
 export { downloadPic, deletePic, uploadPic }
+
+// TODO: MAKE ACTION MODAL OCCURR ONLY WHEN FIREBASE MATCHES ACTION

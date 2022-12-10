@@ -221,6 +221,7 @@ export default {
 
 .items-list-container {
     width: 100%;
+    height: 100px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-gap: 16px;
