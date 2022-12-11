@@ -29,7 +29,7 @@ const store = createStore({
         text: '',
         color: '',
       },
-      shareModalOpen: true,
+      shareModalOpen: false,
     }
   },
   getters: {

@@ -12,12 +12,18 @@
             >
                 Close
             </div>
-            <div class="copy-btn btn">
+            <div
+                class="copy-btn btn"
+                @click="copyLink()"
+            >
                 Copy Link
             </div>
 
             <!-- LINK -->
-            <div class="link">Share Link</div>
+            <div style="text-align: center; width: 100%">
+                <p style="margin-bottom: 10px;">Share this Setup!</p>
+                <input class="link" disabled :value="('https://www.desca.io/' + this.$store.state.user.uid + '/' + setup)"/>
+            </div>
         </div>
     </div>
 
@@ -29,12 +35,24 @@
 export default {
     data() {
         return {
-
+            setup: null
         }
+    },
+    created() {
+
     },
     methods: {
         close() {
             this.$store.dispatch('toggleShareModal')
+        },
+        copyLink() {
+            console.log('copy link')
+        }
+    },
+    computed: {
+        loaded() {
+
+            
         }
     }
 }
@@ -92,6 +110,13 @@ export default {
     background-color: rgb(11, 129, 25);
     border-bottom-right-radius: 10px;
 }
+
+input {
+    outline: none;
+    border: 1px solid;
+    padding: 5px;
+    width: 80%;
+  }
 
 @keyframes fadeIn {
   0% { opacity: 0; }
