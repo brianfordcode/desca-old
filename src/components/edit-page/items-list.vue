@@ -2,7 +2,9 @@
 <div class="main-container">
 
     <!-- COMPUTER -->
-    <div v-for="(item, index) in $store.getters.setup($route.params.setupId).items" :key="item"
+    <div
+        v-for="(item, index) in $store.getters.setup($route.params.setupId).items"
+        :key="item"
     >
         <div
             @mouseover="(($emit('hovering', index)))"
@@ -84,6 +86,7 @@
         @end="onDragEnd"
         item-key="id"
         class="items-list-container"
+        style="height: min-content"
     >
         <template #item="{element, index}">
             <div :class="{'item-details': true, 'hovered-item': index === targetHoverIndex}"
@@ -109,6 +112,7 @@
         </template>
         
     </draggable>
+
 
     <!-- PLACEHOLDER -->
     <div class="placeholder"
@@ -199,6 +203,8 @@ export default {
 <style scoped>
 
 .main-container {
+    height: min-content;
+    /* border: 1px solid purple; */
     margin-top: 10px;
     display: flex;
     align-items: flex-start;

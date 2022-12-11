@@ -1,25 +1,28 @@
 <template>
+
   <navBar/>
   
   <router-view v-if="$store.state.loggedIn !== null"/>
 
-  <foot/>
+  <!-- <foot/> -->
 
+    
   <actionModal
-    :action="this.$store.state.actionModal.text"
-    :backgroundColor="this.$store.state.actionModal.color"
-  />
+      :action="this.$store.state.actionModal.text"
+      :backgroundColor="this.$store.state.actionModal.color"
+    />
+
 
 </template>
 
 <script>
 import navBar from './components/navbar.vue'
 import foot from './components/footer.vue'
-import actionModal from './components/action-modal.vue'
+import actionModal from './components/action-modal.vue';
 
 
 export default {
-  components: { navBar, foot, actionModal}
+  components: { navBar, foot, actionModal }
 }
 </script>
 
@@ -36,7 +39,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: black; /* #2c3e50 */
-  display: inlinef;
+  height: 100%;
 }
 
 </style>

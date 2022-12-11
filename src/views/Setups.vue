@@ -2,7 +2,7 @@
 
 <div style="max-width: 1200px; width: 90%; margin: 0 auto">
 
-    <profileHeader style="z-index: 10000;"/>
+    <profileHeader/>
 
     <h2>My Setups:</h2>
 
@@ -119,10 +119,11 @@
 
     </div>
 
-    
     <loadingWheel v-else style="width: 100%;"/>
 
 </div>
+
+<foot/>
 
 </template>
 
@@ -130,10 +131,11 @@
 import profileHeader from '../components/edit-page/profile-header.vue'
 import {uploadPic, downloadPic} from "../manage-pic.js"
 import loadingWheel from "../components/loading-wheel.vue"
+import foot from '../components/footer.vue'
 
 export default {
 
-    components: { profileHeader, loadingWheel },
+    components: { profileHeader, loadingWheel, foot },
     data() {
         return {
             modalOpen: false,

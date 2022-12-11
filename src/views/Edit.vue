@@ -1,11 +1,13 @@
 <template>
     <div class="edit-container">
 
-      <profileHeader style="z-index: 10000;"/>
+      <profileHeader/>
 
       <mainImg/>
 
     </div>
+
+    
 
 </template>
 
@@ -16,7 +18,7 @@ import mainImg from '../components/edit-page/main-img.vue'
 
 export default {
   components: {
-    mainImg, profileHeader
+    mainImg, profileHeader,
   }
 
 }
@@ -26,6 +28,8 @@ export default {
 
 .edit-container {
   max-width: 1200px;
+  border: 3px solid purple;
+  height: min-content;
   width: 800px;
   margin: 0 auto;
   display: flex;

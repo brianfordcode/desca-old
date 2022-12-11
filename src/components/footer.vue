@@ -77,7 +77,6 @@ export default {
 
 .wrapper {
     width: 100%;
-    /* height: min-content; */
     margin: 0 100px;
     display: flex;
     justify-content: space-between;

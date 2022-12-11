@@ -1,6 +1,10 @@
 <template>
 
-<div
+
+<div style="border: 3px solid;f">
+
+
+  <div
   class="img-main-container"
   @mousemove = "onMouseMove"
   @mouseup = "dragging = null"
@@ -74,8 +78,6 @@
                 @click="itemChosen(item.name, index)"
               />
           </div>
-
-          <!-- <p class="item-selected-name">{{itemToPreview ? itemToPreview : '&#x21e7; Choose the category above &#x21e7;' }}</p> -->
 
         </div>
 
@@ -170,6 +172,10 @@
   :targetHoverIndex = this.targetHoverIndex
   v-if="imageURL"
 />
+
+
+</div>
+
 
 </template>
 
