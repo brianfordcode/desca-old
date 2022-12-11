@@ -28,7 +28,6 @@ export default {
 
 .edit-container {
   max-width: 1200px;
-  border: 3px solid purple;
   height: min-content;
   width: 800px;
   margin: 0 auto;

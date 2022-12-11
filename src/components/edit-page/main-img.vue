@@ -1,9 +1,5 @@
 <template>
 
-
-<div style="border: 3px solid;f">
-
-
   <div
   class="img-main-container"
   @mousemove = "onMouseMove"
@@ -172,9 +168,6 @@
   :targetHoverIndex = this.targetHoverIndex
   v-if="imageURL"
 />
-
-
-</div>
 
 
 </template>

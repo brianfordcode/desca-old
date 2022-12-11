@@ -123,19 +123,16 @@
 
 </div>
 
-<foot/>
-
 </template>
 
 <script>
 import profileHeader from '../components/edit-page/profile-header.vue'
 import {uploadPic, downloadPic} from "../manage-pic.js"
 import loadingWheel from "../components/loading-wheel.vue"
-import foot from '../components/footer.vue'
 
 export default {
 
-    components: { profileHeader, loadingWheel, foot },
+    components: { profileHeader, loadingWheel },
     data() {
         return {
             modalOpen: false,
@@ -201,7 +198,7 @@ export default {
             await this.$store.dispatch('deleteSetup', {user, setupId})
         },
         share() {
-            console.log('share pushed')
+            this.$store.dispatch('toggleShareModal')
         },
     }
 }

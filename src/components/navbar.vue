@@ -88,7 +88,7 @@ export default {
             if (this.$store.state.loggedIn) { this.$store.dispatch('editDetailsToggle') }
         },  
         share() {
-            console.log('share pushed')
+            this.$store.dispatch('toggleShareModal')
         },
     },
     computed: {

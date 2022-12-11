@@ -29,6 +29,7 @@ const store = createStore({
         text: '',
         color: '',
       },
+      shareModalOpen: true,
     }
   },
   getters: {
@@ -113,7 +114,9 @@ const store = createStore({
       },
       2500
       )
-     
+    },
+    toggleShareModal(state) {
+      state.shareModalOpen = !state.shareModalOpen
     }
   },
   actions: {
@@ -242,6 +245,9 @@ const store = createStore({
     },
     openActionModal(context, {text, color}) {
       context.commit('openActionModal', {text, color})
+    },
+    toggleShareModal(context) {
+      context.commit('toggleShareModal')
     }
   }
 })

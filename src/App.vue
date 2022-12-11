@@ -2,7 +2,7 @@
 
   <navBar/>
   
-  <router-view v-if="$store.state.loggedIn !== null"/>
+  <router-view v-if="$store.state.loggedIn !== null" style="position: relative;"/>
 
   <!-- <foot/> -->
 
@@ -12,6 +12,8 @@
       :backgroundColor="this.$store.state.actionModal.color"
     />
 
+    <shareModal/>
+
 
 </template>
 
@@ -19,10 +21,11 @@
 import navBar from './components/navbar.vue'
 import foot from './components/footer.vue'
 import actionModal from './components/action-modal.vue';
+import shareModal from './components/share-modal.vue'
 
 
 export default {
-  components: { navBar, foot, actionModal }
+  components: { navBar, foot, actionModal, shareModal }
 }
 </script>
 
