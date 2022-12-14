@@ -1,10 +1,10 @@
 <template>
 
-  <navBar/>
+  <navBar v-if="this.$route.name != 'Home'"/>
   
-  <router-view v-if="$store.state.loggedIn !== null" style="position: relative;"/>
+  <router-view v-if="$store.state.loggedIn !== null"/>
 
-  <!-- <foot/> -->
+  <foot v-if="this.$route.name === 'Home'"/>
 
     
   <actionModal

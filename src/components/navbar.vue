@@ -7,7 +7,6 @@
             id="logo"
             src="/desca-logo.png"
             alt="desca-logo"
-            @click="$router.push('/')"
         />
         <!-- links -->
         <div style="display: flex; height: 30px;">
@@ -127,7 +126,7 @@ export default {
 #logo {
     width: 100px;
     margin-left: 50px;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .links {

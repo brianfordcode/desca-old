@@ -1,150 +1,131 @@
 <template>
 
-  <div class="main-container">
-    <div class="left-side-container">
-      <div class="text-btn-wrapper">
-        <!-- TEXT -->
-        <p class="text">
-          The #1 destination<br>
-          to share YOUR<br>
-          ultimate gaming,<br>
-          streaming or
-          <br>
-          working setup.
-        </p>
-        <!-- BUTTON -->
-        <div
-          class="get-started-btn"
-          @click="getStartedBtn"
-        >
-        {{this.$store.state.user ? "Go To My Setups" : "Get Started"}}
-        </div>
-      </div>
-    </div>
 
-    <div class="picture-container">
-      <!-- FEATURED PICTURE BUTTONS -->
-      <div class="buttons-wrapper">
-        <div v-for="(link, index) in featuredSetups" :key="link">
-          <div
-            :class="{'preview-btn': true, 'active': picIndex === index ? true : false}"
-            @click="picIndex = index"
-          >
-          {{index + 1}}
-          </div>
-        </div>
-      </div>
-      <!-- FEATURED IMAGE -->
-      <img
-        draggable="false"
-        :src="featuredSetups[picIndex]"
-        :alt="featuredSetups[picIndex]"
-        style="width: 100%;"
+
+<div class="main-container">
+
+  <!-- TEXT BOX -->
+  <div class="text-box-container">
+    <div class="text-box-wrapper">
+      <img class="desca-logo" src="../../public/desca-logo.png" alt="desca-logo">
+      <p class="catch-line">The #1 destination to share YOUR ultimate gaming, streaming or working setup</p>
+      <img class="icons-row" src="../../public/icons-row.png" alt="icons-row">
+    </div>
+  </div>
+
+  <!-- LOGIN BOX -->
+  <div class="login-container">
+
+    <div>
+      <p style="font-weight: bold; font-size: 20px; text-align: center;">Get Started:</p>
+
+      <button
+        class="google-login-btn signin-btn"
+        @click="$store.dispatch('logIn');"
       >
+        <img class="signin-logo" src="../../public/login-logos/google-logo.png" alt="google-logo">
+    </button>
 
     </div>
 
   </div>
 
+
+
+
+
+</div>
+
+
+
+
 </template>
 
 <script>
 
-export default {
-  name: 'Home',
-  mounted: function () {
-    window.setInterval(() => {
-      this.picIndex > this.featuredSetups.length - 2 ? this.picIndex = 0 : this.picIndex++
-    }, 7500)
-  },
-  data() {
-    return {
-      featuredSetups: ["https://picsum.photos/id/0/1000/1000",
-                       "https://picsum.photos/id/119/1000/1000",
-                       "https://picsum.photos/id/180/1000/1000",
-                       "https://picsum.photos/id/252/1000/1000",
-                       "https://picsum.photos/id/366/1000/1000"
-                      ],
-      picIndex: 0,
-    }
-  },
-  methods: {
-    getStartedBtn() {
-      this.$store.state.user ? this.$router.push(`/setups/${this.$store.state.user.uid}`) : this.$store.dispatch('logIn');
-    }
-  },
-
-}
 </script>
 
 <style scoped>
 
 .main-container {
-  /* border: 1px solid pink; */
-  min-width: 1200px;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-}
-
-.left-side-container {
-  /* border: 1px solid blue; */
-  width: 50%; display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: rgb(14, 14, 108);
-}
-
-.text-btn-wrapper {
+  width: 750px;
   /* border: 1px solid; */
-  color: white;  
-  height: min-content;
 }
 
-.text {
-  font-size: 40px;
-}
-
-.get-started-btn {
-  border: 1px solid white;
-  width: max-content;
-  padding: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-}
-
-.picture-container {
+.text-box-container {
+  width: 400px;
   height: 500px;
-  width: 600px;
-  overflow: hidden;
-  position: relative;
-}
-
-.buttons-wrapper {
-  position: absolute;
-  color: white;
-  z-index: 100000;
-  display: flex;
-  justify-content: space-between;
-  width: 220px;
-  bottom: 30px;
-  right: 30px;
-}
-
-.preview-btn {
-  border: 1px solid white;
-  width: 30px;
-  height: 30px;
+  background-color: rgb(13, 13, 118);
+  border-radius: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
-  
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
 
-.preview-btn:hover, .active {
-  background-color: rgba(14, 14, 108,0.75);
-  border: 1px solid rgba(14, 14, 108,0.75);
+.text-box-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+}
+
+.desca-logo {
+  width: 250px;
+}
+
+.catch-line {
+  color: white;
+  font-size: 28px;
+  width: 70%;
+}
+
+.icons-row {
+  width: 80%;
+}
+
+.login-container {
+  height: 200px;
+  width: 300px;
+  background-color: rgb(247, 247, 247);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; 
+  align-items: center;
+}
+
+
+.signin-btn {
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  width: 200px;
+  border: none;
+  margin-top: 20px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: white;
+}
+.signin-logo {
+  height: 35px;
+}
+
+@media screen and (max-width: 800px) {
+  .main-container {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 0;
+  }
 }
 
 </style>
+
+
+
+<!-- this.$store.state.user ? this.$router.push(`/setups/${this.$store.state.user.uid}`) : this.$store.dispatch('logIn'); -->

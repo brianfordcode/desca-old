@@ -21,7 +21,7 @@
 
             <!-- LINK -->
             <div style="text-align: center; width: 100%">
-                <p style="margin-bottom: 10px;">Share this Setup!</p>
+                <p style="margin-bottom: 10px; font-weight:bold;">Share this Setup!</p>
                 <input class="link" disabled :value="('https://www.desca.io/' + this.$store.state.user.uid + '/' + setup)"/>
             </div>
         </div>

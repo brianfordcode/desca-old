@@ -206,6 +206,7 @@ export default {
     height: min-content;
     /* border: 1px solid purple; */
     margin-top: 10px;
+    margin-bottom: 50px;
     display: flex;
     align-items: flex-start;
     position: relative;
