@@ -27,8 +27,6 @@ export default {
 <style scoped>
 
 .edit-container {
-  /* max-width: 1200px; */
-  /* border: 1px solid; */
   height: 100%;
   width: 800px;
   margin: 0 auto;

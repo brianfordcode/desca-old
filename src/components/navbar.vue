@@ -18,31 +18,35 @@
                     style="background: #57B0FC;"
                     :to="`/${$store.state.user.uid}/${$route.params.setupId}`"
                     v-if="this.$route.name != 'View' && this.$route.name != 'Home'"
+                    title="View"
                 >
-                View
+                <img style="height: 100%;" src="../assets/nav-icons/view-icon.png" alt="view-icon" draggable="false"/>
                 </router-link>
                 <!-- EDIT -->
                 <router-link
                     style="background-color: rgb(245, 101, 35);"
                     :to="`/edit/${$store.state.user.uid}/${$route.params.setupId}`"
                     v-if="this.$route.name != 'Edit' && this.$route.name != 'Home'"
+                    title="Edit"
                 >
-                Edit
+                <img style="height: 100%;" src="../assets/nav-icons/edit-icon.png" alt="edit-icon" draggable="false"/>
                 </router-link>
                 <!-- SHARE -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
                     @click="share"
                     v-if="this.$route.name != 'Home'"
+                    title="Share"
                 >
-                Share
+                <img style="height: 100%;" src="../assets/nav-icons/share-icon.png" alt="share-icon" draggable="false"/>
                 </div>
                 <!-- MY SETUPS -->
                 <router-link
                     style="background: #895E6A;"
                     :to="`/setups/${this.$store.state.user.uid}`"
+                    title="Home"
                 >
-                My Setups
+                <img style="height: 100%;" src="../assets/nav-icons/home-icon.png" alt="home-icon" draggable="false"/>
                 </router-link>
             </div>
 
