@@ -30,7 +30,7 @@ export default {
   height: 100%;
   width: 800px;
   margin: 0 auto;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
 }

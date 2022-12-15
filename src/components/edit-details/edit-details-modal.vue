@@ -28,20 +28,23 @@
             <div
                 class="discard-changes-btn btn"
                 @click="discardChanges()"
+                title="discard changes"
             >
-            Discard Changes
+            <img style="height: 10px;" src="../../assets/nav-icons/discard-icon.png" alt="remove-icon">
             </div>
             <div
                 class="submit-btn btn"
                 @click="submit()"
+                title="submit"
             >
-            Submit
+            &#10004;
             </div>
             <div
                 class="logout-btn btn"
                 @click="logOut()"
+                title="log out"
             >
-            Log Out
+            <img style="height: 20px;" src="../../assets/nav-icons/logout-icon.png" alt="log-out">
             </div>
 
             <changeDetails :editProfileDetails="editProfileDetails" style="margin: 45px;"/>
@@ -149,9 +152,11 @@ export default {
     color: white;
     font-size: 14px;
     font-weight: bold;
-    padding: 6px;
+    padding: 5px;
     position: absolute;
     cursor: pointer;
+    width: 50px;
+    text-align: center;
 }
 
 .discard-changes-btn {
@@ -171,7 +176,7 @@ export default {
 .logout-btn {
     left: 0;
     top: 0;
-    background-color: rgb(13, 16, 152);
+    background-color: rgb(41, 44, 236);
     border-top-left-radius: 10px;
 }
 .prof-img-container {

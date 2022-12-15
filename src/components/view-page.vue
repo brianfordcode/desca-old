@@ -35,31 +35,27 @@
         v-for="item in $store.state.viewingSetup.items"
         :key="item"
       >
-      
-        <div
-          class="item-target"
+
+          <a :href="item.url" v-if="item.url" target="_blank" class="item-target"
           :style="`
             display: flex;
             justify-content: space-around;
             align-items: center;
             top: ${item.y - 25}px;
             left: ${item.x - 25}px;
-            background: ${item === hoveredItem ? `rgba(255,255,255,.75)` : `rgba(255,255,255,.01);`};
+            background: ${item === hoveredItem ? `rgba(255,255,255,1)` : `rgba(255,255,255,0);`};
             z-index: ${item === hoveredItem ? `10000000` : `0`};
             cursor: ${item.url ? 'pointer' : 'default'};
           `"
           @mouseover="handleMouseOver(item)"
-          @mouseleave="handleMouseLeave"
-          >
-          <a :href="item.url" v-if="item.url" target="_blank">
+          @mouseleave="handleMouseLeave">
             <img
               src="../assets/shopping-cart.png"
               alt="shopping-cart"
               v-if="(item === hoveredItem)"
-              style="height: 30px; opacity: 0.5"
+              style="height: 70%; opacity: 0.5;"
             >
           </a>
-        </div>
      
       </div>
       

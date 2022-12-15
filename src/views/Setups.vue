@@ -48,13 +48,13 @@
                                     class="yes-btn"
                                     @click="deleteSetup(setup.setupId)"
                                 >
-                                Yes
+                                &#10004;
                                 </p>
                                 <p
                                     class="no-btn"
                                     @click="resetButtons()"
                                 >
-                                No
+                                &#x2715;
                                 </p>
                             </div>
                         </div>
@@ -65,8 +65,9 @@
                         class="btn delete-btn"
                         @click="modalOpen = true"
                         v-if="!modalOpen"
+                        title="delete"
                     >
-                    Delete
+                    <img style="height: 20px;" src="../assets/nav-icons/remove-icon.png" alt="remove-icon">
                     </div>
 
                     <!-- EDIT BTN -->
@@ -74,8 +75,9 @@
                         <div
                             class="btn edit-btn"
                             v-if="!modalOpen"
+                            title="edit"
                         >
-                        Edit
+                        <img style="height: 20px;" src="../assets/nav-icons/edit-icon.png" alt="edit-btn">
                         </div>
                     </router-link>
                     <!-- VIEW -->
@@ -83,8 +85,9 @@
                         <div
                             class="btn view-btn"
                             v-if="!modalOpen"
+                            title="view"
                         >
-                        View
+                        <img style="height: 20px;" src="../assets/nav-icons/view-icon.png" alt="view-btn">
                         </div>
                     </router-link>
                     <!-- SHARE BTN -->
@@ -92,8 +95,9 @@
                         class="btn share-btn"
                         v-if="!modalOpen"
                         @click="share(setup.setupId)"
+                        title="share"
                     >
-                    Share
+                    <img style="height: 20px;" src="../assets/nav-icons/share-icon.png" alt="share-btn">
                     </div>
                 </div>
             
@@ -103,13 +107,19 @@
 
         <!-- UPLOAD PLACEHOLDER -->
         <div class="placeholder">
-            <p style="position: absolute;" v-if="!uploading">Add a Setup!</p>
+            <img
+                src="../assets/nav-icons/upload-icon.png"
+                alt="upload-icon"
+                style="position: absolute;
+                height: 30px;"
+                v-if="!uploading"
+            />
             <input
                 v-if="!uploading"
                 type="file"
                 accept=".jpeg,.jpg,.png"
                 @change="makeNewSetup"
-            >
+            />
             <div v-else style="display: flex; flex-direction: column; align-items: center;">
                 <p v-if="!isNaN(uploadProgress)">Uploading:</p>
                 <p >{{uploadProgress}}{{isNaN(uploadProgress) ? '' : "%" }}</p>
@@ -245,8 +255,10 @@ export default {
     position: absolute;
     color: white;
     opacity: 0.75;
-    padding: 7px;
+    padding: 5px;
+    width: 50px;
     cursor: pointer;
+    text-align: center;
 }
 
 .btn:hover {

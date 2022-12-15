@@ -83,7 +83,7 @@
             
             <div style="display: flex; transform: translateX(-15px);">
               <p style="color: white;">Category:</p>
-              <p style="color: white; font-size: 18px; padding-left: 5px; text-transform: capitalize;">{{itemToPreview ? itemToPreview : '&#x21e7; Choose above &#x21e7;' }}</p>
+              <p style="color: white; padding-left: 5px; text-transform: capitalize;">{{itemToPreview ? itemToPreview : '&#x21e7; Choose above &#x21e7;' }}</p>
             </div>
             
             <div

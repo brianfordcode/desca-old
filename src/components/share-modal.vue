@@ -9,14 +9,16 @@
             <div
                 class="close-btn btn"
                 @click="close()"
+                title="close"
             >
-                Close
+            &#x2715;
             </div>
             <div
                 class="copy-btn btn"
                 @click="copyLink()"
+                title="copy"
             >
-                Copy Link
+                <img style="height: 15px;" src="../assets/nav-icons/copy-icon.png" alt="copy-icon">
             </div>
 
             <!-- LINK -->
@@ -91,6 +93,8 @@ export default {
 .btn {
     color: white;
     font-size: 14px;
+    width: 50px;
+    text-align: center;
     font-weight: bold;
     padding: 6px;
     position: absolute;
