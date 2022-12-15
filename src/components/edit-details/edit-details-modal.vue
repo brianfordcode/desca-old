@@ -156,7 +156,10 @@ export default {
     position: absolute;
     cursor: pointer;
     width: 50px;
-    text-align: center;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .discard-changes-btn {

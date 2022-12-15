@@ -24,7 +24,7 @@
             <!-- LINK -->
             <div style="text-align: center; width: 100%">
                 <p style="margin-bottom: 10px; font-weight:bold;">Share this Setup!</p>
-                <input class="link" disabled :value="('https://www.desca.io/' + this.$route.params.user + '/' + setupId)"/>
+                <textarea class="link" disabled :value="setupId"></textarea>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
 export default {
     data() {
         return {
-            setup: null
+            setup: null,
         }
     },
     created() {
@@ -48,12 +48,15 @@ export default {
             this.$store.dispatch('toggleShareModal')
         },
         copyLink() {
-            console.log('copy link')
+            console.log(this.setupId)
         }
     },
     computed: {
         setupId() {
-            return !this.$route.params.setupId ? this.$store.state.shareModal.setupId : this.$route.params.setupId 
+            const setupId = !this.$route.params.setupId ? this.$store.state.shareModal.setupId : this.$route.params.setupId 
+
+            return 'https://www.desca.io/' + this.$route.params.user + '/' + setupId
+            
         }
     }
 }
@@ -114,11 +117,12 @@ export default {
     border-bottom-right-radius: 10px;
 }
 
-input {
+.link {
     outline: none;
     border: 1px solid;
     padding: 5px;
     width: 80%;
+    resize: none;
   }
 
 @keyframes fadeIn {

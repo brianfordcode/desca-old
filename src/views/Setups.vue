@@ -97,7 +97,7 @@
                         @click="share(setup.setupId)"
                         title="share"
                     >
-                    <img style="height: 20px;" src="../assets/nav-icons/share-icon.png" alt="share-btn">
+                    <img style="height: 20px; " src="../assets/nav-icons/share-icon.png" alt="share-btn">
                     </div>
                 </div>
             
@@ -110,8 +110,7 @@
             <img
                 src="../assets/nav-icons/upload-icon.png"
                 alt="upload-icon"
-                style="position: absolute;
-                height: 30px;"
+                style="position: absolute; filter: invert(100%); height: 30px;"
                 v-if="!uploading"
             />
             <input
@@ -253,6 +252,9 @@ export default {
 
 .btn {
     position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     color: white;
     opacity: 0.75;
     padding: 5px;
