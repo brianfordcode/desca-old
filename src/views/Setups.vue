@@ -91,7 +91,7 @@
                     <div
                         class="btn share-btn"
                         v-if="!modalOpen"
-                        @click="share"
+                        @click="share(setup.setupId)"
                     >
                     Share
                     </div>
@@ -197,8 +197,11 @@ export default {
             this.resetButtons()
             await this.$store.dispatch('deleteSetup', {user, setupId})
         },
-        share() {
-            this.$store.dispatch('toggleShareModal')
+        share(setupId) {
+
+            // console.log(setupId)
+            
+            this.$store.dispatch('toggleShareModal', setupId)
         },
     }
 }

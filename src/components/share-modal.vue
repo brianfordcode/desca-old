@@ -2,7 +2,7 @@
 
     <div
         class="container"
-        v-if="$store.state.shareModalOpen"
+        v-if="$store.state.shareModal.open"
     >
         <div class="modal">
             <!-- BUTTONS -->
@@ -22,7 +22,7 @@
             <!-- LINK -->
             <div style="text-align: center; width: 100%">
                 <p style="margin-bottom: 10px; font-weight:bold;">Share this Setup!</p>
-                <input class="link" disabled :value="('https://www.desca.io/' + this.$store.state.user.uid + '/' + setup)"/>
+                <input class="link" disabled :value="('https://www.desca.io/' + this.$route.params.user + '/' + setupId)"/>
             </div>
         </div>
     </div>
@@ -50,9 +50,8 @@ export default {
         }
     },
     computed: {
-        loaded() {
-
-            
+        setupId() {
+            return !this.$route.params.setupId ? this.$store.state.shareModal.setupId : this.$route.params.setupId 
         }
     }
 }

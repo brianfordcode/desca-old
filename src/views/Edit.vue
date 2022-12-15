@@ -29,7 +29,7 @@ export default {
 .edit-container {
   /* max-width: 1200px; */
   /* border: 1px solid; */
-  height: 100vh;
+  height: 100%;
   width: 800px;
   margin: 0 auto;
   margin-bottom: 100px;
