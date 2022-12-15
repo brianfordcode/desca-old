@@ -4,7 +4,7 @@
   
   <router-view v-if="$store.state.loggedIn !== null"/>
 
-  <foot v-if="this.$route.name === 'Home'"/>
+  <foot/>
 
     
   <actionModal

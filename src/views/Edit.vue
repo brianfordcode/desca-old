@@ -27,10 +27,12 @@ export default {
 <style scoped>
 
 .edit-container {
-  max-width: 1200px;
-  height: min-content;
+  /* max-width: 1200px; */
+  /* border: 1px solid; */
+  height: 100vh;
   width: 800px;
   margin: 0 auto;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
 }

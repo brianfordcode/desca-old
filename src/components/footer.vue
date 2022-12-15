@@ -5,7 +5,6 @@
         <div class="wrapper">
 
             <div class="page-links-wrapper">
-                <router-link to="/">Home</router-link>
                 <router-link to="/">About</router-link>
                 <router-link to="/">Contact</router-link>
                 <router-link to="/">Blog</router-link>
@@ -43,6 +42,7 @@
                         />
                     </a>
                </div> 
+               <div style="color: white; font-size: 14px;">&#169; {{new Date().getFullYear()}}</div>
 
             </div>
 
@@ -66,8 +66,8 @@ export default {
     height: 100px;
     background: rgb(13, 13, 118);
     box-shadow: 0px 0px 33px -20px #000000;
-    position: absolute;
-    bottom: 0;
+    /* position: absolute; */
+    /* bottom: 0; */
     width: 100%;
     display: flex;
     justify-content: space-around;
@@ -84,6 +84,7 @@ export default {
 
 .page-links-wrapper {
     display: grid;
+    /* flex-direction: column; */
     /* border: 1px solid; */
     width: 150px;
     grid-template-columns: 1fr 1fr;

@@ -1,49 +1,36 @@
 <template>
 
+  <div class="main-container">
 
-
-<div class="main-container">
-
-  <!-- TEXT BOX -->
-  <div class="text-box-container">
-    <div class="text-box-wrapper">
-      <img class="desca-logo" src="../../public/desca-logo.png" alt="desca-logo">
-      <p class="catch-line">The #1 destination to share YOUR ultimate gaming, streaming or working setup</p>
-      <img class="icons-row" src="../../public/icons-row.png" alt="icons-row">
-    </div>
-  </div>
-
-  <!-- LOGIN BOX -->
-  <div class="login-container">
-
-    <div>
-      <p style="font-weight: bold; font-size: 20px; text-align: center;">Get Started:</p>
-
-      <button
-        class="google-login-btn signin-btn"
-        @click="$store.dispatch('logIn');"
-      >
-        <img class="signin-logo" src="../../public/login-logos/google-logo.png" alt="google-logo">
-    </button>
-
+    <!-- TEXT BOX -->
+    <div class="text-box-container">
+      <div class="text-box-wrapper">
+        <img class="desca-logo" src="../../public/desca-logo.png" alt="desca-logo">
+        <p class="catch-line">The #1 destination to share YOUR ultimate gaming, streaming or working setup</p>
+        <img class="icons-row" src="../../public/icons-row.png" alt="icons-row">
+      </div>
     </div>
 
+    <!-- LOGIN BOX -->
+    <div class="login-container">
+
+      <div>
+        <p style="font-weight: bold; font-size: 20px; text-align: left;">Get Started:</p>
+
+        <button
+          class="google-login-btn signin-btn"
+          @click="this.$store.dispatch('logIn');"
+        >
+          <img class="signin-logo" src="../../public/login-logos/google-logo.png" alt="google-logo">
+      </button>
+
+      </div>
+
+    </div>
+
   </div>
-
-
-
-
-
-</div>
-
-
-
 
 </template>
-
-<script>
-
-</script>
 
 <style scoped>
 

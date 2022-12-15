@@ -34,9 +34,8 @@ export default {
     color: white;
     padding: 15px;
     z-index: 100000000000000;
-    bottom: 125px;
+    bottom: 50px;
     left: 50%;
-    /* width: ; */
     text-align: center;
     border-radius: 10px;
     text-transform: capitalize;

@@ -1,6 +1,6 @@
 <template>
 
-<div style="max-width: 1200px; width: 90%; margin: 0 auto">
+<div style="max-width: 1200px; width: 90%; margin: 0 auto; height: 100vh;">
 
     <profileHeader/>
 

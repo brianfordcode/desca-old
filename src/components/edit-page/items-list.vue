@@ -204,7 +204,7 @@ export default {
 
 .main-container {
     height: min-content;
-    /* border: 1px solid purple; */
+    /* border: 1px solid purple;f */
     margin-top: 10px;
     margin-bottom: 50px;
     display: flex;
