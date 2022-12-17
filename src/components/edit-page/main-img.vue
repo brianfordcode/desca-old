@@ -200,47 +200,47 @@ export default {
       itemChoices: [
         {
           name: 'accessory',
-          pic: require('../../assets/icons/accessory.png')
+          pic: require('../../assets/item-icons/accessory.png')
         },
         {
           name: 'chair',
-          pic: require('../../assets/icons/chair.png')
+          pic: require('../../assets/item-icons/chair.png')
         },
         {
           name: 'computer',
-          pic: require('../../assets/icons/computer.png')
+          pic: require('../../assets/item-icons/computer.png')
         },
         {
           name: 'desk',
-          pic: require('../../assets/icons/desk.png')
+          pic: require('../../assets/item-icons/desk.png')
         },
         {
           name: 'headset',
-          pic: require('../../assets/icons/headset.png')
+          pic: require('../../assets/item-icons/headset.png')
         },
         {
           name: 'keyboard',
-          pic: require('../../assets/icons/keyboard.png')
+          pic: require('../../assets/item-icons/keyboard.png')
         },
         {
           name: 'microphone',
-          pic: require('../../assets/icons/microphone.png')
+          pic: require('../../assets/item-icons/microphone.png')
         },
         {
           name: 'monitor',
-          pic: require('../../assets/icons/monitor.png')
+          pic: require('../../assets/item-icons/monitor.png')
         },
         {
           name: 'mouse',
-          pic: require('../../assets/icons/mouse.png')
+          pic: require('../../assets/item-icons/mouse.png')
         },
         {
           name: 'speaker',
-          pic: require('../../assets/icons/speaker.png')
+          pic: require('../../assets/item-icons/speaker.png')
         },
         {
           name: 'webcam',
-          pic: require('../../assets/icons/webcam.png')
+          pic: require('../../assets/item-icons/webcam.png')
         },
       ],
     }

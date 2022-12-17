@@ -156,37 +156,37 @@ export default {
     methods: {
         getIconPic(e) {
             if (e.category === 'accessory') {
-                return require('@/assets/icons/accessory.png')
+                return require('@/assets/item-icons/accessory.png')
             }
             if (e.category === 'chair') {
-                return require('@/assets/icons/chair.png')
+                return require('@/assets/item-icons/chair.png')
             }
             if (e.category === 'computer') {
-                return require('@/assets/icons/computer.png')
+                return require('@/assets/item-icons/computer.png')
             }
             if (e.category === 'desk') {
-                return require('@/assets/icons/desk.png')
+                return require('@/assets/item-icons/desk.png')
             }
             if (e.category === 'headset') {
-                return require('@/assets/icons/headset.png')
+                return require('@/assets/item-icons/headset.png')
             }
             if (e.category === 'keyboard') {
-                return require('@/assets/icons/keyboard.png')
+                return require('@/assets/item-icons/keyboard.png')
             }
             if (e.category === 'microphone') {
-                return require('@/assets/icons/microphone.png')
+                return require('@/assets/item-icons/microphone.png')
             }
             if (e.category === 'monitor') {
-                return require('@/assets/icons/monitor.png')
+                return require('@/assets/item-icons/monitor.png')
             }
             if (e.category === 'mouse') {
-                return require('@/assets/icons/mouse.png')
+                return require('@/assets/item-icons/mouse.png')
             }
             if (e.category === 'speaker') {
-                return require('@/assets/icons/speaker.png')
+                return require('@/assets/item-icons/speaker.png')
             }
             if (e.category === 'webcam') {
-                return require('@/assets/icons/webcam.png')
+                return require('@/assets/item-icons/webcam.png')
             }
         },
         reorderItems(element, index) {
