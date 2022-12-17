@@ -1,6 +1,7 @@
 <template>
   <div id="nav">
-    <!-- <div class="elements-container"> -->
+
+    <div class="elements-container">
 
         <!-- logo -->
         <img
@@ -9,10 +10,9 @@
             alt="desca-logo"
         />
         <!-- links -->
-        <div style="display: flex; height: 30px;">
-            <!-- TODO: WHY DO BUTTONS FLASH WHEN LOGGING IN/LOGGING OUT. USE SLOTS??-->
-            <div class="links" v-if="$store.state.loaded && this.$route.name != 'Setups'">
+        <div style=" display:flex; height: 30px;">
 
+            <div class="links" v-if="$store.state.loaded && this.$route.name != 'Setups'">
                 <!-- VIEW -->
                 <router-link
                     style="background: #57B0FC;"
@@ -20,7 +20,7 @@
                     v-if="this.$route.name != 'View' && this.$route.name != 'Home'"
                     title="View"
                 >
-                <img style="height: 100%;" src="../assets/nav-icons/view-icon.png" alt="view-icon" draggable="false"/>
+                    <img style="height: 100%;" src="../assets/nav-icons/view-icon.png" alt="view-icon" draggable="false"/>
                 </router-link>
                 <!-- EDIT -->
                 <router-link
@@ -29,16 +29,16 @@
                     v-if="this.$route.name != 'Edit' && this.$route.name != 'Home'"
                     title="Edit"
                 >
-                <img style="height: 100%;" src="../assets/nav-icons/edit-icon.png" alt="edit-icon" draggable="false"/>
+                    <img style="height: 100%;" src="../assets/nav-icons/edit-icon.png" alt="edit-icon" draggable="false"/>
                 </router-link>
                 <!-- SHARE -->
                 <div
                     style="background: #9C43ED; cursor: pointer"
-                    @click="share"
+                    @click="this.$store.dispatch('toggleShareModal')"
                     v-if="this.$route.name != 'Home'"
                     title="Share"
                 >
-                <img style="height: 100%;" src="../assets/nav-icons/share-icon.png" alt="share-icon" draggable="false"/>
+                    <img style="height: 100%;" src="../assets/nav-icons/share-icon.png" alt="share-icon" draggable="false"/>
                 </div>
                 <!-- MY SETUPS -->
                 <router-link
@@ -46,15 +46,15 @@
                     :to="`/setups/${this.$store.state.user.uid}`"
                     title="Home"
                 >
-                <img style="height: 100%;" src="../assets/nav-icons/home-icon.png" alt="home-icon" draggable="false"/>
+                    <img style="height: 100%;" src="../assets/nav-icons/home-icon.png" alt="home-icon" draggable="false"/>
                 </router-link>
             </div>
 
-            <detailsChangeBox/>
+            <editDetailsModal/>
 
         </div>
 
-    <!-- </div> -->
+    </div>
     
   </div>
 
@@ -65,34 +65,11 @@
 </template>
 
 <script>
-import detailsChangeBox from './edit-details/edit-details-modal.vue'
-
-
+import editDetailsModal from './edit-details/edit-details-modal.vue'
 
 export default {
-    data() {
-        return {
-            profilePic: null
-        }
-    },
-    components: {detailsChangeBox},
-    created(){
-        if (this.$store.state.loggedIn) {
-            this.profilePic = this.$store.getters.getProfileDetails(this.$route.params.user).profPic
-        } else {
-            this.profilePic = '/profile-icon.png'
-        }
-    },
-    methods: {
-        logIn() {
-            if (!this.$store.state.loggedIn) { this.$store.dispatch('logIn') }
-        },
-        openProfDetails() {
-            if (this.$store.state.loggedIn) { this.$store.dispatch('editDetailsToggle') }
-        },  
-        share() {
-            this.$store.dispatch('toggleShareModal')
-        },
+    components: {
+        editDetailsModal
     },
     computed: {
         currentPage() {
@@ -100,7 +77,6 @@ export default {
             if (this.$route.name === 'View') return 'Viewing'
         },
     }
-
 }
 </script>
 
@@ -108,29 +84,20 @@ export default {
 
 #nav {
     background: rgb(13, 13, 118);
-    height: 50px;
-    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.10);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     z-index: 100000000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-/* .elements-container {
-    height: 100%;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+.elements-container {
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-} */
+    margin: 0 50px;
+}
 
 #logo {
     width: 100px;
-    margin-left: 50px;
-    /* cursor: pointer; */
 }
 
 .links {
@@ -181,5 +148,3 @@ export default {
 }
 
 </style>
-
-<!-- TODO: GET PROFILE PIC IN NAVBAR WORKING -->

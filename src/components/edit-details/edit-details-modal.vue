@@ -7,7 +7,7 @@
             :src="profileDetails.profPic.photoURL"
             alt="prof-icon"
         >
-        <div class="log-in-btn">&#9660;</div>
+        <div style="margin-left: 5px; color: white;">&#9660;</div>
     </div>
 
     <!-- PROF ICON WHEN NOT LOGGED IN -->
@@ -87,6 +87,7 @@ export default {
                 this.$store.dispatch('deleteProfPic', {user, profPicId})
             }
             
+            this.$store.dispatch('openActionModal', {text: 'changes discarded', color: 'red'})
             this.editDetailsToggle = false
         },
         submit() {
@@ -188,21 +189,13 @@ export default {
     align-items: center;
     justify-content: space-between;
     margin-left: 10px;
-    height: auto;
-    margin-right: 50px;
 }
 
 .profile-icon {
     border-radius: 50%;
-    height: 100%;
     object-fit: cover;
     width: 30px;
-}
-
-.log-in-btn {
-    margin-left:5px;
-    color: white;
-    cursor: pointer
+    height: 30px;
 }
 
 @keyframes fadeIn {
