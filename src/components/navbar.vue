@@ -90,10 +90,11 @@ export default {
 
 .elements-container {
     height: 50px;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 50px;
+    margin: 0 auto;
 }
 
 #logo {
@@ -145,6 +146,17 @@ export default {
     font-size: 18px;
     text-align: center;
     font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+
+    .links {
+        margin-left: 10px;
+    }
+    .links > * {
+        width: 30px;
+    }
+    
 }
 
 </style>
