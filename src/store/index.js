@@ -106,7 +106,6 @@ const store = createStore({
     openActionModal(state, {text, color}) {
       state.actionModal.open = false
       setTimeout(() => { state.actionModal.open = true }, 200)
-      
       state.actionModal.text = text;
       state.actionModal.color = color;
 
@@ -119,10 +118,7 @@ const store = createStore({
       )
     },
     toggleShareModal(state, setupId) {
-
-      
       state.shareModal.setupId = setupId
-
       state.shareModal.open = !state.shareModal.open
     }
   },

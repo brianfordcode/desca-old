@@ -1,10 +1,10 @@
 <template>
 
-      <form class="details-text">
+      <div class="main-container">
 
         <!-- PROFILE NAME -->
-        <div class="name-input input">
-            <p style="padding-right: 5px; font-weight: bold;">Name:</p>
+        <div class="input">
+            <p style="padding-right: 7px; font-weight: bold;">Name:</p>
             <input type="text" v-model="editProfileDetails.profName"/>
         </div>
 
@@ -30,40 +30,13 @@
           </label>
         </div>
 
-        <p style="font-weight: bold; transform: translateX(-85%);">Your Channels:</p> 
-        <!-- TWITCH -->
-        <div class="twitch input">
-            <img src="/social-links/twitch-logo.png" alt="twitch" title="twitch"/>
-            <input v-model="editProfileDetails.socialLinks.twitch" type="url" required>
+        <!-- CHANNELS -->
+        <div v-for="media in mediaArray">
+          <img style="height: 25px; padding-right: 7px;" :src="`/social-links/${media}-logo.png`" :alt="media">
+          <input v-model="editProfileDetails.socialLinks[media]" type="url">
         </div>
-        <!-- TWITTER -->
-        <div class="twitter input">
-            <img src="/social-links/twitter-logo.png" alt="twitter" title="twitter"/>
-            <input v-model="editProfileDetails.socialLinks.twitter" type="url">
-        </div>
-        <!-- YOUTUBE -->
-        <div class="youtube input">
-            <img src="/social-links/youtube-logo.png" alt="youtube" title="youtube"/>
-            <input v-model="editProfileDetails.socialLinks.youtube" type="url">
-        </div>
-        <!-- DISCORD -->
-        <div class="discord input">
-            <img src="/social-links/discord-logo.png" alt="discord" title="discord"/>
-            <input v-model="editProfileDetails.socialLinks.discord" type="url">
-        </div>
-        <!-- FACEBOOK -->
-        <div class="facebook input">
-            <img src="/social-links/facebook-logo.png" alt="facebook" title="facebook"/>
-            <input v-model="editProfileDetails.socialLinks.facebook" type="url">
-        </div>
-        <!-- WEBSITE -->
-        <div class="website input">
-            <img src="/social-links/website-logo.png" alt="website" title="website"/>
-            <input v-model="editProfileDetails.socialLinks.website" type="url">
-        </div>
-
-
-      </form>
+        
+      </div>
 
 
 </template>
@@ -82,6 +55,8 @@ export default {
   data() {
     return {
       uploading: false,
+      mediaArray: [ 'twitch', 'twitter', 'youtube', 'discord', 'facebook', 'website' ]
+
     }
   },
   methods: {
@@ -121,23 +96,19 @@ export default {
 
 <style scoped>
 
-  .details-text {
+  .main-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
   }
 
-  .details-text > * {
+  .main-container > * {
     display: flex;
     align-items: center;
   }
   
-  .details-text > *:not(:last-child) {
+  .main-container > *:not(:last-child) {
     margin-bottom: 12px;
-  }
-
-  .sm-logo {
-    height: 25px;
   }
 
   input {
@@ -156,7 +127,7 @@ export default {
     width: 50px;
     object-fit: cover;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 7px;
   }
 
   .upload-btn-wrapper {

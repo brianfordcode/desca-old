@@ -205,6 +205,7 @@ export default {
             const user = this.$store.state.user
             this.resetButtons()
             await this.$store.dispatch('deleteSetup', {user, setupId})
+            this.$store.dispatch('openActionModal', {text: 'setup deleted', color: 'red'})
         },
         share(setupId) {
 
