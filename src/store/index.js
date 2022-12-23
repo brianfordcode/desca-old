@@ -158,13 +158,13 @@ const store = createStore({
             profPicId: null
           },
           socialLinks: {
-            twitchLink: '',
-            twitterLink: '',
-            youtubeLink: '',
-            discordLink: '',
-            websiteLink: '',
+            twitch: '',
+            twitter: '',
+            youtube: '',
+            discord: '',
+            facebook: '',
+            website: '',
           },
-          liveStatus: false,
         }
 
         context.dispatch('changeDetails', { details: profileDetails, user } )
