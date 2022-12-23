@@ -36,7 +36,7 @@
         :key="item"
       >
 
-          <a :href="item.url" v-if="item.url" target="_blank" class="item-target"
+          <a :href="item.url ? item.url : null" target="_blank" class="item-target"
           :style="`
             display: flex;
             justify-content: space-around;
@@ -52,7 +52,7 @@
             <img
               src="../assets/shopping-cart.png"
               alt="shopping-cart"
-              v-if="(item === hoveredItem)"
+              v-if="(item === hoveredItem && item.url)"
               style="height: 70%; opacity: 0.5;"
             >
           </a>
@@ -135,7 +135,7 @@
               v-if="item.category != 'computer'"
               @click="goToUrl(item)"
               :style="`
-                cursor: ${item.url ? 'pointer' : 'default'};
+                cursor: ${!item.url ? 'pointer' : 'default'};
                 transform: scale(${item === hoveredItem ? '1.05' : '1'})
               `"
               @mouseover="handleMouseOver(item)"

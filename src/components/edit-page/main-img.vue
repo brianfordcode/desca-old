@@ -14,7 +14,7 @@
     class="change-image-btn"
     for="input"
   >
-    Change Image
+    <img style="height: 75%;" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
     <input
       id="input"
       type="file"
@@ -129,6 +129,7 @@
         
         <!-- BUTTONS -->
           <button
+              v-if="(item.category || item.name || item.url)"
               class="enter-btn btn"
               @click.stop="save"
           >Submit
@@ -180,7 +181,7 @@ import loadingWheel from "../loading-wheel.vue"
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
 }
-// TODO: make sure target doesn't go off image-container when moving
+
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value))
   
 export default {
@@ -249,12 +250,7 @@ export default {
     itemList, loadingWheel
   },
   async created() {
-    if (this.setup) {
-        if (this.setup.imageURL) {
-          await this.refreshImageURL()
-        }
-          this.setup.imageURL ? await this.refreshImageURL() : this.imageURL = "no image";
-        }
+    await this.refreshImageURL()
     },
   watch: {
     itemsToWatch(newItems) {
@@ -385,6 +381,8 @@ export default {
     bottom: 0;
     left: 0;
     opacity: 0.75;
+    height: 25px;
+    width: 100px;
     background: green;
     color: white;
     cursor: pointer;
@@ -442,7 +440,6 @@ export default {
     position: absolute;
     display: flex;
     flex-direction: column;
-    border: 1px solid;
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
     z-index: 1000000;

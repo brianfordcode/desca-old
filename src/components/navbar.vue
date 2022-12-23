@@ -24,7 +24,7 @@
                 </router-link>
                 <!-- EDIT -->
                 <router-link
-                    style="background-color: rgb(245, 101, 35);"
+                    style="background: rgb(245, 101, 35);"
                     :to="`/edit/${$store.state.user.uid}/${$route.params.setupId}`"
                     v-if="this.$route.name != 'Edit' && this.$route.name != 'Home'"
                     title="Edit"
@@ -83,7 +83,7 @@ export default {
 <style scoped>
 
 #nav {
-    background: rgb(13, 13, 118);
+    background: hsl(240, 80%, 26%);
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     z-index: 100000000;
 }
@@ -149,14 +149,12 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-
     .links {
         margin-left: 10px;
     }
     .links > * {
         width: 30px;
     }
-    
 }
 
 </style>
