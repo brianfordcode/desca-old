@@ -20,7 +20,6 @@
         @click="logIn()"
     >
 
-
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">
         <div class="details-box-wrapper">
@@ -116,7 +115,6 @@ export default {
     }
 
 }
-
 
 </script>
 

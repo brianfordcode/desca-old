@@ -357,7 +357,3 @@ input {
 }
 
 </style>
-
-
-<!-- @mouseover="$el.ownerDocument.defaultView.console.log($store.state.setups[index])" -->
-<!-- TODO: ONLY ALLOW WEBSITE ADDRESSES IN INPUTS -->

@@ -351,6 +351,3 @@ export default {
 }
 
 </style>
-
-
-<!-- TODO: VIEWING PAGE NOT WORKING TO GO TO URL WHEN NOT LOGGED IN/GOING DIRECTLY TO URL -->

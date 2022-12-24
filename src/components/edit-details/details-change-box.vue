@@ -140,5 +140,3 @@ export default {
     text-align: center;
   }
 </style>
-
-<!-- TODO: REQUIRE URL (HTTPS://, ETC) IN CHANNEL INPUTS -->

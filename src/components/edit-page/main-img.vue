@@ -531,6 +531,3 @@ export default {
   }
 
 </style>
-
-<!-- TODO: WHEN REFRESH, WHY IS IMAGEURL NOT LOADING? -->
-<!-- TODO: CONVERT TARGETS TO % SO MOBILE SUPPORTED -->
