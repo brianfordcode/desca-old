@@ -47,7 +47,9 @@
 .text-box-container {
   width: 400px;
   height: 500px;
-  background-color: rgb(13, 13, 118);
+  /* background-color: rgb(13, 13, 118); */
+  background: linear-gradient(225deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 45%, rgb(2, 180, 216) 100%);
+
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
@@ -98,9 +100,14 @@
   padding: 5px;
   cursor: pointer;
   background-color: white;
+  transition: .1s ease-in-out;
 }
 .signin-logo {
   height: 35px;
+}
+
+.signin-btn:hover {
+  transform: scale(0.975);
 }
 
 @media screen and (max-width: 800px) {
