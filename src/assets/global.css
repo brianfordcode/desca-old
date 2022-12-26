@@ -8,6 +8,7 @@
     color: white;
     padding: 5px;
     width: 50px;
+    height: 20px;
     position: absolute;
     display: flex;
     justify-content: space-around;
@@ -15,29 +16,26 @@
 }
 
 .top-left-btn {
-    /* border-top-left-radius: 10px; */
     top: 0;
     left: 0;
 }
 
 .top-right-btn {
-    border-top-right-radius: 10px;
     top: 0;
     right: 0;
 }
 
 .bottom-right-btn {
-    border-bottom-right-radius: 10px;
     bottom: 0;
     right: 0;
 }
 
 .bottom-left-btn {
-    border-bottom-left-radius: 10px;
     bottom: 0;
     left: 0;
 }
 
 .round-edges {
+    overflow: hidden;
     border-radius: 10px;
 }

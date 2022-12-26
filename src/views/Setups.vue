@@ -18,7 +18,7 @@
         >
             <!-- SETUP CONTAINER -->
             <div
-                class="setup-image-container"
+                class="setup-image-container round-edges"
                 @mouseover="showButtons(index)"
                 @mouseleave="resetButtons()"
             >
@@ -233,7 +233,6 @@ export default {
     height: 200px;
     width: 275px;
     overflow: hidden;
-    border-radius: 10px;
 }
 
 .image-wrapper {

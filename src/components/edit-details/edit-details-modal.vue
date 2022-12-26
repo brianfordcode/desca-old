@@ -22,24 +22,24 @@
 
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">
-        <div class="details-box-wrapper">
+        <div class="details-box-wrapper round-edges">
             <!-- BUTTONS -->
             <div
-                class="discard-changes-btn btn"
+                class="discard-changes-btn btn bottom-left-btn"
                 @click="discardChanges()"
                 title="discard changes"
             >
             <img style="height: 10px;" src="../../assets/nav-icons/discard-icon.png" alt="remove-icon">
             </div>
             <div
-                class="submit-btn btn"
+                class="submit-btn bottom-right-btn btn"
                 @click="submit()"
                 title="submit"
             >
             &#10004;
             </div>
             <div
-                class="logout-btn btn"
+                class="logout-btn btn top-left-btn"
                 @click="logOut()"
                 title="log out"
             >
@@ -136,50 +136,21 @@ export default {
 }
 
 .details-box-wrapper {
-    background-color: rgba(255,255,255,0.85);
-    /* height: 450px; */
-    width: 300px;
-    border-radius: 15px;
+    background-color: white;
     position: relative;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     animation:  fadeIn .25s; 
 }
 
-.btn {
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    padding: 5px;
-    position: absolute;
-    cursor: pointer;
-    width: 50px;
-    height: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
 .discard-changes-btn {
-    bottom: 0;
-    left: 0;
     background-color: rgb(182, 13, 13);
-    border-bottom-left-radius: 10px;
 }
 
 .submit-btn {
-    bottom: 0;
-    right: 0;
     background-color: rgb(11, 129, 25);
-    border-bottom-right-radius: 10px;
 }
 
 .logout-btn {
-    left: 0;
-    top: 0;
     background-color: rgb(41, 44, 236);
-    border-top-left-radius: 10px;
 }
 .prof-img-container {
     cursor: pointer;
