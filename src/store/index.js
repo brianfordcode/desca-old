@@ -280,7 +280,6 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
-
 export default store
 
 

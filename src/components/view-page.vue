@@ -6,7 +6,7 @@
   >
 
     <!-- MAIN IMAGE -->
-    <div class="image-container">
+    <div class="image-container round-edges">
 
       <!-- DETAILS BOX -->
       <div
@@ -273,6 +273,7 @@ export default {
 .main-img {
   width: 100%;
   height: 100%;
+  display: block;
 }
 
 .image-container {

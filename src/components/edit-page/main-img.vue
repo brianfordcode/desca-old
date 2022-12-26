@@ -1,7 +1,7 @@
 <template>
 
   <div
-    class="img-main-container"
+    class="img-main-container round-edges"
     @mousemove = "onMouseMove"
     @mouseup = "dragging = null"
     @mouseleave="dragging = null"
