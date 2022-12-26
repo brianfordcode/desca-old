@@ -10,7 +10,7 @@
 
       <!-- DETAILS BOX -->
       <div
-        class="item-wrapper hovered-item"
+        class="item-wrapper hovered-item round-edges"
         v-if="showItem"
           :style="{
             top: (this.detailBlockPlacement.y) + 'px',
@@ -131,7 +131,7 @@
           v-for="item in nonComputerItems"
           :key="item"
         >
-          <div class="item-wrapper"
+          <div class="item-wrapper round-edges"
               v-if="item.category != 'computer'"
               @click="goToUrl(item)"
               :style="`

@@ -35,7 +35,28 @@
     left: 0;
 }
 
+.green {
+    background-color: rgb(11, 129, 25);
+}
+
+.purple {
+    background-color: purple;
+}
+
+.red {
+    background-color: rgb(182, 13, 13);
+}
+
+.orange {
+    background-color: rgb(245, 101, 35);
+}
+
+.blue {
+    background-color: rgb(88, 156, 179);
+}
+
 .round-edges {
+    position: relative;
     overflow: hidden;
     border-radius: 10px;
 }

@@ -45,13 +45,13 @@
                                 Are you sure you want<br>to delete this setup?
                             <div class="options">
                                 <p
-                                    class="yes-btn"
+                                    class="round-edges red"
                                     @click="deleteSetup(setup.setupId)"
                                 >
                                 &#10004;
                                 </p>
                                 <p
-                                    class="no-btn"
+                                    class="round-edges green"
                                     @click="resetButtons()"
                                 >
                                 &#x2715;
@@ -62,7 +62,7 @@
                     </div>
                     <!-- DELETE BTN -->
                     <div
-                        class="btn delete-btn bottom-left-btn"
+                        class="btn red bottom-left-btn"
                         @click="modalOpen = true"
                         v-if="!modalOpen"
                         title="delete"
@@ -73,7 +73,7 @@
                     <!-- EDIT BTN -->
                     <router-link :to="`/edit/${$store.state.user.uid}/${setup.setupId}`">
                         <div
-                            class="btn edit-btn top-left-btn"
+                            class="btn orange top-left-btn"
                             v-if="!modalOpen"
                             title="edit"
                         >
@@ -83,7 +83,7 @@
                     <!-- VIEW -->
                     <router-link :to="`/${$store.state.user.uid}/${setup.setupId}`">
                         <div
-                            class="btn view-btn top-right-btn"
+                            class="btn purple top-right-btn"
                             v-if="!modalOpen"
                             title="view"
                         >
@@ -92,7 +92,7 @@
                     </router-link>
                     <!-- SHARE BTN -->
                     <div
-                        class="btn share-btn bottom-right-btn"
+                        class="btn blue bottom-right-btn"
                         v-if="!modalOpen"
                         @click="share(setup.setupId)"
                         title="share"
@@ -252,14 +252,6 @@ export default {
     justify-content: space-around;
 }
 
-.edit-btn {
-    background-color: rgb(245, 101, 35);
-}
-
-.delete-btn {
-    background-color: rgb(192, 7, 7);
-}
-
 .delete-modal {
     position: absolute;
     top: 0;
@@ -291,28 +283,6 @@ export default {
     width: 50px;
     text-align: center;
     cursor: pointer;
-}
-
-.yes-btn {
-    background-color: green;
-    border-radius: 10px;
-}
-
-.no-btn {
-    background-color: rgb(192, 7, 7);
-    border-radius: 10px;
-}
-
-.view-btn {
-    top: 0;
-    right: 0;
-    background-color: purple;
-}
-
-.share-btn {
-    bottom: 0;
-    right: 0;
-    background-color: rgb(88, 156, 179);
 }
 
 .placeholder {

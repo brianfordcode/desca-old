@@ -4,17 +4,17 @@
         class="container"
         v-if="$store.state.shareModal.open"
     >
-        <div class="modal">
+        <div class="modal round-edges">
             <!-- BUTTONS -->
             <div
-                class="close-btn btn"
+                class="red btn top-right-btn"
                 @click="close()"
                 title="close"
             >
             &#x2715;
             </div>
             <div
-                class="copy-btn btn"
+                class="green btn bottom-right-btn"
                 @click="copyLink()"
                 title="copy"
             >
@@ -85,38 +85,11 @@ export default {
     background-color: rgba(255,255,255,0.85);
     height: 200px;
     width: 350px;
-    border-radius: 15px;
-    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
     animation:  fadeIn .25s; 
 }
-
-.btn {
-    color: white;
-    font-size: 14px;
-    width: 50px;
-    text-align: center;
-    font-weight: bold;
-    padding: 6px;
-    position: absolute;
-    cursor: pointer;
-}
-.close-btn {
-    top: 0;
-    right: 0;
-    background-color: rgb(182, 13, 13);
-    border-top-right-radius: 10px;
-}
-
-.copy-btn {
-    bottom: 0;
-    right: 0;
-    background-color: rgb(11, 129, 25);
-    border-bottom-right-radius: 10px;
-}
-
 .link {
     outline: none;
     border: 1px solid;

@@ -89,7 +89,7 @@
         style="height: min-content"
     >
         <template #item="{element, index}">
-            <div :class="{'item-details': true, 'hovered-item': index === targetHoverIndex}"
+            <div :class="{'item-details': true, 'round-edges': true, 'hovered-item': index === targetHoverIndex}"
                 @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
                 @mouseover="(($emit('hovering', index)))"
                 @mouseleave="$emit('leaving')"
