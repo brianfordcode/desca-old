@@ -13,6 +13,7 @@
   <label
     class="green bottom-left-btn btn"
     for="input"
+    title="upload new setup image"
   >
     <img style="height: 20px;" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
     <input
@@ -130,20 +131,20 @@
               class="bottom-right-btn btn green"
               @click.stop="save"
           >
-          <img style="height:20px;" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
-      </div>
+          <img class="icon" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
+          </div>
           <div
             class="top-right-btn btn red"
             @click.stop="removeItem(index)"
           >
-          <img style="height: 20px" src="../../assets/nav-icons/remove-icon.png" alt="delete-btn">
-        </div>
+          <img class="icon" src="../../assets/nav-icons/remove-icon.png" alt="delete-btn">
+          </div>
           <div
             class="red bottom-left-btn btn"
             @click.stop="discardChanges()"
           >
-          <img style="height: 20px;" src="../../assets/nav-icons/discard-icon.png" alt="discard-icon">
-      </div>
+          <img class="icon" src="../../assets/nav-icons/discard-icon.png" alt="discard-icon">
+        </div>
 
       </div>
     </div>

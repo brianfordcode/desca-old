@@ -67,7 +67,7 @@
                         v-if="!modalOpen"
                         title="delete"
                     >
-                    <img style="height: 20px;" src="../assets/nav-icons/remove-icon.png" alt="remove-icon">
+                    <img class="icon" src="../assets/nav-icons/remove-icon.png" alt="remove-icon">
                     </div>
 
                     <!-- EDIT BTN -->
@@ -77,7 +77,7 @@
                             v-if="!modalOpen"
                             title="edit"
                         >
-                        <img style="height: 20px;" src="../assets/nav-icons/edit-icon.png" alt="edit-btn">
+                        <img class="icon" src="../assets/nav-icons/edit-icon.png" alt="edit-btn">
                         </div>
                     </router-link>
                     <!-- VIEW -->
@@ -87,7 +87,7 @@
                             v-if="!modalOpen"
                             title="view"
                         >
-                        <img style="height: 20px;" src="../assets/nav-icons/view-icon.png" alt="view-btn">
+                        <img class="icon" src="../assets/nav-icons/view-icon.png" alt="view-btn">
                         </div>
                     </router-link>
                     <!-- SHARE BTN -->
@@ -97,7 +97,7 @@
                         @click="share(setup.setupId)"
                         title="share"
                     >
-                    <img style="height: 20px; " src="../assets/nav-icons/share-icon.png" alt="share-btn">
+                    <img class="icon" src="../assets/nav-icons/share-icon.png" alt="share-btn">
                     </div>
                 </div>
             

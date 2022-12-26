@@ -29,21 +29,21 @@
                 @click="discardChanges()"
                 title="discard changes"
             >
-            <img style="height: 10px;" src="../../assets/nav-icons/discard-icon.png" alt="remove-icon">
+            <img class="icon" src="../../assets/nav-icons/discard-icon.png" alt="remove-icon">
             </div>
             <div
                 class="submit-btn bottom-right-btn btn"
                 @click="submit()"
                 title="submit"
             >
-            &#10004;
+            <img class="icon" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
             </div>
             <div
                 class="logout-btn btn top-left-btn"
                 @click="logOut()"
                 title="log out"
             >
-            <img style="height: 20px;" src="../../assets/nav-icons/logout-icon.png" alt="log-out">
+            <img class="icon" src="../../assets/nav-icons/logout-icon.png" alt="logout-btn">
             </div>
 
             <changeDetails :editProfileDetails="editProfileDetails" style="margin: 45px;"/>

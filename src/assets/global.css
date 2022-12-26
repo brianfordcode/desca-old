@@ -60,3 +60,7 @@
     overflow: hidden;
     border-radius: 10px;
 }
+
+.icon {
+    height: 20px;
+}

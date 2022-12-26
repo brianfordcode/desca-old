@@ -13,14 +13,14 @@
         class="item-wrapper hovered-item round-edges"
         v-if="showItem"
           :style="{
-            top: (this.detailBlockPlacement.y) + 'px',
+            top: (this.detailBlockPlacement.y) +  'px',
             left: (this.detailBlockPlacement.x) + 'px'
           }"
         @mouseleave="handleMouseLeave"
       >
       <VueResizer emitOnMount @notify="sizeChange"/>
           <!-- ICON -->
-          <img class="icon"
+          <img class="item-icon"
               :src="getIconPic(hoveredItem)"
               :alt="hoveredItem.category"
               v-if="hoveredItem.category"
@@ -142,7 +142,7 @@
               @mouseleave="handleMouseLeave"
           >   
               <!-- ICON -->
-              <img class="icon" 
+              <img class="item-icon" 
                   :src="getIconPic(item)"
                   :alt="item.category"
                   v-if="item.category"
@@ -221,7 +221,7 @@ export default {
       }
       if (e.category === 'speaker') {
           return require('@/assets/item-icons/speaker.png')
-      }item-icons
+      }
       if (e.category === 'webcam') {
           return require('@/assets/item-icons/webcam.png')
       }
@@ -286,6 +286,7 @@ export default {
   height:50px;
   width: 50px;
   border-radius: 50%;
+  opacity: 0.75;
 }
 
 /* ITEMS */
@@ -309,7 +310,7 @@ export default {
   transition: .1s ease-in-out;
 }
 
-.icon {
+.item-icon {
     height: 40px;
     width: auto;
 }
