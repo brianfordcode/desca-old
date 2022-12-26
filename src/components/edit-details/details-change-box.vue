@@ -26,6 +26,7 @@
               @change="uploadProfImg"
               accept=".jpg, .jpeg, .png"
               style="display: none;"
+              :disabled="uploading"
             >
           </label>
         </div>
@@ -128,7 +129,6 @@ export default {
     object-fit: cover;
     border-radius: 50%;
     margin-right: 7px;
-    border: 1px solid;
   }
 
   .upload-btn-wrapper {
