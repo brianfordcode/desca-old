@@ -243,15 +243,6 @@ export default {
     justify-content: center;
 }
 
-.no-img-text {
-    opacity: 0.5;
-    border: 1px solid;
-    height: 248px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
 .delete-modal {
     position: absolute;
     top: 0;

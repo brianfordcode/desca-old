@@ -15,7 +15,7 @@
     for="input"
     title="upload new setup image"
   >
-    <img style="height: 20px;" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
+    <img class="icon" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
     <input
       id="input"
       type="file"
@@ -94,7 +94,7 @@
             
             <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
             <div
-              class="computer-details"
+              style="margin-bottom: 15px;"
               v-if="item.category === 'computer'"
             >
               <div class="details-text-wrapper">
@@ -377,23 +377,6 @@ export default {
     display: block;
     user-select: none;
   }
-  .change-image-btn {
-    position: absolute;
-    opacity: 0.75;
-    height: 25px;
-    width: 100px;
-    background: green;
-    color: white;
-    cursor: pointer;
-    padding: 3px 7px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    cursor: pointer;
-  }
-  .change-image-btn:hover {
-    opacity: 1;
-  }
 
   .target {
   position: absolute;
@@ -465,27 +448,6 @@ export default {
   .selected {
     opacity: 1;
     transform: scale(1.9);
-  }
-
-  .item-selected-name {
-    height: 22px;
-    color: white;
-    text-align: center;
-    margin-top: 20px;
-    user-select: none;
-  }
-
-  .item-selected-name:first-letter {
-    text-transform: uppercase;
-}
-
-  #category {
-      outline: none;
-      border: none;
-  }
-
-  .computer-details {
-    margin-bottom: 15px;
   }
 
 </style>
