@@ -62,7 +62,7 @@
                     </div>
                     <!-- DELETE BTN -->
                     <div
-                        class="btn delete-btn"
+                        class="btn delete-btn bottom-left-btn"
                         @click="modalOpen = true"
                         v-if="!modalOpen"
                         title="delete"
@@ -73,7 +73,7 @@
                     <!-- EDIT BTN -->
                     <router-link :to="`/edit/${$store.state.user.uid}/${setup.setupId}`">
                         <div
-                            class="btn edit-btn"
+                            class="btn edit-btn top-left-btn"
                             v-if="!modalOpen"
                             title="edit"
                         >
@@ -83,7 +83,7 @@
                     <!-- VIEW -->
                     <router-link :to="`/${$store.state.user.uid}/${setup.setupId}`">
                         <div
-                            class="btn view-btn"
+                            class="btn view-btn top-right-btn"
                             v-if="!modalOpen"
                             title="view"
                         >
@@ -92,7 +92,7 @@
                     </router-link>
                     <!-- SHARE BTN -->
                     <div
-                        class="btn share-btn"
+                        class="btn share-btn bottom-right-btn"
                         v-if="!modalOpen"
                         @click="share(setup.setupId)"
                         title="share"
@@ -106,7 +106,7 @@
         </div>
 
         <!-- UPLOAD PLACEHOLDER -->
-        <div class="placeholder">
+        <div class="placeholder round-edges">
             <img
                 src="../assets/nav-icons/upload-icon.png"
                 alt="upload-icon"
@@ -224,6 +224,7 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     position: relative;
+    overflow: hidden;
 }
 
 .setup-image-container {
@@ -232,6 +233,7 @@ export default {
     height: 200px;
     width: 275px;
     overflow: hidden;
+    border-radius: 10px;
 }
 
 .image-wrapper {
@@ -251,30 +253,11 @@ export default {
     justify-content: space-around;
 }
 
-.btn {
-    position: absolute;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    color: white;
-    opacity: 0.75;
-    padding: 5px;
-    width: 50px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.btn:hover {
-    opacity: 1;
-}
-
 .edit-btn {
-    top: 0;
     background-color: rgb(245, 101, 35);
 }
 
 .delete-btn {
-    bottom: 0;
     background-color: rgb(192, 7, 7);
 }
 
@@ -313,11 +296,12 @@ export default {
 
 .yes-btn {
     background-color: green;
-    
+    border-radius: 10px;
 }
 
 .no-btn {
     background-color: rgb(192, 7, 7);
+    border-radius: 10px;
 }
 
 .view-btn {
@@ -341,8 +325,9 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    opacity: 0.5;
+    opacity: 0.35;
     cursor: pointer;
+    
 }
 
 .placeholder:hover {

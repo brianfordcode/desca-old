@@ -83,7 +83,6 @@ export default {
 <style scoped>
 
 #nav {
-    /* background: hsl(240, 80%, 26%); */
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
     box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
     z-index: 100000000;

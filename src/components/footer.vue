@@ -15,7 +15,6 @@
                     id="logo"
                     src="/desca-logo.png"
                     alt="desca-logo"
-                    @click="$router.push('/')"
                 />
 
                <div class="social-links">
@@ -106,6 +105,5 @@ a {
 .sm-logo {
     width: 20px;
 }
-
 
 </style>

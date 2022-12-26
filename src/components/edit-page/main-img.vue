@@ -1,13 +1,13 @@
 <template>
 
   <div
-  class="img-main-container"
-  @mousemove = "onMouseMove"
-  @mouseup = "dragging = null"
-  @mouseleave="dragging = null"
-  ref = "imagesContainer"
-  v-if="imageURL"
->
+    class="img-main-container"
+    @mousemove = "onMouseMove"
+    @mouseup = "dragging = null"
+    @mouseleave="dragging = null"
+    ref = "imagesContainer"
+    v-if="imageURL"
+  >
 
 <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
   <label
@@ -93,6 +93,7 @@
                 <p style="color:white">Model:</p>
                 <input v-model="item.name"/>
             </div>
+            
             <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
             <div
               class="computer-details"
