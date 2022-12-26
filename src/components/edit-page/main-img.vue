@@ -11,10 +11,10 @@
 
 <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
   <label
-    class="change-image-btn"
+    class="green bottom-left-btn btn"
     for="input"
   >
-    <img style="height: 75%;" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
+    <img style="height: 20px;" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
     <input
       id="input"
       type="file"
@@ -35,22 +35,19 @@
       alt="target"
       draggable="false"
       :style="{
-                top: (item.y - 12.5) + 'px',
-                left: (item.x - 12.5) + 'px'
+                top: (item.y - 20) + 'px',
+                left: (item.x - 20) + 'px'
               }"
   >
   </div>
 
     <!-- TOOLTIP ON HOVER -->
     <p
-      class="tooltip"
+      class="bottom-right-btn btn"
+      style="width: fit-content; font-size: 14px; background: rgba(0,0,0,0.5);"
       v-if="hoveredItem === index"
-      :style="{
-                top: (item.y + 20) + 'px',
-                left: (item.x - 60) + 'px'
-              }"
     >
-    Click to move<br>Double click to edit
+    Click to move. Double click to edit.
     </p>
 
     <!-- DETAILS BOX -->
@@ -58,7 +55,7 @@
       class="details-container"
       v-if="displayedItemIndex === index"
     >
-      <div class="details-box">
+      <div class="details-box round-edges">
 
         <!-- CATEGORY SELECTION -->
         <div style="margin: 10px 0 10px 0;">
@@ -129,22 +126,24 @@
         </div>
         
         <!-- BUTTONS -->
-          <button
-              v-if="(item.category || item.name || item.url)"
-              class="enter-btn btn"
+          <div
+              class="bottom-right-btn btn green"
               @click.stop="save"
-          >Submit
-          </button>
-          <button
-            class="remove-btn btn"
+          >
+          <img style="height:20px;" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
+      </div>
+          <div
+            class="top-right-btn btn red"
             @click.stop="removeItem(index)"
-          >Remove Item
-          </button>
-          <button
-            class="discard-btn btn"
+          >
+          <img style="height: 20px" src="../../assets/nav-icons/remove-icon.png" alt="delete-btn">
+        </div>
+          <div
+            class="red bottom-left-btn btn"
             @click.stop="discardChanges()"
-          >Discard Changes
-          </button>
+          >
+          <img style="height: 20px;" src="../../assets/nav-icons/discard-icon.png" alt="discard-icon">
+      </div>
 
       </div>
     </div>
@@ -379,8 +378,6 @@ export default {
   }
   .change-image-btn {
     position: absolute;
-    bottom: 0;
-    left: 0;
     opacity: 0.75;
     height: 25px;
     width: 100px;
@@ -399,8 +396,8 @@ export default {
 
   .target {
   position: absolute;
-  height: 25px;
-  width: 25px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.5);
@@ -412,16 +409,6 @@ export default {
   .hovered-target {
     background-color: rgba(255,255,255,.9);
     transform: scale(1.5);
-  }
-
-  .tooltip {
-    position: absolute;
-    background: rgba(0,0,0,0.5);
-    padding: 5px;
-    color: white;
-    opacity: 0.5;
-    border-radius: 5px;
-    font-size: 12px;
   }
   
   /* DETAILS BOX */
@@ -444,7 +431,6 @@ export default {
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
     z-index: 1000000;
-    border-radius: 15px;
     user-select: none;
     width: 400px;
   }
@@ -496,39 +482,9 @@ export default {
       outline: none;
       border: none;
   }
-  .btn {
-      position: absolute;
-      border: none;
-      margin: 0;
-      cursor: pointer;
-      color: white;
-      font-size: 14px;
-      padding: 6px;
-      font-weight: bold;
-  }
 
   .computer-details {
     margin-bottom: 15px;
-  }
-  
-  .enter-btn {
-      bottom: 0;
-      right: 0;
-      background-color: green;
-      width: 60px;
-      border-bottom-right-radius: 10px;
-  }
-  .discard-btn {
-    bottom: 0;
-    left: 0;
-    border-bottom-left-radius: 10px;
-    background-color: rgb(192, 7, 7);
-  }
-  .remove-btn {
-      border-top-right-radius: 10px;
-      top: 0;
-      right: 0;
-      background-color: rgb(192, 7, 7);
   }
 
 </style>
