@@ -17,33 +17,36 @@
                     alt="desca-logo"
                 />
 
-               <div class="social-links">
+                <div class="social-links">
                     <a href="https://www.twitch.tv" target="_blank">
                         <img
-                            class="sm-logo"
+                            class="sm-logo round-edges"
                             src="/social-links/twitch-logo.png"
                             alt="twitch"
                         />
                     </a>
                     <a href="https://www.facebook.com" target="_blank">
                         <img
-                            class="sm-logo"
+                            class="sm-logo round-edges"
                             src="/social-links/facebook-logo.png"
                             alt="twitch"
                         />
                     </a>
                     <a href="https://www.discord.com" target="_blank">
                         <img
-                            class="sm-logo"
+                            class="sm-logo round-edges"
                             src="/social-links/discord-logo.png"
                             alt="twitch"
                         />
                     </a>
-               </div> 
-               <div style="color: white; font-size: 14px;">&#169; {{new Date().getFullYear()}}</div>
+                </div>
 
+                <div style="color: white; font-size: 14px;">&#169; {{new Date().getFullYear()}}</div>
+                    
             </div>
 
+            
+            
         </div>
 
     </div>
@@ -51,8 +54,8 @@
 </template>
 
 <script>
-export default {
 
+export default {
 }
 </script>
 
@@ -94,7 +97,6 @@ a {
 #logo {
     width: 100px;
 }
-
 .social-links > *:not(:last-child) {
     margin-right: 5px;
 }

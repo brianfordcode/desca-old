@@ -1,5 +1,6 @@
 <template>
 
+<div :class="{'dark-mode': $store.state.darkMode}">
   <navBar v-if="this.$route.name != 'Home'"/>
   
   <router-view v-if="$store.state.loggedIn !== null"/>
@@ -14,6 +15,8 @@
 
     <shareModal/>
 
+    
+  </div>
 
 </template>
 
@@ -25,7 +28,7 @@ import shareModal from './components/share-modal.vue'
 
 
 export default {
-  components: { navBar, foot, actionModal, shareModal }
+  components: { navBar, foot, actionModal, shareModal },
 }
 </script>
 
@@ -41,8 +44,20 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: black; /* #2c3e50 */
+  color: black;
   height: 100%;
+}
+
+.dark-mode {
+  background-color: rgb(56, 56, 56)
+}
+
+.dark-mode h1 {
+  color: rgb(233, 233, 233);
+}
+
+.dark-mode h2 {
+  color: rgb(233, 233, 233);
 }
 
 </style>

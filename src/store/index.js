@@ -33,6 +33,7 @@ const store = createStore({
         open: false,
         setupId: null
       },
+      darkMode: false,
     }
   },
   getters: {
@@ -120,6 +121,9 @@ const store = createStore({
     toggleShareModal(state, setupId) {
       state.shareModal.setupId = setupId
       state.shareModal.open = !state.shareModal.open
+    },
+    toggleDarkMode(state) {
+      state.toggleDarkMode = !state.toggleDarkMode
     }
   },
   actions: {
@@ -251,8 +255,10 @@ const store = createStore({
       context.commit('openActionModal', {text, color})
     },
     toggleShareModal(context, setupId) {
-      
       context.commit('toggleShareModal', setupId)
+    },
+    toggleDarkMode(context) {
+      context.commit('toggleDarkMode')
     }
   }
 })

@@ -20,6 +20,7 @@
       <div v-for="media in mediaList" :key="media">
         <a
           style="display: block; height: 25px; margin-right: 5px;"
+          class="round-edges"
           :href="profileDetails.socialLinks[media]"
           target="_blank"
         >
