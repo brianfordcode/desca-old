@@ -132,7 +132,8 @@ const store = createStore({
         // SETUP PAGE OPENS AFTER LOG IN
         await router.push(`/setups/${context.state.user.uid}`)
         context.commit('setLoaded')
-        context.commit('openActionModal', {text: 'logged in', color: 'green'})
+        const profName = Object.values(context.state.profileDetails)[0].profName
+        context.commit('openActionModal', {text: `welcome,  ${profName}`, color: 'green'})
       })
     },
     async fetchUserDetails(context, user) {

@@ -62,11 +62,8 @@ export default {
     z-index: 10000000;
     margin-top: 50px;
     height: 100px;
-    /* background: rgb(13, 13, 118); */
-    background: linear-gradient(90deg, rgb(5, 146, 175) 0%, rgba(9,9,121,1) 45%, rgba(2,0,36,1)  100%);
+    background: linear-gradient(90deg, rgb(5, 146, 175) 0%, rgba(9,9,121,1) 85%, rgba(2,0,36,1)  100%);
     box-shadow: 0px 0px 33px -20px #2166b6;
-    /* position: absolute; */
-    /* bottom: 0; */
     width: 100%;
     display: flex;
     justify-content: space-around;
