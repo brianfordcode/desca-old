@@ -36,7 +36,7 @@
         :key="item"
       >
 
-          <a :href="item.url ? item.url : null" target="_blank" class="item-target"
+          <a :href="item.url ? item.url : null" target="_blank" class="item-target circle"
           :style="`
             display: flex;
             justify-content: space-around;
@@ -286,7 +286,6 @@ export default {
   position: absolute;
   height:50px;
   width: 50px;
-  border-radius: 50%;
   opacity: 0.75;
 }
 

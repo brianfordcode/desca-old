@@ -3,7 +3,7 @@
     <!-- PROFILE ICON AND LOG IN/OUT -->
     <div class="prof-img-container" v-if="profileDetails" @click="openProfDetails()" title="edit details">
         <img
-            class="profile-icon"
+            class="profile-icon circle"
             :src="profileDetails.profPic.photoURL"
             alt="prof-icon"
         >
@@ -161,7 +161,6 @@ export default {
 }
 
 .profile-icon {
-    border-radius: 50%;
     object-fit: cover;
     width: 30px;
     height: 30px;

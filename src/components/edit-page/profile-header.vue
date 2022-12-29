@@ -5,7 +5,7 @@
   v-if="profileDetails"
 >
   <!-- PROF PIC -->
-  <img class="prof-pic"
+  <img class="prof-pic circle"
       draggable="false"
       :src="profileDetails.profPic.photoURL"
       referrerpolicy="no-referrer"
@@ -20,7 +20,7 @@
       <div v-for="media in mediaList" :key="media">
         <a
           style="display: block; height: 25px; margin-right: 5px;"
-          class="round-edges"
+          class="circle"
           :href="profileDetails.socialLinks[media]"
           target="_blank"
         >
@@ -77,7 +77,6 @@ import loadingWheel from '../loading-wheel.vue'
   .prof-pic {
     height: 100px;
     width: 100px;
-    border-radius: 50%;
     object-fit: cover;
   }
 </style>

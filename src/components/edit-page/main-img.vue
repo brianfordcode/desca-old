@@ -28,7 +28,7 @@
   <!--  ITEM TARGETS  -->
   <div v-for="(item, index) in items" :key="index">
     <div
-      :class="{'target': true, 'hovered-target': targetHoverIndex === index }"
+      :class="{'target': true, 'circle': true, 'hovered-target': targetHoverIndex === index }"
       @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
       @mousedown="dragging = index"
       @mouseenter="((handleMouseOver(item, index)))"
@@ -382,7 +382,6 @@ export default {
   position: absolute;
   height: 40px;
   width: 40px;
-  border-radius: 50%;
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.5);
   }

@@ -129,19 +129,6 @@ export default {
     height: auto;
 }
 
-.profile-icon {
-    border-radius: 50%;
-    height: 100%;
-    object-fit: cover;
-    width: 30px;
-}
-
-.log-in-btn {
-    margin-left:5px;
-    color: white;
-    cursor: pointer
-}
-
 .banner {
     font-size: 18px;
     text-align: center;

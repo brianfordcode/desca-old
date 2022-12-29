@@ -12,7 +12,7 @@
         <div> 
           <img
             v-if="editProfileDetails.profPic.photoURL"
-            class="prof-pic-preview"
+            class="prof-pic-preview circle"
             :src="editProfileDetails.profPic.photoURL"
             alt="prof-pic"
           >
@@ -127,7 +127,6 @@ export default {
     height: 50px;
     width: 50px;
     object-fit: cover;
-    border-radius: 50%;
     margin-right: 7px;
   }
 
