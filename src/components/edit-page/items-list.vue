@@ -91,7 +91,7 @@
         <template #item="{element, index}">
             <div :class="{'item-details': true, 'round-edges': true, 'hovered-item': index === targetHoverIndex}"
                 @click.stop="$emit('toggleItemDisplay', index), reorderItems(element, index)"
-                @mouseover="(($emit('hovering', index)))"
+                @mouseover="($emit('hovering', index))"
                 @mouseleave="$emit('leaving')"
                 @mousedown="$emit('leaving')"
                 @drag="$emit('leaving')"
@@ -112,14 +112,6 @@
         </template>
         
     </draggable>
-
-
-    <!-- PLACEHOLDER -->
-    <div class="placeholder round-edges"
-        v-if="$store.getters.setup($route.params.setupId).items.length === 0"
-    >
-    Add your equipment info by clicking on your setup's image!
-    </div>
 
 </div>
 
@@ -203,26 +195,13 @@ export default {
 <style scoped>
 
 .main-container {
-    min-height: 100px;
+    min-height: 110px;
+    /* border: 1px solid; */
     margin-top: 10px;
     margin-bottom: 50px;
     display: flex;
     align-items: flex-start;
     position: relative;
-    }
-
-.placeholder {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: absolute;
-    border: 2px dashed;
-    height: 100px;
-    width: 100%;
-    min-width: min-content;
-    text-align: center;
-    opacity: 0.5;
-    cursor: default;
 }
 
 .items-list-container {

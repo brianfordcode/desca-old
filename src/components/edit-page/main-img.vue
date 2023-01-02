@@ -9,164 +9,159 @@
     v-if="imageURL"
   >
 
-<!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
-  <label
-    class="green bottom-left-btn btn"
-    for="input"
-    title="upload new setup image"
-  >
-    <img class="icon" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
-    <input
-      id="input"
-      type="file"
-      @change="changeMainImg"
-      accept=".jpg, .jpeg, .png"
-      style="display: none;"
+    <!-- UPLOAD BTN (BOTTOM LEFT CORNER) WHEN PIC LOADED -->
+    <label
+      class="green bottom-left-btn btn"
+      for="input"
+      title="upload new setup image"
     >
-  </label>
+      <img class="icon" src="../../assets/nav-icons/upload-icon.png" alt="upload-icon">
+      <input
+        id="input"
+        type="file"
+        @change="changeMainImg"
+        accept=".jpg, .jpeg, .png"
+        style="display: none;"
+      >
+    </label>
 
-  <!--  ITEM TARGETS  -->
-  <div v-for="(item, index) in items" :key="index">
-    <div
-      :class="{'target': true, 'circle': true, 'hovered-target': targetHoverIndex === index }"
-      @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
-      @mousedown="dragging = index"
-      @mouseenter="((handleMouseOver(item, index)))"
-      @mouseleave="(this.targetHoverIndex = null, this.hoveredItem = null)"
-      alt="target"
-      draggable="false"
-      :style="{
-                top: (item.y - 20) + 'px',
-                left: (item.x - 20) + 'px'
-              }"
-  >
-  </div>
-
-    <!-- TOOLTIP ON HOVER -->
-    <p
-      class="bottom-right-btn btn"
-      style="width: fit-content; font-size: 14px; background: rgba(0,0,0,0.5);"
-      v-if="hoveredItem === index"
-    >
-    Click to move. Double click to edit.
-    </p>
-
-    <!-- DETAILS BOX -->
-    <div
-      class="details-container"
-      v-if="displayedItemIndex === index"
-    >
-      <div class="details-box round-edges">
-
-        <!-- CATEGORY SELECTION -->
-        <div style="margin: 10px 0 10px 0;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-              <img v-for="(item, index) in itemChoices" :key="index"
-              :class="{
-                'selected': index === this.itemChoiceIndex || this.itemChoices[index].name === this.items[this.displayedItemIndex].category,
-                'unselected-item-choice': true,
-              }"
-                :title="item.name"
-                :src="item.pic"
-                alt="item.name"
-                @click="itemChosen(item.name, index)"
-              />
-          </div>
-
-        </div>
-
-        <!-- MODEL -->
-        <div style="margin-top: 10px; display: flex; justify-content: space-around;">
-          <div>
-            
-            <div style="display: flex; transform: translateX(-15px);">
-              <p style="color: white;">Category:</p>
-              <p style="color: white; padding-left: 5px; text-transform: capitalize;">{{itemToPreview ? itemToPreview : '&#x21e7; Choose above &#x21e7;' }}</p>
-            </div>
-            
-            <div
-              class="details-text-wrapper"
-              v-if="item.category != 'computer'"
-            >
-                <p style="color:white">Model:</p>
-                <input v-model="item.name"/>
-            </div>
-            
-            <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
-            <div
-              style="margin-bottom: 15px;"
-              v-if="item.category === 'computer'"
-            >
-              <div class="details-text-wrapper">
-                <p style="color:white">CPU:</p>
-                <input v-model="item.categoryDetails.cpu"/>
-              </div>
-              <div class="details-text-wrapper">
-                <p style="color:white">GPU:</p>
-                <input v-model="item.categoryDetails.gpu"/>
-              </div>
-              <div class="details-text-wrapper">
-                <p style="color:white">SSD</p>
-                <input v-model="item.categoryDetails.ssd"/>
-              </div>
-              <div class="details-text-wrapper">
-                <p style="color:white">RAM</p>
-                <input v-model="item.categoryDetails.ram"/>
-              </div>
-              <div class="details-text-wrapper">
-                <p style="color:white">case:</p>
-                <input v-model="item.categoryDetails.case"/>
-              </div>
-            </div>
-            <!-- STORE URL -->
-            <div class="details-text-wrapper">
-                <p style="color:white">URL:</p>
-                <input v-model="item.url"/>
-            </div>
-        </div>
-        </div>
-        
-        <!-- BUTTONS -->
-          <div
-              class="bottom-right-btn btn green"
-              @click.stop="save"
-          >
-          <img class="icon" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
-          </div>
-          <div
-            class="top-right-btn btn red"
-            @click.stop="removeItem(index)"
-          >
-          <img class="icon" src="../../assets/nav-icons/remove-icon.png" alt="delete-btn">
-          </div>
-          <div
-            class="red bottom-left-btn btn"
-            @click.stop="discardChanges()"
-          >
-          <img class="icon" src="../../assets/nav-icons/discard-icon.png" alt="discard-icon">
-        </div>
-
+    <!--  ITEM TARGETS  -->
+    <div v-for="(item, index) in items" :key="index">
+      <div
+        :class="{'target': true, 'circle': true, 'hovered-target': targetHoverIndex === index }"
+        @dblclick.stop="displayedItemIndex = displayedItemIndex === index ? null : index, hoveredItem = null"
+        @mousedown="(dragging = index, this.hoveringOnTarget = false)"
+        @mouseup = "this.hoveringOnTarget = true"
+        @mouseenter="(handleMouseOver(item, index), hoveringOnTarget = true)"
+        @mouseleave="((this.targetHoverIndex = null, this.hoveredItem = null), hoveringOnTarget = false)"
+        alt="target"
+        draggable="false"
+        :style="{
+                  top: (item.y - 20) + 'px',
+                  left: (item.x - 20) + 'px'
+                }"
+      >
       </div>
-    </div>
+
+      <!-- DETAILS BOX -->
+      <div
+        class="details-container"
+        v-if="displayedItemIndex === index"
+      >
+        <div class="details-box round-edges">
+
+          <!-- CATEGORY SELECTION -->
+          <div style="margin: 10px 0 10px 0;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <img v-for="(item, index) in itemChoices" :key="index"
+                :class="{
+                  'selected': index === this.itemChoiceIndex || this.itemChoices[index].name === this.items[this.displayedItemIndex].category,
+                  'unselected-item-choice': true,
+                }"
+                  :title="item.name"
+                  :src="item.pic"
+                  alt="item.name"
+                  @click="itemChosen(item.name, index)"
+                />
+            </div>
+
+          </div>
+
+          <!-- MODEL -->
+          <div style="margin-top: 10px; display: flex; justify-content: space-around;">
+            <div>
+              
+              <div style="display: flex; transform: translateX(-15px);">
+                <p style="color: white;">Category:</p>
+                <p style="color: white; padding-left: 5px; text-transform: capitalize;">{{itemToPreview ? itemToPreview : '&#x21e7; Choose above &#x21e7;' }}</p>
+              </div>
+              
+              <div
+                class="details-text-wrapper"
+                v-if="item.category != 'computer'"
+              >
+                  <p style="color:white">Model:</p>
+                  <input v-model="item.name"/>
+              </div>
+              
+              <!-- COMPUTER DETAILS (ONLY IF CATEGORY IS COMPUTER) -->
+              <div
+                style="margin-bottom: 15px;"
+                v-if="item.category === 'computer'"
+              >
+                <div class="details-text-wrapper">
+                  <p style="color:white">CPU:</p>
+                  <input v-model="item.categoryDetails.cpu"/>
+                </div>
+                <div class="details-text-wrapper">
+                  <p style="color:white">GPU:</p>
+                  <input v-model="item.categoryDetails.gpu"/>
+                </div>
+                <div class="details-text-wrapper">
+                  <p style="color:white">SSD</p>
+                  <input v-model="item.categoryDetails.ssd"/>
+                </div>
+                <div class="details-text-wrapper">
+                  <p style="color:white">RAM</p>
+                  <input v-model="item.categoryDetails.ram"/>
+                </div>
+                <div class="details-text-wrapper">
+                  <p style="color:white">case:</p>
+                  <input v-model="item.categoryDetails.case"/>
+                </div>
+              </div>
+              <!-- STORE URL -->
+              <div class="details-text-wrapper">
+                  <p style="color:white">URL:</p>
+                  <input v-model="item.url"/>
+              </div>
+          </div>
+          </div>
+          
+          <!-- BUTTONS -->
+            <div
+                class="bottom-right-btn btn green"
+                @click.stop="save"
+            >
+            <img class="icon" src="../../assets/nav-icons/submit-icon.png" alt="submit-icon">
+            </div>
+            <div
+              class="top-right-btn btn red"
+              @click.stop="removeItem(index)"
+            >
+            <img class="icon" src="../../assets/nav-icons/remove-icon.png" alt="delete-btn">
+            </div>
+            <div
+              class="red bottom-left-btn btn"
+              @click.stop="discardChanges()"
+            >
+            <img class="icon" src="../../assets/nav-icons/discard-icon.png" alt="discard-icon">
+          </div>
+
+        </div>
+      </div>
   
+    </div>
+
+    <!-- HELPTIP LOWER CORNER -->
+    <p class="bottom-right-btn btn helptip">{{helpTip}}</p>
+
+    <!-- MAIN IMG -->
+    <img class="main-img"
+        draggable="false"
+        @click="addItem"
+        :src="imageURL"
+    />
+
   </div>
-
-  <!-- MAIN IMG -->
-  <img class="main-img"
-      draggable="false"
-      @click="addItem"
-      :src="imageURL"
-  />
-
-</div>
 
 <loadingWheel v-else/>
 
 <!-- ITEM LIST -->
 <itemList
   @toggleItemDisplay="index => displayedItemIndex = index"
-  @hovering="index => this.targetHoverIndex = index"
-  @leaving="this.targetHoverIndex = null"
+  @hovering="(index => this.targetHoverIndex = index), hoveringOnListItem = true "
+  @leaving="(this.targetHoverIndex = null, hoveringOnListItem = false)"
   :targetHoverIndex = this.targetHoverIndex
   v-if="imageURL"
 />
@@ -245,6 +240,8 @@ export default {
           pic: require('../../assets/item-icons/webcam.png')
         },
       ],
+      hoveringOnListItem: false,
+      hoveringOnTarget: false,
     }
   },
   components: {
@@ -282,6 +279,15 @@ export default {
       const itemChoice = this.items[this.displayedItemIndex].category
       return itemChoice 
     },
+    helpTip() {
+        if (!this.items.length) {
+          return 'Add info by clicking on the item!'
+        } else if (this.hoveringOnTarget) {
+          return 'Click to move. Double click to edit.'
+        } else if (this.hoveringOnListItem) {
+          return 'Click and drag to switch order.'
+        } 
+    }
   },
   methods: {
     async changeMainImg(event) {
@@ -369,6 +375,7 @@ export default {
     position: relative;
     height: 100%;
     width: 800px;
+    border: 1px solid purple;
   }
   .main-img {
     width: 100%;
@@ -447,6 +454,12 @@ export default {
   .selected {
     opacity: 1;
     transform: scale(1.9);
+  }
+
+  .helptip {
+    width: fit-content;
+    font-size: 14px;
+    background: rgba(0,0,0,0.5);
   }
 
 </style>
