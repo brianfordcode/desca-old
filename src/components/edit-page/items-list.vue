@@ -115,7 +115,7 @@
 
 
     <!-- PLACEHOLDER -->
-    <div class="placeholder"
+    <div class="placeholder round-edges"
         v-if="$store.getters.setup($route.params.setupId).items.length === 0"
     >
     Add your equipment info by clicking on your setup's image!
@@ -203,8 +203,7 @@ export default {
 <style scoped>
 
 .main-container {
-    height: min-content;
-    /* border: 1px solid purple; */
+    min-height: 100px;
     margin-top: 10px;
     margin-bottom: 50px;
     display: flex;

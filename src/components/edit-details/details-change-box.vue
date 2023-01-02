@@ -33,7 +33,7 @@
 
         <!-- CHANNELS -->
         <div v-for="media in mediaArray">
-          <img style="height: 25px; padding-right: 7px;" :src="`/social-links/${media}-logo.png`" :alt="media">
+          <img style="height: 25px; padding-right:7px;" :src="`/social-links/${media}-logo.png`" :alt="media">
           <input v-model="editProfileDetails.socialLinks[media]" type="url">
         </div>
         
