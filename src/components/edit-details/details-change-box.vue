@@ -62,6 +62,7 @@ export default {
   },
   methods: {
     async uploadProfImg(event) {
+      console.log('clickedasdfasdf')
       this.uploading = true
       this.editProfileDetails.profPic.photoURL = null;
       const profPicId = 'profPic' + '-' + Date.now();

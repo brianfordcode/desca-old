@@ -25,6 +25,8 @@
       >
     </label>
 
+    
+
     <!--  ITEM TARGETS  -->
     <div v-for="(item, index) in items" :key="index">
       <div
@@ -143,7 +145,7 @@
   
     </div>
 
-    <!-- HELPTIP LOWER CORNER -->
+      <!-- HELPTIP LOWER CORNER -->
     <p class="bottom-right-btn btn helptip">{{helpTip}}</p>
 
     <!-- MAIN IMG -->
@@ -153,19 +155,18 @@
         :src="imageURL"
     />
 
+    
+
   </div>
 
 <loadingWheel v-else/>
-
 <!-- ITEM LIST -->
 <itemList
   @toggleItemDisplay="index => displayedItemIndex = index"
   @hovering="(index => this.targetHoverIndex = index), hoveringOnListItem = true "
   @leaving="(this.targetHoverIndex = null, hoveringOnListItem = false)"
   :targetHoverIndex = this.targetHoverIndex
-  v-if="imageURL"
 />
-
 
 </template>
 
@@ -280,13 +281,11 @@ export default {
       return itemChoice 
     },
     helpTip() {
-        if (!this.items.length) {
-          return 'Add info by clicking on the item!'
-        } else if (this.hoveringOnTarget) {
+        if (this.hoveringOnTarget) {
           return 'Click to move. Double click to edit.'
         } else if (this.hoveringOnListItem) {
           return 'Click and drag to switch order.'
-        } 
+        }
     }
   },
   methods: {
@@ -375,7 +374,6 @@ export default {
     position: relative;
     height: 100%;
     width: 800px;
-    border: 1px solid purple;
   }
   .main-img {
     width: 100%;
@@ -458,8 +456,7 @@ export default {
 
   .helptip {
     width: fit-content;
-    font-size: 14px;
-    background: rgba(0,0,0,0.5);
+    font-size: 14px; background: rgba(0,0,0,0.5);
   }
 
 </style>

@@ -1,5 +1,14 @@
 <template>
-<div class="main-container">
+
+<div
+    v-if="!$store.getters.setup($route.params.setupId).items.length"
+    class="placeholder round-edges"
+>
+Add info by clicking on the item!
+</div>
+
+<div class="main-container" v-else>
+    
 
     <!-- COMPUTER -->
     <div
@@ -108,7 +117,6 @@
                 {{element.name}}
                 </p>
             </div>
-
         </template>
         
     </draggable>
@@ -224,6 +232,17 @@ export default {
     position: relative;
     transition: .1s ease-in-out;
     cursor: grab;
+}
+
+.placeholder {
+    border:2px dashed;
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    opacity: 0.45;
 }
 
 .comp-details {

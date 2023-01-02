@@ -4,7 +4,7 @@
 
     <profileHeader/>
 
-    <h2>My Setups:</h2>
+    <h2 style="margin-bottom: 5px;">My Setups:</h2>
 
     <div
         class="setup-links-container"
@@ -105,30 +105,25 @@
             
         </div>
 
-        <!-- UPLOAD PLACEHOLDER -->
-        <div class="placeholder round-edges">
-            <img
-                src="../assets/nav-icons/upload-icon.png"
-                alt="upload-icon"
-                style="position: absolute; filter: invert(100%); height: 30px;"
-                v-if="!uploading"
-            />
+
+        <label for="input" class="upload-btn-wrapper round-edges">
+            <img v-if="!uploading" src="../assets/nav-icons/upload-icon.png" alt="" style="filter: invert(1); height: 30px;"/>
+            {{uploadProgress}}
             <input
-                v-if="!uploading"
+                id="input"
                 type="file"
-                accept=".jpeg,.jpg,.png"
                 @change="makeNewSetup"
-            />
-            <div v-else style="display: flex; flex-direction: column; align-items: center;">
-                <p v-if="!isNaN(uploadProgress)">Uploading:</p>
-                <p >{{uploadProgress}}{{isNaN(uploadProgress) ? '' : "%" }}</p>
-            </div>
-            
-        </div>
+                accept=".jpg, .jpeg, .png"
+                style="display: none;"
+                :disabled="uploading"
+            >
+        </label>
+
 
     </div>
 
     <loadingWheel v-else style="width: 100%;"/>
+
 
 </div>
 
@@ -162,7 +157,15 @@ export default {
     },
     computed: {
         uploadProgress() {
-            return this.$store.state.uploadProgress
+            const uploadProgress = this.$store.state.uploadProgress
+
+            if (this.uploading) {
+                if (isNaN(uploadProgress)) {
+                    return uploadProgress
+                } else {
+                    return uploadProgress + '%'
+                } 
+            }      
         }
     },  
 
@@ -208,9 +211,6 @@ export default {
             this.$store.dispatch('openActionModal', {text: 'setup deleted', color: 'red'})
         },
         share(setupId) {
-
-            // console.log(setupId)
-            
             this.$store.dispatch('toggleShareModal', setupId)
         },
     }
@@ -300,5 +300,20 @@ input {
     width: 100%;
     opacity: 0;
 }
+
+.upload-btn-wrapper {
+    margin: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 2px dashed;
+    width: 275px;
+    height: 190px;
+    cursor: pointer;
+    opacity: 0.45;
+  }
+  .upload-btn-wrapper:hover {
+    opacity: 1;
+  }
 
 </style>
