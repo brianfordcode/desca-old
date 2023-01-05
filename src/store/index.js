@@ -123,7 +123,8 @@ const store = createStore({
       state.shareModal.open = !state.shareModal.open
     },
     toggleDarkMode(state) {
-      state.toggleDarkMode = !state.toggleDarkMode
+      state.darkMode = !state.darkMode
+      console.log(state.darkMode)
     }
   },
   actions: {

@@ -12,6 +12,7 @@
 <style scoped>
 
 .container {
+  
   height: 300px;
   width: 800px;
   display: flex;

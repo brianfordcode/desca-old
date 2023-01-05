@@ -56,8 +56,7 @@ export default {
   data() {
     return {
       uploading: false,
-      mediaArray: [ 'twitch', 'twitter', 'youtube', 'discord', 'facebook', 'website' ]
-
+      mediaArray: [ 'twitch', 'twitter', 'youtube', 'discord', 'facebook', 'website' ],
     }
   },
   methods: {

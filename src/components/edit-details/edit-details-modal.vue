@@ -1,24 +1,23 @@
 <template>
 
     <!-- PROFILE ICON AND LOG IN/OUT -->
-    <div class="prof-img-container" v-if="profileDetails" @click="openProfDetails()" title="edit details">
+    <div
+        class="prof-img-container"
+        v-if="profileDetails"
+        @click= "$store.state.loggedIn ? openProfDetails() : logIn()"
+        title="edit details"
+    >
         <img
             class="profile-icon circle"
-            :src="profileDetails.profPic.photoURL"
+            :src="$store.state.loggedIn ? profileDetails.profPic.photoURL : '/profile-icon.png'"
             alt="prof-icon"
         >
         <div style="margin-left: 5px; color: white;">&#9660;</div>
+        
     </div>
 
-    <!-- PROF ICON WHEN NOT LOGGED IN -->
-    <img
-        v-else-if="!$store.state.loggedIn"
-        src="/profile-icon.png"
-        alt="not-logged-in"
-        title="Log In"
-        style="cursor: pointer; margin-right: 25px;"
-        @click="logIn()"
-    >
+    <darkModeToggle/>
+
 
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">
@@ -55,6 +54,7 @@
 
 <script>
 import changeDetails from './details-change-box.vue'
+import darkModeToggle from '../dark-mode-toggle.vue'
 
 function copy(value) {
   return JSON.parse(JSON.stringify(value))
@@ -67,7 +67,7 @@ export default {
             editDetailsToggle: false,
         }
     },
-    components: { changeDetails },
+    components: { changeDetails, darkModeToggle },
 
     methods: {
         logIn() {

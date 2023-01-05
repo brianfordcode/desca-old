@@ -146,7 +146,7 @@
     </div>
 
       <!-- HELPTIP LOWER CORNER -->
-    <p class="bottom-right-btn btn helptip">{{helpTip}}</p>
+    <p class="bottom-right-btn btn" style="width:fit-content">{{helpTip}}</p>
 
     <!-- MAIN IMG -->
     <img class="main-img"
@@ -155,11 +155,10 @@
         :src="imageURL"
     />
 
-    
-
   </div>
 
-<loadingWheel v-else/>
+<loadingWheel v-else style="border:2px dashed rgba(0,0,0, 0.35); height: 448px;" class="round-edges"/>
+
 <!-- ITEM LIST -->
 <itemList
   @toggleItemDisplay="index => displayedItemIndex = index"
@@ -167,6 +166,7 @@
   @leaving="(this.targetHoverIndex = null, hoveringOnListItem = false)"
   :targetHoverIndex = this.targetHoverIndex
 />
+
 
 </template>
 
@@ -195,6 +195,7 @@ export default {
       setup,
       itemChoiceIndex: null,
       targetHoverIndex: null,
+      uploading: false,
       itemChoices: [
         {
           name: 'accessory',
@@ -284,7 +285,7 @@ export default {
         if (this.hoveringOnTarget) {
           return 'Click to move. Double click to edit.'
         } else if (this.hoveringOnListItem) {
-          return 'Click and drag to switch order.'
+          return 'Click to edit. Drag to switch order.'
         }
     }
   },
@@ -452,11 +453,6 @@ export default {
   .selected {
     opacity: 1;
     transform: scale(1.9);
-  }
-
-  .helptip {
-    width: fit-content;
-    font-size: 14px; background: rgba(0,0,0,0.5);
   }
 
 </style>

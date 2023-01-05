@@ -1,13 +1,13 @@
 <template>
 
 <div
-    v-if="!$store.getters.setup($route.params.setupId).items.length"
+    v-if="(!$store.getters.setup($route.params.setupId).items.length && $store.getters.setup($route.params.setupId).imageURL)"
     class="placeholder round-edges"
 >
 Add info by clicking on the item!
 </div>
 
-<div class="main-container" v-else>
+<div class="main-container">
     
 
     <!-- COMPUTER -->

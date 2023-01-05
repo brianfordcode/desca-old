@@ -49,7 +49,7 @@ export default {
 }
 
 .dark-mode {
-  background-color: rgb(56, 56, 56)
+  background-color: rgb(33, 33, 33)
 }
 
 .dark-mode h1 {
