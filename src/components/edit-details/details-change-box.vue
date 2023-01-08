@@ -18,7 +18,7 @@
           >
           <spinningWheel v-else style="transform: scale(0.5); width: 60px; height: 50px;"/>
           
-          <label for="input" class="upload-btn-wrapper">
+          <label for="input" class="upload-btn">
             {{uploadProgress}}
             <input
             id="input"
@@ -130,7 +130,7 @@ export default {
     margin-right: 7px;
   }
 
-  .upload-btn-wrapper {
+  .upload-btn {
     margin: 10px 0;
     background: green;
     color: white;

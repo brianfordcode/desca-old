@@ -157,7 +157,10 @@
 
   </div>
 
-<loadingWheel v-else style="border:2px dashed rgba(0,0,0, 0.35); height: 448px;" class="round-edges"/>
+<loadingWheel
+  v-else 
+  class="loading-wheel round-edges"
+/>
 
 <!-- ITEM LIST -->
 <itemList
@@ -453,6 +456,11 @@ export default {
   .selected {
     opacity: 1;
     transform: scale(1.9);
+  }
+
+  .loading-wheel {
+    border:2px dashed rgba(0,0,0, 0.35);
+    height: 448px;
   }
 
 </style>

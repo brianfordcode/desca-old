@@ -1,26 +1,23 @@
 <template>
 
-
-<input type="checkbox" v-model="checked">
-
+<img
+  :src="$store.state.darkMode ? require('../../public/dark-mode-icons/light-icon.png') : require('../../public/dark-mode-icons/dark-icon.png')"
+  alt="icon"
+  @click="$store.dispatch('toggleDarkMode')"
+>
 
 </template>
 
 <script>
 export default {
-
-  data() {
-    return {
-      checked: false,
-    }
-  },
-  watch: {
-    checked() {
-      this.$store.dispatch('toggleDarkMode')
-    }
-  }
 }
 </script>
 
 <style scoped>
+
+img {
+  height: 20px;
+  filter: invert(1);
+  user-select: none;
+}
 </style>

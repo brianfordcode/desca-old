@@ -124,7 +124,6 @@ const store = createStore({
     },
     toggleDarkMode(state) {
       state.darkMode = !state.darkMode
-      console.log(state.darkMode)
     }
   },
   actions: {
@@ -327,6 +326,8 @@ export default store
 // TODO: FIGURE OUT OPENSSL NPM BUILD ISSUE ON NETLIFY
 // TODO: ALLOW LOGINS FROM OTHER SITES (IS IT SAME UID, PROFPIC, ETC?)
 // TODO: WHEN DEALING WITH FIREBASE STORAGE/DATABASE (DELETE, ETC), ONLY HAVE ACTION MODAL ON SUCCESS
+// TODO: GET DARK MODE TO STAY VALUE WHEN PAGE REFRESHES
+// TODO: REDESIGN DARK MODE TOGGLE
 
 // TODO: MAKE ABOUT PAGE
 // TODO: MAKE CONTACT PAGE

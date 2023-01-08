@@ -1,5 +1,6 @@
 <template>
 
+<div style="display: flex; align-items: center; justify-content: space-around;">
     <!-- PROFILE ICON AND LOG IN/OUT -->
     <div
         class="prof-img-container"
@@ -16,8 +17,8 @@
         
     </div>
 
-    <darkModeToggle/>
-
+    <darkModeToggle style="margin-left:25px;"/>
+</div>
 
     <!-- MODAL -->
     <div class="modal-container" v-if="editDetailsToggle">

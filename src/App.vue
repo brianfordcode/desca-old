@@ -53,11 +53,19 @@ export default {
 }
 
 .dark-mode h1 {
-  color: rgb(233, 233, 233);
+  filter: invert(1);
 }
 
 .dark-mode h2 {
-  color: rgb(233, 233, 233);
+  filter: invert(1);
+}
+
+.dark-mode .upload-btn-wrapper {
+  filter: invert(1);
+}
+
+.dark-mode .loading-wheel {
+  filter: invert(1);
 }
 
 </style>

@@ -276,24 +276,6 @@ export default {
     cursor: pointer;
 }
 
-.placeholder {
-    margin: 20px 20px 0 0;
-    border: 2px dashed;
-    height: 200px;
-    width: 275px;
-    min-width: 275px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    opacity: 0.35;
-    cursor: pointer;
-    
-}
-
-.placeholder:hover {
-    opacity: 1;
-}
-
 input {
     cursor: pointer;
     height: 100%;

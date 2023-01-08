@@ -1,5 +1,5 @@
 <template>
-    <label for="input" class="upload-btn-wrapper">
+    <label for="input" class="upload-btn">
     {{uploadProgress}}
         <input
             id="input"
@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 
-.upload-btn-wrapper {
+.upload-btn {
     margin: 10px 0;
     background: green;
     color: white;
