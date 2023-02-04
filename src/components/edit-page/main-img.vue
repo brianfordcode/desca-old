@@ -423,13 +423,13 @@ export default {
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
     z-index: 1000000;
-    user-select: none;
+    /* user-select: none; */
     width: 400px;
   }
 
   .details-box input {
     height: 30px;
-    width: 200px;
+    width: 250px;
     border: 1px solid;
     outline: none;
     padding-left: 5px;

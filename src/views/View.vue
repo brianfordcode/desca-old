@@ -1,12 +1,12 @@
 <template>
 
-    <div class="edit-container">
-
-      <profileHeader style="z-index: 10000;"/>
-
-      <viewPage/>
-
-    </div>
+  <div class="edit-wrapper">
+  
+    <profileHeader style="z-index: 10000;"/>
+  
+    <viewPage/>
+  
+  </div>
 
 </template>
 
@@ -25,12 +25,11 @@ export default {
 
 <style scoped>
 
-.edit-container {
+.edit-wrapper {
   max-width: 1200px;
   width:800px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
 }
-
 </style>

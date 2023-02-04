@@ -1,13 +1,13 @@
 <template>
 
 <div :class="{'dark-mode': $store.state.darkMode}">
-  <navBar v-if="this.$route.name != 'Home'"/>
-  
-  <router-view v-if="$store.state.loggedIn !== null"/>
 
+  <navBar v-if="this.$route.name != 'Home'"/>
+
+  <router-view v-if="$store.state.loggedIn !== null"/>
+  
   <foot/>
 
-    
   <actionModal
       :action="this.$store.state.actionModal.text"
       :backgroundColor="this.$store.state.actionModal.color"
@@ -15,7 +15,6 @@
 
     <shareModal/>
 
-    
   </div>
 
 </template>
@@ -46,6 +45,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: black;
   height: 100%;
+  background-color: rgb(234, 234, 234)
 }
 
 .dark-mode {

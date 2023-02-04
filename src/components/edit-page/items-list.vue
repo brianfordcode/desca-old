@@ -227,6 +227,7 @@ export default {
     background: rgb(13, 13, 118);
     width: 227px;
     min-height: 80px;
+    height: fit-content;
     color: white;
     padding: 15px;
     position: relative;
