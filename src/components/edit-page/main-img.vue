@@ -199,6 +199,7 @@ export default {
       itemChoiceIndex: null,
       targetHoverIndex: null,
       uploading: false,
+      compSpecs: ['cpu','gpu','ssd','ram','case'],
       itemChoices: [
         {
           name: 'accessory',
@@ -423,7 +424,7 @@ export default {
     padding: 40px 20px 40px 20px;
     background-color: rgb(13, 13, 118);
     z-index: 1000000;
-    /* user-select: none; */
+    user-select: none;
     width: 400px;
   }
 

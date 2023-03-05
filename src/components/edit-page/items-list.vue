@@ -19,7 +19,7 @@ Add info by clicking on the item!
             @mouseover="(($emit('hovering', index)))"
             @mouseleave="$emit('leaving')"
             @mousedown="$emit('leaving')"
-            :class="{'hovered-computer': index === targetHoverIndex}"
+            :class="{'hovered-computer': index === targetHoverIndex, 'round-edges': true}"
             style=" font-size: 14px; margin-right: 20px;"
             v-if="item.category === 'computer'"
             @click.stop="$emit('toggleItemDisplay', index)"
@@ -224,6 +224,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     background: rgb(13, 13, 118);
     width: 227px;
     min-height: 80px;
