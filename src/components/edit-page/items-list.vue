@@ -9,7 +9,6 @@ Add info by clicking on the item!
 
 <div class="main-container">
     
-
     <!-- COMPUTER -->
     <div
         v-for="(item, index) in $store.getters.setup($route.params.setupId).items"

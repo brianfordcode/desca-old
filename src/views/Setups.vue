@@ -145,13 +145,11 @@ export default {
         }
     },
     created() {
-        const store = this.$store
-        
         this.$store.state.setups.forEach(setup => { 
             if (setup.imageURL === "") {
                 const setupId = setup.setupId
                 const user = setup.user
-                store.dispatch('deleteSetup', {user, setupId})
+                this.$store.dispatch('deleteSetup', {user, setupId})
             }
         })
     },

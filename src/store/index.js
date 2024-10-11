@@ -202,7 +202,6 @@ const store = createStore({
     addItem(context, { item, setupId }) {
       const items = [...context.getters.setup(setupId).items, copy(item)]
       context.commit('setItems', { items, setupId })
-      updateDoc(doc(db, "setups", setupId), {items: items});
     },
     moveItem(context, { setupId, itemIndex, point }) {
       context.commit('moveItem', { setupId, itemIndex, point })
